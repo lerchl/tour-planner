@@ -5,8 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:tour_planner"
         mc:Ignorable="d"
-        Title="MainWindow" Width="1200" Height="800">
-    <Grid>
-
-    </Grid>
+        Title="Tour Planner" Width="1200" Height="800">
+    <StackPanel>
+        <TextBox Height="40px"></TextBox>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="" />
+            </Grid.ColumnDefinitions>
+            <ListBox DockPanel.Dock="Left" Background="LightBlue" Width="400">
+                <ListBoxItem>
+                    <TextBlock Text="Wienerwald"></TextBlock>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <TextBlock Text="Dopplerhütte"></TextBlock>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <TextBlock Text="Flugwarte"></TextBlock>
+                </ListBoxItem>
+                <ListBoxItem>
+                    <TextBlock Text="Dorfrunde"></TextBlock>
+                </ListBoxItem>
+            </ListBox>
+            <Image DockPanel.Dock="Right" MinWidth="300px" />
+        </Grid>
+    </StackPanel>
 </Window>
