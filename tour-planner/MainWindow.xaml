@@ -6,27 +6,27 @@
         xmlns:local="clr-namespace:tour_planner"
         mc:Ignorable="d"
         Title="Tour Planner" Width="1200" Height="800">
+    <Window.DataContext>
+        <local:MainViewModel />
+    </Window.DataContext>
     <StackPanel>
         <TextBox Height="40px"></TextBox>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="" />
+                <ColumnDefinition Width="400px" />
+                <ColumnDefinition Width="800px" />
             </Grid.ColumnDefinitions>
-            <ListBox DockPanel.Dock="Left" Background="LightBlue" Width="400">
-                <ListBoxItem>
-                    <TextBlock Text="Wienerwald"></TextBlock>
-                </ListBoxItem>
-                <ListBoxItem>
-                    <TextBlock Text="Dopplerhütte"></TextBlock>
-                </ListBoxItem>
-                <ListBoxItem>
-                    <TextBlock Text="Flugwarte"></TextBlock>
-                </ListBoxItem>
-                <ListBoxItem>
-                    <TextBlock Text="Dorfrunde"></TextBlock>
-                </ListBoxItem>
-            </ListBox>
-            <Image DockPanel.Dock="Right" MinWidth="300px" />
+            <ListView x:Name="tours">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Distance" DisplayMemberBinding="{Binding Distance}" />
+                        <GridViewColumn Header="Elevation" DisplayMemberBinding="{Binding Elevation}" />
+                        <GridViewColumn Header="Difficulty" DisplayMemberBinding="{Binding Difficulty}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Image Grid.Column="1" MinWidth="300px" />
         </Grid>
     </StackPanel>
 </Window>

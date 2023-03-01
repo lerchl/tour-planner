@@ -13,16 +13,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace tour_planner
-{
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
+namespace tour_planner {
+
+    public partial class MainWindow : Window {
+
+        public MainWindow() {
             InitializeComponent();
+            tours.ItemsSource = ((MainViewModel) this.DataContext).Tours;
         }
     }
 }
