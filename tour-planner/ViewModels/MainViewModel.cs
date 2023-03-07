@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace tour_planner {
+namespace tour_planner.ViewModels {
 
     internal class MainViewModel : INotifyPropertyChanged {
 
