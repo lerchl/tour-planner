@@ -5,28 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:tour_planner.ViewModels"
         mc:Ignorable="d"
-        Title="Tour Planner" Width="1200" Height="800">
+        Title="Tour Planner" Width="1200" Height="800"
+        Background="#232323">
     <Window.DataContext>
         <local:MainViewModel />
     </Window.DataContext>
-    <StackPanel>
-        <TextBox FontSize="20px" Height="20px"></TextBox>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400px" />
-                <ColumnDefinition Width="800px" />
-            </Grid.ColumnDefinitions>
-            <ListView x:Name="tours">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
-                        <GridViewColumn Header="Distance" DisplayMemberBinding="{Binding Distance}" />
-                        <GridViewColumn Header="Elevation" DisplayMemberBinding="{Binding Elevation}" />
-                        <GridViewColumn Header="Difficulty" DisplayMemberBinding="{Binding Difficulty}" />
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <Image Grid.Column="1" MinWidth="300px" HorizontalAlignment="Left" Width="800" />
-        </Grid>
-    </StackPanel>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Column="0" Margin="10,0,10,0" Content="Tours" FontFamily="Tahoma" FontSize="40px" Foreground="#FFEEEEEE" Width="380" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top" />
+
+        <TextBox Text="{Binding Path=FilterText, UpdateSourceTrigger=PropertyChanged}" Height="40px" Margin="10,60,10,0" FontFamily="Tahoma" FontSize="30px" Foreground="#FFEEEEEE" Width="380" Background="#FF111111" BorderBrush="#FF009999" VerticalAlignment="Top" HorizontalAlignment="Center" />
+
+        <Button Content="+" Margin="10,110,0,0" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" Background="#FF111111" Foreground="#FFEEEEEE" FontFamily="Tahoma" FontSize="20" BorderBrush="#FF009999" />
+        <Button Content="-" Margin="10,110,10,0" Width="40" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top" Background="#FF111111" Foreground="#FFEEEEEE" FontFamily="Tahoma" FontSize="20" BorderBrush="#FF009999" />
+        <Button Content="edit" Margin="10,110,60,0" Width="40" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top" Background="#FF111111" Foreground="#FFEEEEEE" FontFamily="Tahoma" FontSize="20" BorderBrush="#FF009999" />
+
+        <ListView x:Name="tours" HorizontalAlignment="Center" Margin="0,160,0,10" FontFamily="Tahoma" FontSize="18px" Width="380" BorderBrush="#FF009999">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Distance" DisplayMemberBinding="{Binding Distance}" />
+                    <GridViewColumn Header="Elevation" DisplayMemberBinding="{Binding Elevation}" />
+                    <GridViewColumn Header="Difficulty" DisplayMemberBinding="{Binding Difficulty}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Image Grid.Column="1" Margin="0,0,800,0" />
+    </Grid>
 </Window>
