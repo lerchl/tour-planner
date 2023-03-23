@@ -5,10 +5,10 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using tour_planner.ViewModels;
-using tour_planner.Views;
+using TourPlanner.ViewModels;
+using TourPlanner.Views;
 
-namespace tour_planner {
+namespace TourPlanner {
 
     public partial class App : Application {
 

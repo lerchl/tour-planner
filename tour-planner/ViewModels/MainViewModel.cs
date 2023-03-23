@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using TourPlanner.Model;
 
-namespace tour_planner.ViewModels {
+namespace TourPlanner.ViewModels {
 
     internal class MainViewModel : INotifyPropertyChanged {
 
@@ -21,9 +22,9 @@ namespace tour_planner.ViewModels {
         }
 
         private readonly List<Tour> _tours = new() {
-            new Tour("Tour 1", 1000, 200, 2.5),
-            new Tour("Tour 2", 2000, 400, 3.5),
-            new Tour("Tour 3", 3000, 600, 4.5)
+            new Tour("Tour 1"),
+            new Tour("Tour 2"),
+            new Tour("Tour 3")
         };
 
         public ObservableCollection<Tour> Tours { get; private set; }

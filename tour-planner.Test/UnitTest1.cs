@@ -1,4 +1,4 @@
-namespace tour_planner.Test {
+namespace TourPlanner.Test {
     
     public class Tests {
 

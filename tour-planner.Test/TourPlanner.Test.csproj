@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
-    <RootNamespace>tour_planner.Test</RootNamespace>
+    <RootNamespace>TourPlanner.Test</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
@@ -18,7 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\tour-planner\tour-planner.csproj" />
+    <ProjectReference Include="..\tour-planner.Data\TourPlanner.Data.csproj" />
+    <ProjectReference Include="..\tour-planner.Logic\TourPlanner.Logic.csproj" />
+    <ProjectReference Include="..\tour-planner.Model\TourPlanner.Model.csproj" />
+    <ProjectReference Include="..\tour-planner\TourPlanner.csproj" />
   </ItemGroup>
-
 </Project>

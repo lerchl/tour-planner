@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>TourPlanner</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\tour-planner.Logic\TourPlanner.Logic.csproj" />
+    <ProjectReference Include="..\tour-planner.Model\TourPlanner.Model.csproj" />
+  </ItemGroup>
+</Project>

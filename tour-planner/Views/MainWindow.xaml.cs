@@ -1,8 +1,20 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
-using tour_planner.ViewModels;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using TourPlanner.ViewModels;
 
-namespace tour_planner.Views {
+namespace TourPlanner.Views {
 
     public partial class MainWindow : Window {
 
