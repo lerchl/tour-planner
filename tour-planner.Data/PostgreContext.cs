@@ -4,7 +4,7 @@ using TourPlanner.Model;
 
 namespace TourPlanner.Data {
     
-    internal class PostgreContext : DbContext {
+    public class PostgreContext : DbContext {
 
         private readonly IConfiguration _configuration;
 
