@@ -1,21 +1,33 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace TourPlanner.Model {
 
+    [Table("TourLogs")]
     public class TourLog {
 
-        public Tour Tour { get; set; }
+        [Key]
+        public Guid Id { get; set; }
+
+        [Required]
         public DateTime Date { get; set; }
-        public string Difficulty { get; set; }
-        public double Time { get; set; }
+
+        /// <summary>
+        ///     Time in minutes.
+        /// </summary>
+        public int Time { get; set; }
+
         public int Rating { get; set; }
+
+        public Tour Tour { get; set; }
 
         // /////////////////////////////////////////////////////////////////////////
         // Init
         // /////////////////////////////////////////////////////////////////////////
-    
-        public TourLog(Tour tour, DateTime date, string difficulty, double time, int rating) {
+
+        public TourLog(Tour tour, DateTime date, int time, int rating) {
             Tour = tour;
             Date = date;
-            Difficulty = difficulty;
             Time = time;
             Rating = rating;
         }

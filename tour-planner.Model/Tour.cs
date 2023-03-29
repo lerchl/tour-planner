@@ -24,9 +24,15 @@ namespace TourPlanner.Model {
         [MaxLength(100)]
         public string? TransportType { get; set; }
 
-        public double? Distance { get; set; }
+        /// <summary>
+        ///     Distance in meter.
+        /// </summary>
+        public int Distance { get; set; }
 
-        public double? EstimatedTime { get; set; }
+        /// <summary>
+        ///     Estimated time for the tour in minutes.
+        /// </summary>
+        public int EstimatedTime { get; set; }
 
         [MaxLength(1000)]
         public string? ImageUrl { get; set; }
@@ -34,7 +40,7 @@ namespace TourPlanner.Model {
         // /////////////////////////////////////////////////////////////////////
         // Init
         // /////////////////////////////////////////////////////////////////////
-    
+
         public Tour(string name) {
             Name = name;
         }

@@ -6,25 +6,20 @@ namespace TourPlanner.Data {
     
     public class PostgreContext : DbContext {
 
-        private readonly IConfiguration _configuration;
+        private static readonly IConfiguration CONFIG = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json", false, true)
+            .Build();
 
         public DbSet<Tour> Tours { get; set; }
         public DbSet<TourLog> TourLogs { get; set; }
-
-        // /////////////////////////////////////////////////////////////////////////
-        // Init
-        // /////////////////////////////////////////////////////////////////////////
-
-        public PostgreContext(IConfiguration configuration) {
-            _configuration = configuration;
-        }
 
         // /////////////////////////////////////////////////////////////////////////
         // Methods
         // /////////////////////////////////////////////////////////////////////////
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-            optionsBuilder.UseNpgsql(_configuration.GetConnectionString("PostgreConnection") /*, sopt => sopt.UseNetTopologySuite() */);
+            Console.WriteLine(CONFIG.GetConnectionString("PostgreContext"));
+            optionsBuilder.UseNpgsql(CONFIG.GetConnectionString("PostgreContext"), x => x.UseNetTopologySuite());
         }
     }
 }

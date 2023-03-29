@@ -18,9 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\tour-planner.Data\TourPlanner.Data.csproj" />
-    <ProjectReference Include="..\tour-planner.Logic\TourPlanner.Logic.csproj" />
-    <ProjectReference Include="..\tour-planner.Model\TourPlanner.Model.csproj" />
     <ProjectReference Include="..\tour-planner\TourPlanner.csproj" />
+    <ProjectReference Include="..\tour-planner.Logic\TourPlanner.Logic.csproj" />
+    <ProjectReference Include="..\tour-planner.Data\TourPlanner.Data.csproj" />
+    <ProjectReference Include="..\tour-planner.Model\TourPlanner.Model.csproj" />
   </ItemGroup>
 </Project>
