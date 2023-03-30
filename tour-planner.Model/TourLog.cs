@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace TourPlanner.Model {
 
     [Table("TourLogs")]
-    public class TourLog {
+    public class TourLog : Entity {
 
         [Key]
         public Guid Id { get; set; }
@@ -19,17 +19,14 @@ namespace TourPlanner.Model {
 
         public int Rating { get; set; }
 
-        public Tour Tour { get; set; }
+        public Tour? Tour { get; set; }
 
         // /////////////////////////////////////////////////////////////////////////
-        // Init
+        // Methods
         // /////////////////////////////////////////////////////////////////////////
 
-        public TourLog(Tour tour, DateTime date, int time, int rating) {
-            Tour = tour;
-            Date = date;
-            Time = time;
-            Rating = rating;
+        public override Guid GetGuid() {
+            return Id;
         }
     }
 }

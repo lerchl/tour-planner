@@ -3,7 +3,10 @@ using Microsoft.Extensions.Configuration;
 using TourPlanner.Model;
 
 namespace TourPlanner.Data {
-    
+
+    /// <summary>
+    ///     <see cref="DbContext"/> for the Postgre database supplied in appsettings.json.
+    /// </summary>
     public class PostgreContext : DbContext {
 
         private static readonly IConfiguration CONFIG = new ConfigurationBuilder()
@@ -19,7 +22,7 @@ namespace TourPlanner.Data {
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             Console.WriteLine(CONFIG.GetConnectionString("PostgreContext"));
-            optionsBuilder.UseNpgsql(CONFIG.GetConnectionString("PostgreContext"), x => x.UseNetTopologySuite());
+            optionsBuilder.UseNpgsql(CONFIG.GetConnectionString("PostgreContext"));
         }
     }
 }

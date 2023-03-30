@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace TourPlanner.Model {
 
     [Table("Tours")]
-    public class Tour {
+    public class Tour : Entity {
 
         [Key]
         public Guid Id { get; set; }
 
         [MaxLength(100), Required]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [MaxLength(1000)]
         public string? Description { get; set; }
@@ -37,12 +37,12 @@ namespace TourPlanner.Model {
         [MaxLength(1000)]
         public string? ImageUrl { get; set; }
 
-        // /////////////////////////////////////////////////////////////////////
-        // Init
-        // /////////////////////////////////////////////////////////////////////
+        // /////////////////////////////////////////////////////////////////////////
+        // Methods
+        // /////////////////////////////////////////////////////////////////////////
 
-        public Tour(string name) {
-            Name = name;
+        public override Guid GetGuid() {
+            return Id;
         }
     }
 }

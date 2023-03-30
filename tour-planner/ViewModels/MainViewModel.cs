@@ -21,11 +21,7 @@ namespace TourPlanner.ViewModels {
             }
         }
 
-        private readonly List<Tour> _tours = new() {
-            new Tour("Tour 1"),
-            new Tour("Tour 2"),
-            new Tour("Tour 3")
-        };
+        private readonly List<Tour> _tours = new();
 
         public ObservableCollection<Tour> Tours { get; private set; }
 
