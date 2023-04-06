@@ -25,7 +25,7 @@ namespace TourPlanner.Logic.Service {
         // Methods
         // /////////////////////////////////////////////////////////////////////////
 
-        public ICollection<E> GetAll() {
+        public List<E> GetAll() {
             return _repository.GetAll();
         }
 

@@ -6,33 +6,89 @@
         xmlns:local="clr-namespace:TourPlanner.ViewModels"
         mc:Ignorable="d"
         Title="Tour Planner" Width="1200" Height="800"
-        Background="#eeeeee">
+        Background="#202020"
+        Foreground="#eeeeee">
     <Window.DataContext>
         <local:MainViewModel />
     </Window.DataContext>
+
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="#eeeeee" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value="#eeeeee" />
+            <Setter Property="Background" Value="{x:Null}" />
+            <Setter Property="BorderBrush" Value="{x:Null}" />
+            <Setter Property="SelectionBrush" Value="{x:Null}" />
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#eeeeee" />
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style TargetType="DataGridRowHeader">
+            <Setter Property="Background" Value="#111111" />
+        </Style>
+    </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="0" Margin="10,0,10,0" Content="Tours" FontFamily="Tahoma" FontSize="40px" Width="380" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top" />
 
-        <TextBox Text="{Binding Path=FilterText, UpdateSourceTrigger=PropertyChanged}" Height="40px" Margin="10,60,10,0" FontFamily="Tahoma" FontSize="30px" Width="380" VerticalAlignment="Top" HorizontalAlignment="Center" />
+        <Border CornerRadius="0 50 50 0" Background="#FF2F2D8A">
+            <Border.Effect>
+                <DropShadowEffect />
+            </Border.Effect>
+            <DockPanel Grid.Column="0">
+                <Label DockPanel.Dock="Top" Content="Tours" Margin="10 10 10 0" FontFamily="Tahoma" FontSize="40px" Height="60" HorizontalAlignment="Left" />
+                <Border DockPanel.Dock="Top" Margin="10 0 10 0" Padding="5" CornerRadius="10" Background="#111111">
+                    <TextBox Text="{Binding Path=FilterText, UpdateSourceTrigger=PropertyChanged}" Height="30px" FontFamily="Tahoma" FontSize="20px" HorizontalAlignment="Stretch" />
+                </Border>
+                <Border DockPanel.Dock="Top" Margin="10 10 10 10" CornerRadius="10 10 45 10" Background="#111111">
+                    <DataGrid SelectionChanged="DataGrid_SelectionChanged"
+                        FontFamily="Tahoma" FontSize="20px" HeadersVisibility="None"
+                        ItemsSource="{Binding Path=Tours}" AutoGenerateColumns="False"
+                        CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
+                        ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}"
+                    >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=Name}" IsReadOnly="True" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+            </DockPanel>
+        </Border>
 
-        <Button Content="+" Margin="10,110,0,0" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Tahoma" FontSize="20" />
-        <Button Content="-" Margin="10,110,10,0" Width="40" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Tahoma" FontSize="20" />
-        <Button Content="edit" Margin="10,110,60,0" Width="40" Height="40" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Tahoma" FontSize="20" />
-
-        <ListView x:Name="tours" HorizontalAlignment="Center" Margin="0,160,0,10" FontFamily="Tahoma" FontSize="18px" Width="380">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Header="Distance" DisplayMemberBinding="{Binding Distance}" />
-                    <GridViewColumn Header="Elevation" DisplayMemberBinding="{Binding Elevation}" />
-                    <GridViewColumn Header="Difficulty" DisplayMemberBinding="{Binding Difficulty}" />
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Image Grid.Column="1" Margin="0,0,800,0" />
+        <DockPanel Grid.Column="1">
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="25 25 25 0">
+                <Label Content="{Binding SelectedTour.Name}" Height="50" FontSize="30px" FontFamily="Tahoma" />
+            </StackPanel>
+            <TabControl Background="Transparent" Margin="25" BorderBrush="{x:Null}">
+                <TabItem Header="Details" BorderBrush="{x:Null}">
+                    <Border Background="#FF330A32" CornerRadius="15">
+                        <Border.Effect>
+                            <DropShadowEffect />
+                        </Border.Effect>
+                        <Grid Background="Transparent" />
+                    </Border>
+                </TabItem>
+                <TabItem Header="Logs" BorderBrush="{x:Null}">
+                    <Border Background="#FF153E59" CornerRadius="15">
+                        <Border.Effect>
+                            <DropShadowEffect />
+                        </Border.Effect>
+                        <Grid Background="Transparent" />
+                    </Border>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
     </Grid>
 </Window>

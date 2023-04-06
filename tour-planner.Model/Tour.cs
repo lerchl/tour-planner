@@ -3,38 +3,40 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TourPlanner.Model {
 
-    [Table("Tours")]
+    [Table("tours")]
     public class Tour : Entity {
 
-        [Key]
+        [Column("id"), Key]
         public Guid Id { get; set; }
 
-        [MaxLength(100), Required]
+        [Column("name"), MaxLength(100), Required]
         public string? Name { get; set; }
 
-        [MaxLength(1000)]
+        [Column("description"), MaxLength(1000)]
         public string? Description { get; set; }
 
-        [MaxLength(100), Required]
+        [Column("from"), MaxLength(100), Required]
         public string? From { get; set; }
 
-        [MaxLength(100), Required]
+        [Column("to"), MaxLength(100), Required]
         public string? To { get; set; }
 
-        [MaxLength(100)]
+        [Column("transport_type"), MaxLength(100)]
         public string? TransportType { get; set; }
 
         /// <summary>
         ///     Distance in meter.
         /// </summary>
+        [Column("distance")]
         public int Distance { get; set; }
 
         /// <summary>
         ///     Estimated time for the tour in minutes.
         /// </summary>
+        [Column("estimated_time")]
         public int EstimatedTime { get; set; }
 
-        [MaxLength(1000)]
+        [Column("image_url"), MaxLength(1000)]
         public string? ImageUrl { get; set; }
 
         // /////////////////////////////////////////////////////////////////////////

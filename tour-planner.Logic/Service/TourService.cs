@@ -17,7 +17,7 @@ namespace TourPlanner.Logic.Service {
         // Methods
         // /////////////////////////////////////////////////////////////////////////
 
-        public ICollection<Tour> GetByNameContains(string search) {
+        public List<Tour> GetByNameContains(string search) {
             return _repository.GetByNameContains(search);
         }
     }

@@ -18,12 +18,12 @@ namespace TourPlanner.Views {
 
     public partial class MainWindow : Window {
 
-        private readonly MainViewModel? _viewModel;
-
         public MainWindow() {
             InitializeComponent();
-            _viewModel = (MainViewModel) this.DataContext;
-            //tours.ItemsSource = _viewModel.Tours;
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            ((MainViewModel) DataContext).SelectTour(sender, e);
         }
     }
 }

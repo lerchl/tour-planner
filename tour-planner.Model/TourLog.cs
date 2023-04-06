@@ -3,22 +3,25 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TourPlanner.Model {
 
-    [Table("TourLogs")]
+    [Table("tour_logs")]
     public class TourLog : Entity {
 
-        [Key]
+        [Column("id"), Key]
         public Guid Id { get; set; }
 
-        [Required]
+        [Column("date"), Required]
         public DateTime Date { get; set; }
 
         /// <summary>
         ///     Time in minutes.
         /// </summary>
+        [Column("time")]
         public int Time { get; set; }
 
+        [Column("rating")]
         public int Rating { get; set; }
 
+        [ForeignKey("tour_id"), Required]
         public Tour? Tour { get; set; }
 
         // /////////////////////////////////////////////////////////////////////////

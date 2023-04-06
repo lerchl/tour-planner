@@ -12,7 +12,7 @@ namespace TourPlanner.Data.Repository {
             return context.Tours;
         }
 
-        public ICollection<Tour> GetByNameContains(string search) {
+        public List<Tour> GetByNameContains(string search) {
             using var context = new PostgreContext();
             // only saved tours can be searched for
             // and name is required in the database

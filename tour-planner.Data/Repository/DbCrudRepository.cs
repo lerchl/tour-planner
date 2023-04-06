@@ -23,7 +23,7 @@ namespace TourPlanner.Data.Repository {
         // Implementations
         // /////////////////////////////////////////////////////////////////////////
 
-        public ICollection<E> GetAll() {
+        public List<E> GetAll() {
             using var context = new C();
             return GetDbSet(context).ToList();
         }

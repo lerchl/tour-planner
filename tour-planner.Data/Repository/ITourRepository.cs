@@ -13,6 +13,6 @@ namespace TourPlanner.Data.Repository {
         /// </summary>
         /// <param name="search">the search string</param>
         /// <returns>The matching <see cref="Tour"/>s</returns>
-        public ICollection<Tour> GetByNameContains(string search);
+        public List<Tour> GetByNameContains(string search);
     }
 }

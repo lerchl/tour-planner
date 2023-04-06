@@ -11,7 +11,7 @@ namespace TourPlanner.Data.Repository {
         ///     Get all entities.
         /// </summary>
         /// <returns>All entities</returns>
-        public ICollection<E> GetAll();
+        public List<E> GetAll();
 
         /// <summary>
         ///     Gets an entity according to their id.
