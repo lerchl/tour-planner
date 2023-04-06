@@ -21,7 +21,6 @@ namespace TourPlanner.Data {
         // /////////////////////////////////////////////////////////////////////////
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-            Console.WriteLine(CONFIG.GetConnectionString("PostgreContext"));
             optionsBuilder.UseNpgsql(CONFIG.GetConnectionString("PostgreContext"));
         }
     }
