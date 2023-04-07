@@ -106,7 +106,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="400" />
+            <ColumnDefinition MinWidth="200" MaxWidth="400" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
@@ -149,8 +149,34 @@
                         <Border.Effect>
                             <DropShadowEffect />
                         </Border.Effect>
-                        <Grid Background="Transparent" >
-                        </Grid>
+                        <StackPanel>
+                            <Border Height="200" Margin="10 35 10 10" CornerRadius="10" Background="#111">
+                                <Border.Effect>
+                                    <DropShadowEffect />
+                                </Border.Effect>
+                                <Image Source="{Binding SelectedTour.ImageUrl}" />
+                            </Border>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition MinWidth="200" MaxWidth="400" />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Margin="10">
+                                    
+                                </StackPanel>
+                                <StackPanel Grid.Column="1">
+                                    <Label Content="Description" />
+                                    <Border Margin="10" Padding="10" CornerRadius="10" Background="#111">
+                                        <Border.Effect>
+                                            <DropShadowEffect />
+                                        </Border.Effect>
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                            <TextBlock Text="{Binding SelectedTour.Description}" TextWrapping="Wrap" AllowDrop="True" TextAlignment="Justify" />
+                                        </ScrollViewer>
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
                     </Border>
                 </TabItem>
                 <TabItem Header="Logs">
@@ -158,22 +184,20 @@
                         <Border.Effect>
                             <DropShadowEffect />
                         </Border.Effect>
-                        <Grid Background="Transparent">
-                            <Border DockPanel.Dock="Top" Margin="10 35 10 10" CornerRadius="10" Background="#111111">
-                                <DataGrid
-                                        FontFamily="Tahoma" FontSize="20px" HeadersVisibility="All"
-                                        ItemsSource="{Binding Path=TourLogs}" AutoGenerateColumns="False"
-                                        CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
-                                        ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}"
-                                >
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" IsReadOnly="True" Width="*" />
-                                        <DataGridTextColumn Header="Time" Binding="{Binding Path=Time}" IsReadOnly="True" Width="*" />
-                                        <DataGridTextColumn Header="Rating" Binding="{Binding Path=Rating}" IsReadOnly="True" Width="*" />
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </Border>
-                        </Grid>
+                        <Border DockPanel.Dock="Top" Margin="10 35 10 10" Padding="5" CornerRadius="10" Background="#111111">
+                            <DataGrid
+                                    FontFamily="Tahoma" FontSize="20px" HeadersVisibility="All"
+                                    ItemsSource="{Binding Path=TourLogs}" AutoGenerateColumns="False"
+                                    CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
+                                    ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}"
+                            >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" IsReadOnly="True" Width="*" />
+                                    <DataGridTextColumn Header="Time" Binding="{Binding Path=Time}" IsReadOnly="True" Width="*" />
+                                    <DataGridTextColumn Header="Rating" Binding="{Binding Path=Rating}" IsReadOnly="True" Width="*" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </Border>
                     </Border>
                 </TabItem>
             </TabControl>
