@@ -13,6 +13,11 @@
     </Window.DataContext>
 
     <Window.Resources>
+        <SolidColorBrush x:Key="FontColor" Color="#eee" />
+        <SolidColorBrush x:Key="Primary" Color="#2F2D8A" />
+        <SolidColorBrush x:Key="PrimaryActive" Color="#FF9361FF" />
+        <FontFamily x:Key="FontFamily">Tahoma</FontFamily>
+
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="#eeeeee" />
         </Style>
@@ -35,15 +40,77 @@
         <Style TargetType="DataGridRowHeader">
             <Setter Property="Background" Value="#111111" />
         </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource FontColor}" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="Border" CornerRadius="10" Background="{StaticResource Primary}">
+                            <Border.Effect>
+                                <DropShadowEffect />
+                            </Border.Effect>
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource PrimaryActive}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TabItem">
+            <Setter Property="Foreground" Value="{StaticResource FontColor}" />
+            <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
+            <Setter Property="FontSize" Value="20" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <StackPanel>
+                            <Border Name="Border"
+                                    Margin="5 0 -2 -10"
+                                    Background="Transparent"
+                                    BorderBrush="White" 
+                                    BorderThickness="1,1,1,1" 
+                                    CornerRadius="5" >
+                                <Border.Effect>
+                                    <DropShadowEffect />
+                                </Border.Effect>
+                                <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10 2 10 2"
+                                        RecognizesAccessKey="True"/>
+                            </Border>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Panel.ZIndex" Value="1000" />
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource PrimaryActive}" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource Primary}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="400" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Border CornerRadius="0 50 50 0" Background="#FF2F2D8A">
+        <Border CornerRadius="0 50 50 0" Background="#2F2D8A">
             <Border.Effect>
                 <DropShadowEffect />
             </Border.Effect>
@@ -52,7 +119,7 @@
                 <Border DockPanel.Dock="Top" Margin="10 0 10 0" Padding="5" CornerRadius="10" Background="#111111">
                     <TextBox Text="{Binding Path=FilterText, UpdateSourceTrigger=PropertyChanged}" Height="30px" FontFamily="Tahoma" FontSize="20px" HorizontalAlignment="Stretch" />
                 </Border>
-                <Border DockPanel.Dock="Top" Margin="10 10 10 10" CornerRadius="10 10 45 10" Background="#111111">
+                <Border DockPanel.Dock="Top" Margin="10" CornerRadius="10 10 45 10" Background="#111111">
                     <DataGrid SelectionChanged="DataGrid_SelectionChanged"
                         FontFamily="Tahoma" FontSize="20px" HeadersVisibility="None"
                         ItemsSource="{Binding Path=Tours}" AutoGenerateColumns="False"
@@ -68,24 +135,45 @@
         </Border>
 
         <DockPanel Grid.Column="1">
-            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="25 25 25 0">
-                <Label Content="{Binding SelectedTour.Name}" Height="50" FontSize="30px" FontFamily="Tahoma" />
-            </StackPanel>
+            <DockPanel DockPanel.Dock="Top" Margin="25 25 25 0">
+                <Label DockPanel.Dock="Left" Content="{Binding SelectedTour.Name}" Height="50" FontSize="30px" FontFamily="Tahoma" />
+
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="✏️" Width="50" Height="50" FontSize="25" ToolTip="Edit" />
+                    <Button Content="🗑️" Width="50" Height="50" FontSize="25" Margin="10 0 0 0" ToolTip="Delete" />
+                </StackPanel>
+            </DockPanel>
             <TabControl Background="Transparent" Margin="25" BorderBrush="{x:Null}">
-                <TabItem Header="Details" BorderBrush="{x:Null}">
+                <TabItem Header="Details">
                     <Border Background="#FF330A32" CornerRadius="15">
                         <Border.Effect>
                             <DropShadowEffect />
                         </Border.Effect>
-                        <Grid Background="Transparent" />
+                        <Grid Background="Transparent" >
+                        </Grid>
                     </Border>
                 </TabItem>
-                <TabItem Header="Logs" BorderBrush="{x:Null}">
-                    <Border Background="#FF153E59" CornerRadius="15">
+                <TabItem Header="Logs">
+                    <Border Background="#FF3D132B" CornerRadius="15">
                         <Border.Effect>
                             <DropShadowEffect />
                         </Border.Effect>
-                        <Grid Background="Transparent" />
+                        <Grid Background="Transparent">
+                            <Border DockPanel.Dock="Top" Margin="10 35 10 10" CornerRadius="10" Background="#111111">
+                                <DataGrid
+                                        FontFamily="Tahoma" FontSize="20px" HeadersVisibility="All"
+                                        ItemsSource="{Binding Path=TourLogs}" AutoGenerateColumns="False"
+                                        CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
+                                        ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}"
+                                >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" IsReadOnly="True" Width="*" />
+                                        <DataGridTextColumn Header="Time" Binding="{Binding Path=Time}" IsReadOnly="True" Width="*" />
+                                        <DataGridTextColumn Header="Rating" Binding="{Binding Path=Rating}" IsReadOnly="True" Width="*" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </Grid>
                     </Border>
                 </TabItem>
             </TabControl>

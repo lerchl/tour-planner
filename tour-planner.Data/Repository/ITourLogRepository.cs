@@ -12,6 +12,6 @@ namespace TourPlanner.Data.Repository {
         /// </summary>
         /// <param name="tour">the <see cref="Tour"/></param>
         /// <returns>all <see cref="TourLog"/>s for the <see cref="Tour"/></returns>
-        ICollection<TourLog> GetByTour(Tour tour);
+        List<TourLog> GetByTour(Tour tour);
     }
 }

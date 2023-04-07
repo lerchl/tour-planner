@@ -10,8 +10,6 @@ namespace TourPlanner.ViewModels {
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public ObservableCollection<Tour> Tours { get; private set; }
-
         private string _filterText = "";
         public string FilterText { 
             get => _filterText; 
@@ -22,6 +20,8 @@ namespace TourPlanner.ViewModels {
             }
         }
 
+        public ObservableCollection<Tour> Tours { get; private set; }
+
         private Tour _selectedTour;
         public Tour SelectedTour {
             get => _selectedTour;
@@ -31,7 +31,10 @@ namespace TourPlanner.ViewModels {
             }
         }
 
+        public ObservableCollection<TourLog> TourLogs { get; private set; }
+
         private readonly TourService _tourService = new();
+        private readonly TourLogService _tourLogService = new();
 
         // /////////////////////////////////////////////////////////////////////////
         // Init
@@ -40,6 +43,7 @@ namespace TourPlanner.ViewModels {
         public MainViewModel() {
             Tours = new ObservableCollection<Tour>(_tourService.GetAll());
             _selectedTour = Tours[0];
+            TourLogs = new ObservableCollection<TourLog>(_tourLogService.GetByTour(_selectedTour));
         }
 
         // /////////////////////////////////////////////////////////////////////////
@@ -54,6 +58,8 @@ namespace TourPlanner.ViewModels {
         public void SelectTour(object sender, SelectionChangedEventArgs e) {
             if (e.AddedItems.Count > 0 && e.AddedItems[0] is Tour tour) {
                 SelectedTour = tour;
+                TourLogs.Clear();
+                _tourLogService.GetByTour(tour).ForEach(tourLog => TourLogs.Add(tourLog));
             }
         }
     }

@@ -12,7 +12,7 @@ namespace TourPlanner.Data.Repository {
             return context.TourLogs;
         }
 
-        public ICollection<TourLog> GetByTour(Tour tour) {
+        public List<TourLog> GetByTour(Tour tour) {
             using var context = new PostgreContext();
             return context.TourLogs.Where(tl => tl.Tour == tour).ToList();
         }
