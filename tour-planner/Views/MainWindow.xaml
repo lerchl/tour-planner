@@ -6,63 +6,13 @@
         xmlns:local="clr-namespace:TourPlanner.ViewModels"
         mc:Ignorable="d"
         Title="Tour Planner" Width="1200" Height="800"
-        Background="#202020"
-        Foreground="#eeeeee">
+        Background="{StaticResource Background}"
+        Foreground="{StaticResource FontColor}">
     <Window.DataContext>
         <local:MainViewModel />
     </Window.DataContext>
 
     <Window.Resources>
-        <SolidColorBrush x:Key="FontColor" Color="#eee" />
-        <SolidColorBrush x:Key="Primary" Color="#2F2D8A" />
-        <SolidColorBrush x:Key="PrimaryActive" Color="#FF9361FF" />
-        <FontFamily x:Key="FontFamily">Tahoma</FontFamily>
-
-        <Style TargetType="Label">
-            <Setter Property="Foreground" Value="#eeeeee" />
-        </Style>
-        <Style TargetType="TextBox">
-            <Setter Property="Foreground" Value="#eeeeee" />
-            <Setter Property="Background" Value="{x:Null}" />
-            <Setter Property="BorderBrush" Value="{x:Null}" />
-            <Setter Property="SelectionBrush" Value="{x:Null}" />
-        </Style>
-        <Style TargetType="DataGrid">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="#eeeeee" />
-        </Style>
-        <Style TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="Transparent" />
-        </Style>
-        <Style TargetType="DataGridRow">
-            <Setter Property="Background" Value="Transparent" />
-        </Style>
-        <Style TargetType="DataGridRowHeader">
-            <Setter Property="Background" Value="#111111" />
-        </Style>
-
-        <Style TargetType="Button">
-            <Setter Property="Foreground" Value="{StaticResource FontColor}" />
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Name="Border" CornerRadius="10" Background="{StaticResource Primary}">
-                            <Border.Effect>
-                                <DropShadowEffect />
-                            </Border.Effect>
-                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="{StaticResource PrimaryActive}" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
         <Style TargetType="TabItem">
             <Setter Property="Foreground" Value="{StaticResource FontColor}" />
             <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
@@ -136,11 +86,12 @@
 
         <DockPanel Grid.Column="1">
             <DockPanel DockPanel.Dock="Top" Margin="25 25 25 0">
+                <Button Content="➕" Width="50" Height="50" FontSize="25" ToolTip="Add Tour" Margin="0 0 20 0" Command="{Binding Path=AddTour}" />
                 <Label DockPanel.Dock="Left" Content="{Binding SelectedTour.Name}" Height="50" FontSize="30px" FontFamily="Tahoma" />
 
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="✏️" Width="50" Height="50" FontSize="25" ToolTip="Edit" />
-                    <Button Content="🗑️" Width="50" Height="50" FontSize="25" Margin="10 0 0 0" ToolTip="Delete" />
+                    <Button Content="✏️" Width="50" Height="50" FontSize="25" ToolTip="Edit Tour" />
+                    <Button Content="🗑️" Width="50" Height="50" FontSize="25" Margin="10 0 0 0" ToolTip="Delete Tour" />
                 </StackPanel>
             </DockPanel>
             <TabControl Background="Transparent" Margin="25" BorderBrush="{x:Null}">
