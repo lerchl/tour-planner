@@ -161,9 +161,60 @@
                                     <ColumnDefinition MinWidth="200" MaxWidth="400" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0" Margin="10">
+                                <Grid Grid.Column="0" Margin="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="120" />
+                                        <ColumnDefinition MinWidth="200" MaxWidth="600" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
                                     
-                                </StackPanel>
+                                    <Label Grid.Column="0" Grid.Row="0" Padding="10" Content="From" VerticalContentAlignment="Center" />
+                                    <Border Grid.Column="1" Grid.Row="0" Margin="10" Padding="10" CornerRadius="10" Background="#111">
+                                        <Border.Effect>
+                                            <DropShadowEffect />
+                                        </Border.Effect>
+                                        <TextBlock Text="{Binding SelectedTour.From}" />
+                                    </Border>
+
+                                    <Label Grid.Column="0" Grid.Row="1" Padding="10" Content="To" VerticalContentAlignment="Center" />
+                                    <Border Grid.Column="1" Grid.Row="1" Margin="10" Padding="10" CornerRadius="10" Background="#111">
+                                        <Border.Effect>
+                                            <DropShadowEffect />
+                                        </Border.Effect>
+                                        <TextBlock Text="{Binding SelectedTour.To}" />
+                                    </Border>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="2" Padding="10" Text="Transport type" VerticalAlignment="Center" TextWrapping="Wrap" />
+                                    <Border Grid.Column="1" Grid.Row="2" Margin="10" Padding="10" CornerRadius="10" Background="#111">
+                                        <Border.Effect>
+                                            <DropShadowEffect />
+                                        </Border.Effect>
+                                        <TextBlock Text="{Binding SelectedTour.TransportType}" />
+                                    </Border>
+
+                                    <Label Grid.Column="0" Grid.Row="3" Padding="10" Content="Distance" VerticalContentAlignment="Center" />
+                                    <Border Grid.Column="1" Grid.Row="3" Margin="10" Padding="10" CornerRadius="10" Background="#111">
+                                        <Border.Effect>
+                                            <DropShadowEffect />
+                                        </Border.Effect>
+                                        <TextBlock Text="{Binding SelectedTour.Distance}" />
+                                    </Border>
+
+                                    <TextBlock Grid.Column="0" Grid.Row="4" Padding="10" Text="Estimated time" VerticalAlignment="Center" TextWrapping="Wrap" />
+                                    <Border Grid.Column="1" Grid.Row="4" Margin="10" Padding="10" CornerRadius="10" Background="#111">
+                                        <Border.Effect>
+                                            <DropShadowEffect />
+                                        </Border.Effect>
+                                        <TextBlock Text="{Binding SelectedTour.EstimatedTime}" />
+                                    </Border>
+                                </Grid>
                                 <StackPanel Grid.Column="1">
                                     <Label Content="Description" />
                                     <Border Margin="10" Padding="10" CornerRadius="10" Background="#111">
@@ -171,7 +222,7 @@
                                             <DropShadowEffect />
                                         </Border.Effect>
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                            <TextBlock Text="{Binding SelectedTour.Description}" TextWrapping="Wrap" AllowDrop="True" TextAlignment="Justify" />
+                                            <TextBlock Text="{Binding SelectedTour.Description}" TextWrapping="Wrap" AllowDrop="True" TextAlignment="Justify" Height="310" /> <!-- TODO: Make height dynamic -->
                                         </ScrollViewer>
                                     </Border>
                                 </StackPanel>
