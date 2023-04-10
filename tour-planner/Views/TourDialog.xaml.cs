@@ -12,21 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using TourPlanner.Model;
+using TourPlanner.ViewModels;
 
-namespace TourPlanner.Views
-{
-    /// <summary>
-    /// Interaction logic for TourDialog.xaml
-    /// </summary>
+namespace TourPlanner.Views {
+
     public partial class TourDialog : Window {
-        
-        public TourDialog() {
-            InitializeComponent();
+
+        public TourDialog(Tour tour)  {
+           InitializeComponent();
+           ((TourDialogViewModel) DataContext).Init(tour, () => Close());
         }
 
-        public TourDialog(Tour tour) : this() {
-            // TODO: Set tour in view form
+        public TourDialog() : this(new()) {
+            // noop
         }
     }
 }
-

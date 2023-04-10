@@ -14,8 +14,8 @@ namespace TourPlanner.ViewModels {
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private string _filterText = "";
-        public string FilterText { 
-            get => _filterText; 
+        public string FilterText {
+            get => _filterText;
             set {
                 _filterText = value;
                 PropertyChanged?.Invoke(this, new(nameof(FilterText)));

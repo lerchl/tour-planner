@@ -86,7 +86,7 @@
 
         <DockPanel Grid.Column="1">
             <DockPanel DockPanel.Dock="Top" Margin="25 25 25 0">
-                <Button Content="➕" Width="50" Height="50" FontSize="25" ToolTip="Add Tour" Margin="0 0 20 0" Command="{Binding Path=AddTour}" />
+                <Button Content="➕" Width="50" Height="50" FontSize="25" ToolTip="Add Tour" Margin="0 0 20 0" Command="{Binding Path=AddTourCommand}" />
                 <Label DockPanel.Dock="Left" Content="{Binding SelectedTour.Name}" Height="50" FontSize="30px" FontFamily="Tahoma" />
 
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
