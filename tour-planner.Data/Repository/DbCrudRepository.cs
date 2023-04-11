@@ -6,11 +6,9 @@ namespace TourPlanner.Data.Repository {
     /// <summary>
     ///     <see cref="Singleton{T}"/> <see cref="ICrudRepository{E}"/> implementation for <see cref="DbContext"/>s.
     /// </summary>
-    /// <typeparam name="S">the <see cref="Singleton{T}"/> type (the inheriting class)</typeparam>
     /// <typeparam name="E">the <see cref="Entity"/> type</typeparam>
     /// <typeparam name="C">the <see cref="DbContext"/> type</typeparam>
-    public abstract class DbCrudRepository<S, E, C> : Singleton<S>, ICrudRepository<E>
-            where S : class, new()
+    public abstract class DbCrudRepository<E, C> : ICrudRepository<E>
             where E : Entity
             where C : DbContext, new() {
 

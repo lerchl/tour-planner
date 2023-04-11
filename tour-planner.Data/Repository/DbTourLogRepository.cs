@@ -6,7 +6,29 @@ namespace TourPlanner.Data.Repository {
     /// <summary>
     ///     Postgre <see cref="ITourLogRepository"/> implementation.
     /// </summary>
-    public class DbTourLogRepository : DbCrudRepository<DbTourLogRepository, TourLog, PostgreContext>, ITourLogRepository {
+    public class DbTourLogRepository : DbCrudRepository<TourLog, PostgreContext>, ITourLogRepository {
+
+        private static DbTourLogRepository? _instance;
+
+        public static DbTourLogRepository Instance {
+            get {
+                _instance ??= new();
+                return _instance;
+            }
+            private set => _instance = value;
+        }
+
+        // /////////////////////////////////////////////////////////////////////////
+        // Init
+        // /////////////////////////////////////////////////////////////////////////
+
+        private DbTourLogRepository() {
+            // noop
+        }
+
+        // /////////////////////////////////////////////////////////////////////////
+        // Methods
+        // /////////////////////////////////////////////////////////////////////////
 
         protected override DbSet<TourLog> GetDbSet(PostgreContext context) {
             return context.TourLogs;

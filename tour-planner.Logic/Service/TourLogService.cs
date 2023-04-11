@@ -9,7 +9,7 @@ namespace TourPlanner.Logic.Service {
     /// </summary>
     public class TourLogService : EntityService<TourLog, ITourLogRepository, TourLogValidator> {
 
-        public TourLogService() : base(new DbTourLogRepository(), new TourLogValidator()) {
+        public TourLogService() : base(DbTourLogRepository.Instance, new TourLogValidator()) {
             // noop
         }
 
