@@ -6,31 +6,31 @@
     <Application.Resources>
         <SolidColorBrush x:Key="Background" Color="#202020" />
         <SolidColorBrush x:Key="DataBackground" Color="#111111" />
-        <SolidColorBrush x:Key="FontColor" Color="#eee" />
+        <SolidColorBrush x:Key="FontColor" Color="#eeeeee" />
         <SolidColorBrush x:Key="Primary" Color="#2F2D8A" />
         <SolidColorBrush x:Key="PrimaryActive" Color="#FF9361FF" />
         <FontFamily x:Key="FontFamily">Tahoma</FontFamily>
 
         <Style TargetType="Label">
-            <Setter Property="Foreground" Value="#eeeeee" />
+            <Setter Property="Foreground" Value="{StaticResource FontColor}" />
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="Foreground" Value="{StaticResource FontColor}" />
             <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
             <Setter Property="FontSize" Value="20" />
-            <Setter Property="Background" Value="{x:Null}" />
+            <Setter Property="Background" Value="{StaticResource Background}" />
             <Setter Property="BorderBrush" Value="{x:Null}" />
             <Setter Property="SelectionBrush" Value="{x:Null}" />
 
-            <Setter Property="Template">
+            <!--<Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
-                        <Border CornerRadius="10" Background="{StaticResource DataBackground}" Margin="5">
+                        <Border Padding="5" CornerRadius="10" Background="{StaticResource DataBackground}" Margin="5">
                             <ContentPresenter Height="30" />
                         </Border>
                     </ControlTemplate>    
                 </Setter.Value>
-            </Setter>
+            </Setter>-->
         </Style>
         <Style TargetType="DataGrid">
             <Setter Property="Background" Value="Transparent" />

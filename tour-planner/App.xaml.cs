@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using TourPlanner.Data;
+using TourPlanner.Logic.Service;
 using TourPlanner.ViewModels;
 using TourPlanner.Views;
 
@@ -14,6 +15,8 @@ namespace TourPlanner {
     public partial class App : Application {
 
         private void Application_Startup(object sender, StartupEventArgs seas) {
+            new RouteService().GetRoute("Vienna", "Graz");
+
             using (var context = new PostgreContext()) {
                 try {
                     // context.Database.EnsureDeleted();

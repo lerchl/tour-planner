@@ -23,7 +23,9 @@ namespace TourPlanner.Data.Repository {
 
         public List<E> GetAll() {
             using var context = new C();
-            return GetDbSet(context).ToList();
+            DbSet<E> dbSet = GetDbSet(context);
+            dbSet.Load();
+            return dbSet.ToList();
         }
 
         public E? GetById(Guid id) {

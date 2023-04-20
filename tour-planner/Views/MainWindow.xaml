@@ -66,9 +66,7 @@
             </Border.Effect>
             <DockPanel Grid.Column="0">
                 <Label DockPanel.Dock="Top" Content="Tours" Margin="10 10 10 0" FontFamily="Tahoma" FontSize="40px" Height="60" HorizontalAlignment="Left" />
-                <Border DockPanel.Dock="Top" Margin="10 0 10 0" Padding="5" CornerRadius="10" Background="#111111">
-                    <TextBox Text="{Binding Path=FilterText, UpdateSourceTrigger=PropertyChanged}" Height="30px" FontFamily="Tahoma" FontSize="20px" HorizontalAlignment="Stretch" />
-                </Border>
+                <TextBox FontFamily="Tahoma" FontSize="12" Text="{Binding Path=FilterText, UpdateSourceTrigger=PropertyChanged}" Margin="5" DockPanel.Dock="Top" HorizontalAlignment="Stretch" Foreground="{StaticResource FontColor}" />
                 <Border DockPanel.Dock="Top" Margin="10" CornerRadius="10 10 45 10" Background="#111111">
                     <DataGrid SelectionChanged="DataGrid_SelectionChanged"
                         FontFamily="Tahoma" FontSize="20px" HeadersVisibility="None"
@@ -86,12 +84,12 @@
 
         <DockPanel Grid.Column="1">
             <DockPanel DockPanel.Dock="Top" Margin="25 25 25 0">
-                <Button Content="➕" Width="50" Height="50" FontSize="25" ToolTip="Add Tour" Margin="0 0 20 0" Command="{Binding Path=AddTourCommand}" />
+                <Button Content="➕" Width="50" Height="50" FontSize="20" ToolTip="Add Tour" Margin="0 0 20 0" Command="{Binding Path=AddTourCommand}" />
                 <Label DockPanel.Dock="Left" Content="{Binding SelectedTour.Name}" Height="50" FontSize="30px" FontFamily="Tahoma" />
 
                 <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="✏️" Width="50" Height="50" FontSize="25" ToolTip="Edit Tour" />
-                    <Button Content="🗑️" Width="50" Height="50" FontSize="25" Margin="10 0 0 0" ToolTip="Delete Tour" />
+                    <Button Content="✏️" Width="50" Height="50" FontSize="20" ToolTip="Edit Tour" />
+                    <Button Content="🗑️" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" ToolTip="Delete Tour" />
                 </StackPanel>
             </DockPanel>
             <TabControl Background="Transparent" Margin="25" BorderBrush="{x:Null}">
@@ -102,9 +100,6 @@
                         </Border.Effect>
                         <StackPanel>
                             <Border Height="200" Margin="10 35 10 10" CornerRadius="10" Background="#111">
-                                <Border.Effect>
-                                    <DropShadowEffect />
-                                </Border.Effect>
                                 <Image Source="{Binding SelectedTour.ImageUrl}" />
                             </Border>
                             <Grid>
@@ -128,50 +123,32 @@
                                     
                                     <Label Grid.Column="0" Grid.Row="0" Padding="10" Content="From" VerticalContentAlignment="Center" />
                                     <Border Grid.Column="1" Grid.Row="0" Margin="10" Padding="10" CornerRadius="10" Background="#111">
-                                        <Border.Effect>
-                                            <DropShadowEffect />
-                                        </Border.Effect>
                                         <TextBlock Text="{Binding SelectedTour.From}" />
                                     </Border>
 
                                     <Label Grid.Column="0" Grid.Row="1" Padding="10" Content="To" VerticalContentAlignment="Center" />
                                     <Border Grid.Column="1" Grid.Row="1" Margin="10" Padding="10" CornerRadius="10" Background="#111">
-                                        <Border.Effect>
-                                            <DropShadowEffect />
-                                        </Border.Effect>
                                         <TextBlock Text="{Binding SelectedTour.To}" />
                                     </Border>
 
                                     <TextBlock Grid.Column="0" Grid.Row="2" Padding="10" Text="Transport type" VerticalAlignment="Center" TextWrapping="Wrap" />
                                     <Border Grid.Column="1" Grid.Row="2" Margin="10" Padding="10" CornerRadius="10" Background="#111">
-                                        <Border.Effect>
-                                            <DropShadowEffect />
-                                        </Border.Effect>
                                         <TextBlock Text="{Binding SelectedTour.TransportType}" />
                                     </Border>
 
                                     <Label Grid.Column="0" Grid.Row="3" Padding="10" Content="Distance" VerticalContentAlignment="Center" />
                                     <Border Grid.Column="1" Grid.Row="3" Margin="10" Padding="10" CornerRadius="10" Background="#111">
-                                        <Border.Effect>
-                                            <DropShadowEffect />
-                                        </Border.Effect>
                                         <TextBlock Text="{Binding SelectedTour.Distance}" />
                                     </Border>
 
                                     <TextBlock Grid.Column="0" Grid.Row="4" Padding="10" Text="Estimated time" VerticalAlignment="Center" TextWrapping="Wrap" />
                                     <Border Grid.Column="1" Grid.Row="4" Margin="10" Padding="10" CornerRadius="10" Background="#111">
-                                        <Border.Effect>
-                                            <DropShadowEffect />
-                                        </Border.Effect>
                                         <TextBlock Text="{Binding SelectedTour.EstimatedTime}" />
                                     </Border>
                                 </Grid>
                                 <StackPanel Grid.Column="1">
                                     <Label Content="Description" />
                                     <Border Margin="10" Padding="10" CornerRadius="10" Background="#111">
-                                        <Border.Effect>
-                                            <DropShadowEffect />
-                                        </Border.Effect>
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <TextBlock Text="{Binding SelectedTour.Description}" TextWrapping="Wrap" AllowDrop="True" TextAlignment="Justify" Height="310" /> <!-- TODO: Make height dynamic -->
                                         </ScrollViewer>

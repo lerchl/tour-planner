@@ -1,5 +1,8 @@
 {
     "ConnectionStrings": {
-        "PostgreContext": "Include Error Detail=True;Host=LOCALHOST;Database=DATABASE;Username=USER;Password=MYPASSWORD"
+        "PostgreContext": "Include Error Detail=True;Host=HOST;Database=DATABASE;Username=USERNAME;Password=PASSWORD"
+    },
+    "ApiKeys": {
+        "MapQuest": "KEY"
     }
 }
