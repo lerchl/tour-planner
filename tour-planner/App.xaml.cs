@@ -27,8 +27,10 @@ namespace TourPlanner {
                 }
             }
 
+            var ioCConfig = (IoCContainerConfig) Current.Resources["IoCConfig"];
+
             var mainWindow = new MainWindow {
-                DataContext = new MainViewModel()
+                DataContext = ioCConfig.MainViewModel
             };
             mainWindow.Show();
         }

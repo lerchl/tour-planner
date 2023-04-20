@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:TourPlanner"
              Startup="Application_Startup">
     <Application.Resources>
+        <ResourceDictionary>
+            <local:IoCContainerConfig x:Key="IoCConfig" />
+        </ResourceDictionary>
+        
         <SolidColorBrush x:Key="Background" Color="#202020" />
         <SolidColorBrush x:Key="DataBackground" Color="#111111" />
         <SolidColorBrush x:Key="FontColor" Color="#eeeeee" />

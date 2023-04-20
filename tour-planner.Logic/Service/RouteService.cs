@@ -7,13 +7,13 @@ namespace TourPlanner.Logic.Service {
 
     public class RouteService {
 
-        public async void GetRoute(string from, string to) {
+        public async Task<Route> GetRoute(string from, string to) {
             var url = $"https://www.mapquestapi.com/directions/v2/route?key={GetApiKey(MAP_QUEST)}&from={from}&to={to}";
             using var client = new HttpClient();
             var res = await client.GetAsync(url);
             var json = await res.Content.ReadAsStringAsync();
             var route = JsonSerializer.Deserialize<Route>(JsonNode.Parse(json)["route"].ToJsonString());
-            Console.WriteLine("nice");
+            return route;
         }
     }
 }
