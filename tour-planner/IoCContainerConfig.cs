@@ -23,7 +23,10 @@ namespace TourPlanner {
             services.AddSingleton<ITourLogRepository, DbTourLogRepository>();
 
             // Services
-
+            services.AddSingleton<ITourService, TourService>();
+            services.AddSingleton<ITourLogService, TourLogService>();
+            services.AddSingleton<IRouteService, RouteService>();
+            services.AddSingleton<IMapService, MapService>();
 
             // ViewModels
             services.AddSingleton<MainViewModel>();

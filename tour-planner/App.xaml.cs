@@ -15,7 +15,10 @@ namespace TourPlanner {
     public partial class App : Application {
 
         private void Application_Startup(object sender, StartupEventArgs seas) {
-            new RouteService().GetRoute("Vienna", "Graz");
+            new RouteService().GetRoute("Vienna", "Graz").ContinueWith(task => {
+                var route = task.Result;
+                new MapService().GetMap(route);
+            });
 
             using (var context = new PostgreContext()) {
                 try {

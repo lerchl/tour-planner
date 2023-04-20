@@ -6,7 +6,7 @@ namespace TourPlanner.Logic.Service {
 
         public List<E> GetAll();
 
-        public E? GetByID(Guid id);
+        public E? GetById(Guid id);
 
         public E Add(E entity);
 

@@ -7,7 +7,7 @@ namespace TourPlanner.Logic.Service {
     /// <summary>
     ///     <see cref="EntityService{E,R,V}"/> implementation for <see cref="TourLog"/>s.
     /// </summary>
-    public class TourLogService : EntityService<TourLog, ITourLogRepository, TourLogValidator> {
+    public class TourLogService : EntityService<TourLog, ITourLogRepository, TourLogValidator>, ITourLogService {
 
         public TourLogService() : base(DbTourLogRepository.Instance, new TourLogValidator()) {
             // noop
