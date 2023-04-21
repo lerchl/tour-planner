@@ -2,7 +2,7 @@ using TourPlanner.Model;
 
 namespace TourPlanner.Logic.Service {
 
-    public interface ITourLogService : IEntityService<TourLog> {
+    public interface ITourLogService : ICrudService<TourLog> {
 
         public List<TourLog> GetByTour(Tour tour);
     }

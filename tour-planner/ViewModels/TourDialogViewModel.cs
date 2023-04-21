@@ -33,13 +33,14 @@ namespace TourPlanner.ViewModels {
 
         public Action Close { get; private set; } = () => { };
 
-        private readonly TourService _tourService = new();
+        private readonly ITourService _tourService;
 
         // /////////////////////////////////////////////////////////////////////////
         // Init
         // /////////////////////////////////////////////////////////////////////////
 
-        public TourDialogViewModel() {
+        public TourDialogViewModel(ITourService tourService) {
+            _tourService = tourService;
             SaveCommand = new RelayCommand(x => Save());
             CancelCommand = new RelayCommand(x => Cancel());
         }

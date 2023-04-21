@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using TourPlanner.Data.Repository;
+using TourPlanner.Logic.Service;
 using TourPlanner.ViewModels;
 
 namespace TourPlanner {
@@ -30,6 +31,7 @@ namespace TourPlanner {
 
             // ViewModels
             services.AddSingleton<MainViewModel>();
+            // services.AddSingleton<TourDialogViewModel>();
 
             serviceProvider = services.BuildServiceProvider();
         }

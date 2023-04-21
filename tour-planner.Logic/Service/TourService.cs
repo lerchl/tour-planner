@@ -5,11 +5,12 @@ using TourPlanner.Model;
 namespace TourPlanner.Logic.Service {
 
     /// <summary>
-    ///     <see cref="EntityService{E,R,V}"/> implementation for <see cref="Tour"/>s.
+    ///     <see cref="CrudService{E,R,V}"/> implementation for <see cref="Tour"/>s.
     /// </summary>
-    public class TourService : EntityService<Tour, ITourRepository, TourValidator>, ITourService {
+    public class TourService : CrudService<Tour, ITourRepository, TourValidator>, ITourService {
 
-        public TourService() : base(DbTourRepository.Instance, new TourValidator()) {
+        public TourService(ITourRepository tourRepository) :
+                base(tourRepository, new TourValidator()) {
             // noop
         }
 

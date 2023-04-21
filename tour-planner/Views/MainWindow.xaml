@@ -8,10 +8,6 @@
         Title="Tour Planner" Width="1200" Height="800"
         Background="{StaticResource Background}"
         Foreground="{StaticResource FontColor}">
-    <Window.DataContext>
-        <local:MainViewModel />
-    </Window.DataContext>
-
     <Window.Resources>
         <Style TargetType="TabItem">
             <Setter Property="Foreground" Value="{StaticResource FontColor}" />
@@ -100,7 +96,7 @@
                         </Border.Effect>
                         <StackPanel>
                             <Border Height="200" Margin="10 35 10 10" CornerRadius="10" Background="#111">
-                                <Image Source="{Binding SelectedTour.ImageUrl}" />
+                                <Image Source="{Binding Map, UpdateSourceTrigger=PropertyChanged}" />
                             </Border>
                             <Grid>
                                 <Grid.ColumnDefinitions>

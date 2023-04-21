@@ -2,7 +2,10 @@ using TourPlanner.Model;
 
 namespace TourPlanner.Logic.Service {
 
-    public interface IEntityService<E> where E : Entity {
+    /// <summary>
+    ///     A service for CRUD operations.
+    /// </summary>
+    public interface ICrudService<E> where E : Entity {
 
         public List<E> GetAll();
 

@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\tour-planner.Data\TourPlanner.Data.csproj" />
     <ProjectReference Include="..\tour-planner.Model\TourPlanner.Model.csproj" />
   </ItemGroup>

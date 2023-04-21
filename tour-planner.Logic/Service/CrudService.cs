@@ -4,7 +4,10 @@ using TourPlanner.Model;
 
 namespace TourPlanner.Logic.Service {
 
-    public abstract class EntityService<E, R, V> : IEntityService<E>
+    /// <summary>
+    ///     <see cref="ICrudService{E}" /> implementation with <see cref="IValidator{T}" />
+    /// </summary>
+    public abstract class CrudService<E, R, V> : ICrudService<E>
             where E : Entity
             where R : ICrudRepository<E>
             where V : IValidator<E> {
@@ -16,7 +19,7 @@ namespace TourPlanner.Logic.Service {
         // Init
         // /////////////////////////////////////////////////////////////////////////
 
-        public EntityService(R repository, V validator) {
+        public CrudService(R repository, V validator) {
             _repository = repository;
             _validator = validator;
         }
