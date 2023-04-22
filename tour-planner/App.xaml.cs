@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using TourPlanner.Data;
-using TourPlanner.Logic.Service;
-using TourPlanner.ViewModels;
 using TourPlanner.Views;
 
 namespace TourPlanner {

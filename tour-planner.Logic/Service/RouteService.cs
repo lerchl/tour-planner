@@ -8,7 +8,7 @@ namespace TourPlanner.Logic.Service {
     public class RouteService : IRouteService {
 
         public async Task<Route> GetRoute(string from, string to) {
-            var url = $"https://www.mapquestapi.com/directions/v2/route?key={GetApiKey(MAP_QUEST)}&from={from}&to={to}";
+            var url = $"https://www.mapquestapi.com/directions/v2/route?key={GetApiKey(MAP_QUEST)}&from={from}&to={to}&unit=k";
             using var client = new HttpClient();
             var res = await client.GetAsync(url);
             var json = await res.Content.ReadAsStringAsync();

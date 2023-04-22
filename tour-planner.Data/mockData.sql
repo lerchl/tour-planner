@@ -1,0 +1,2 @@
+INSERT INTO tours (id, name, description, "from", "to", transport_type, route_fetched)
+VALUES (gen_random_uuid(), 'Nach Hause', 'TBD', 'Karlskroner Straße 10a, Ingolstadt', 'Hasnerstraße 99, Wien', 'Auto', false);

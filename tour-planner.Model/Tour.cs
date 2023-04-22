@@ -15,29 +15,42 @@ namespace TourPlanner.Model {
         [Column("description"), MaxLength(1000)]
         public string? Description { get; set; }
 
-        [Column("from"), MaxLength(100), Required]
+        [Column("from"), MaxLength(100)]
         public string? From { get; set; }
 
-        [Column("to"), MaxLength(100), Required]
+        [Column("to"), MaxLength(100)]
         public string? To { get; set; }
 
         [Column("transport_type"), MaxLength(100)]
         public string? TransportType { get; set; }
 
         /// <summary>
+        ///     Whether the route of this tour has been fetched from the api.
+        ///     If this is true, the distance, estimated time and map image should be set.
+        /// </summary>
+        [Column("route_fetched"), Required]
+        public bool RouteFetched { get; set; } = false;
+
+        /// <summary>
+        ///     The last time the route of this tour has been fetched from the api.
+        /// </summary>
+        [Column("last_fetched")]
+        public DateTime? LastFetched { get; set; }
+
+        /// <summary>
         ///     Distance in meter.
         /// </summary>
         [Column("distance")]
-        public int Distance { get; set; }
+        public double? Distance { get; set; }
 
         /// <summary>
         ///     Estimated time for the tour in minutes.
         /// </summary>
         [Column("estimated_time")]
-        public int EstimatedTime { get; set; }
+        public long? EstimatedTime { get; set; }
 
-        [Column("image_url"), MaxLength(1000)]
-        public string? ImageUrl { get; set; }
+        [Column("map_image")]
+        public byte[]? MapImage { get; set; }
 
         // /////////////////////////////////////////////////////////////////////////
         // Methods
