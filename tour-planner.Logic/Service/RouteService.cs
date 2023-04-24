@@ -35,7 +35,7 @@ namespace TourPlanner.Logic.Service {
             }
 
             // https://developer.mapquest.com/documentation/directions-api/status-codes/
-            int statusCode = route["info"]!["statuscode"]!.GetValue<int>();
+            int statusCode = root["info"]!["statuscode"]!.GetValue<int>();
 
             if (statusCode == (int) INVALID_LOCATIONS) {
                 throw new InvalidLocationsException(from, to);

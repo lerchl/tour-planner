@@ -53,6 +53,28 @@ namespace TourPlanner.Model {
         public byte[]? MapImage { get; set; }
 
         // /////////////////////////////////////////////////////////////////////////
+        // Init
+        // /////////////////////////////////////////////////////////////////////////
+
+        public Tour() {
+            // default constructor
+        }
+
+        public Tour(Tour other) {
+            Id = other.Id;
+            Name = other.Name;
+            Description = other.Description;
+            From = other.From;
+            To = other.To;
+            TransportType = other.TransportType;
+            RouteFetched = other.RouteFetched;
+            LastFetched = other.LastFetched;
+            Distance = other.Distance;
+            EstimatedTime = other.EstimatedTime;
+            MapImage = other.MapImage;
+        }
+
+        // /////////////////////////////////////////////////////////////////////////
         // Methods
         // /////////////////////////////////////////////////////////////////////////
 

@@ -126,7 +126,10 @@ namespace TourPlanner.ViewModels {
         }
 
         public void EditTour() {
-            new TourDialog(_tourDialogViewModel, SelectedTour!).ShowDialog();
+            var tourDialog = new TourDialog(_tourDialogViewModel, new(SelectedTour!));
+            if (tourDialog.ShowDialog() == true) {
+                FetchTours();
+            }
         }
 
         public void DeleteTour() {
