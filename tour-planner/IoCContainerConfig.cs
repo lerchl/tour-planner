@@ -31,7 +31,7 @@ namespace TourPlanner {
 
             // ViewModels
             services.AddSingleton<MainViewModel>();
-            // services.AddSingleton<TourDialogViewModel>();
+            services.AddSingleton<TourDialogViewModel>();
 
             serviceProvider = services.BuildServiceProvider();
         }

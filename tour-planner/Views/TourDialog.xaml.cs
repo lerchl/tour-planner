@@ -18,12 +18,13 @@ namespace TourPlanner.Views {
 
     public partial class TourDialog : Window {
 
-        public TourDialog(Tour tour)  {
+        public TourDialog(TourDialogViewModel tourDialogViewModel, Tour tour)  {
            InitializeComponent();
-           ((TourDialogViewModel) DataContext).Init(tour, () => Close());
+            DataContext = tourDialogViewModel;
+            tourDialogViewModel.Init(tour, () => Close(), dialogResult => DialogResult = dialogResult);
         }
 
-        public TourDialog() : this(new()) {
+        public TourDialog(TourDialogViewModel tourDialogViewModel) : this(tourDialogViewModel, new()) {
             // noop
         }
     }

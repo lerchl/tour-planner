@@ -21,8 +21,8 @@ namespace TourPlanner.Model {
         [Column("to"), MaxLength(100)]
         public string? To { get; set; }
 
-        [Column("transport_type"), MaxLength(100)]
-        public string? TransportType { get; set; }
+        [Column("transport_type")]
+        public TransportType TransportType { get; set; } = TransportType.FASTEST;
 
         /// <summary>
         ///     Whether the route of this tour has been fetched from the api.

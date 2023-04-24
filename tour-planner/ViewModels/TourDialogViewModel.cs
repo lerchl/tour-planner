@@ -6,7 +6,7 @@ using TourPlanner.Model;
 
 namespace TourPlanner.ViewModels {
 
-    internal class TourDialogViewModel : INotifyPropertyChanged {
+    public class TourDialogViewModel : INotifyPropertyChanged {
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -32,6 +32,7 @@ namespace TourPlanner.ViewModels {
         }
 
         public Action Close { get; private set; } = () => { };
+        public Action<bool> SetDialogResult { get; private set; } = (result) => { };
 
         private readonly ITourService _tourService;
 
@@ -45,10 +46,11 @@ namespace TourPlanner.ViewModels {
             CancelCommand = new RelayCommand(x => Cancel());
         }
 
-        public void Init(Tour tour, Action close) {
+        public void Init(Tour tour, Action close, Action<bool> setDialogResult) {
             Tour = tour;
             DialogTitle = tour.Id == Guid.Empty ? "Create Tour" : "Edit Tour";
             Close = close;
+            SetDialogResult = setDialogResult;
         }
 
         // /////////////////////////////////////////////////////////////////////////
@@ -61,10 +63,12 @@ namespace TourPlanner.ViewModels {
             } else {
                 _tourService.Update(Tour);
             }
+            SetDialogResult(true);
             Close();
         }
 
         private void Cancel() {
+            SetDialogResult(false);
             Close();
         }
     }

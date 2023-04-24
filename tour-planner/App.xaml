@@ -25,7 +25,7 @@
                 <Setter Property="BorderBrush" Value="{x:Null}" />
                 <Setter Property="SelectionBrush" Value="{x:Null}" />
 
-                <Setter Property="Template">
+                <!-- <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="TextBox">
                             <Border Padding="5" CornerRadius="10" Background="{StaticResource DataBackground}" Margin="5">
@@ -33,7 +33,7 @@
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
-                </Setter>
+                </Setter> -->
             </Style>
             <Style TargetType="DataGrid">
                 <Setter Property="Background" Value="Transparent" />

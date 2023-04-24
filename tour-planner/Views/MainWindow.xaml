@@ -88,8 +88,8 @@
                     <Label Content="Last fetched: " VerticalAlignment="Bottom" />
                     <Label Content="{Binding Path=SelectedTour.LastFetched, TargetNullValue=Never, StringFormat={}{0:dd.MM.yy HH:mm:ss}}" VerticalAlignment="Bottom" />
                     <Button Content="🔄" ToolTip="Fetch Tour" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" />
-                    <Button Content="✏️" ToolTip="Edit Tour" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" />
-                    <Button Content="🗑️" ToolTip="Delete Tour" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" />
+                    <Button Content="✏️" ToolTip="Edit Tour" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" Command="{Binding Path=EditTourCommand}" />
+                    <Button Content="🗑️" ToolTip="Delete Tour" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" Command="{Binding Path=DeleteTourCommand}" />
                 </StackPanel>
             </DockPanel>
             <TabControl Background="Transparent" Margin="25" BorderBrush="{x:Null}">
@@ -134,7 +134,7 @@
                                     <StackPanel Grid.Column="0" Grid.Row="2">
                                         <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Transport type" FontSize="16" />
                                         <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
-                                            <TextBlock Text="{Binding SelectedTour.TransportType}" />
+                                            <TextBlock Text="{Binding SelectedTour.TransportType.Name, TargetNullValue=''}" />
                                         </Border>
                                     </StackPanel>
 
@@ -152,7 +152,7 @@
                                         </Border>
                                     </StackPanel>
                                 </Grid>
-                                
+
                                 <StackPanel Grid.Column="1">
                                     <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Map" FontSize="16" />
                                     <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">

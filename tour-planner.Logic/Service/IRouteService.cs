@@ -4,6 +4,6 @@ namespace TourPlanner.Logic.Service {
 
     public interface IRouteService {
 
-        public Task<Route> GetRoute(string from, string to);
+        public Task<Route> GetRoute(string from, string to, TransportType transportType);
     }
 }

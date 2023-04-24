@@ -23,5 +23,11 @@ namespace TourPlanner.Data {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
             optionsBuilder.UseNpgsql(CONFIG.GetConnectionString("PostgreContext"));
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder.Entity<Tour>()
+                        .Property(t => t.TransportType)
+                        .HasConversion(new TransportTypeConverter());
+        }
     }
 }

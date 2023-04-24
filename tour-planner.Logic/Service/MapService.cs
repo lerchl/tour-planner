@@ -11,23 +11,21 @@ namespace TourPlanner.Logic.Service {
         // /////////////////////////////////////////////////////////////////////////
 
         public async Task<Bitmap> GetMap(Route route) {
-            var boundingBox = $"{route.BoundingBox.UpperLeft.Latitude.ToString().Replace(',', '.')}," +
+            var boundingBox = $"{route.BoundingBox!.UpperLeft.Latitude.ToString().Replace(',', '.')}," +
                               $"{route.BoundingBox.UpperLeft.Longitude.ToString().Replace(',', '.')}," +
                               $"{route.BoundingBox.LowerRight.Latitude.ToString().Replace(',', '.')}," +
                               $"{route.BoundingBox.LowerRight.Longitude.ToString().Replace(',', '.')}";
-            var url = $"https://www.mapquestapi.com/staticmap/v5/map?key={GetApiKey(MAP_QUEST)}&session={route.SessionId}&boundingBox={boundingBox}&margin=10";
+
+            var url = $"https://www.mapquestapi.com/staticmap/v5/map?" +
+                    $"key={GetApiKey(MAP_QUEST)}&" +
+                    $"session={route.SessionId}&" +
+                    $"boundingBox={boundingBox}&" +
+                    $"margin=10";
+
             using var client = new HttpClient();
             var response = await client.GetAsync(url);
             var stream = await response.Content.ReadAsStreamAsync();
-            // return Image.FromStream(stream);
-            // TODO: set project to windows only?
             return new Bitmap(stream);
-            // Image image = bitmap;
-            // // save output stream
-            // using var fileStream = new FileStream("map.png", FileMode.Create);
-            // await stream.CopyToAsync(fileStream);
-            // return new Image(stream);
-            // Console.WriteLine("Map saved to map.png");
         }
     }
 }
