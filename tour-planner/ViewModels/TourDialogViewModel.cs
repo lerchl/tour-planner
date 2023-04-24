@@ -1,6 +1,7 @@
+using System.Linq;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Reflection.Metadata;
 using TourPlanner.Logic.Service;
 using TourPlanner.Model;
 
@@ -30,6 +31,8 @@ namespace TourPlanner.ViewModels {
                 PropertyChanged?.Invoke(this, new(nameof(DialogTitle)));
             }
         }
+
+        public List<TransportType> TransportTypes => TransportType.ALL.ToList();
 
         public Action Close { get; private set; } = () => { };
         public Action<bool> SetDialogResult { get; private set; } = (result) => { };
