@@ -62,8 +62,9 @@
             </Border.Effect>
             <DockPanel Grid.Column="0">
                 <Label DockPanel.Dock="Top" Content="Tours" Margin="10 10 10 0" FontFamily="Tahoma" FontSize="40px" Height="60" HorizontalAlignment="Left" />
-                <TextBox FontFamily="Tahoma" FontSize="12" Text="{Binding Path=FilterText, UpdateSourceTrigger=PropertyChanged}" Margin="5" DockPanel.Dock="Top" HorizontalAlignment="Stretch" />
-                <Border DockPanel.Dock="Top" Margin="10" CornerRadius="10 10 45 10" Background="#111111">
+                <Label DockPanel.Dock="Top" Content="🔎" FontSize="16" Margin="10 10 10 -25" Panel.ZIndex="1" />
+                <TextBox Text="{Binding Path=FilterText, UpdateSourceTrigger=PropertyChanged}" Margin="10" DockPanel.Dock="Top" HorizontalAlignment="Stretch" />
+                <Border DockPanel.Dock="Top" Margin="10 0 10 10" CornerRadius="10 10 45 10" Background="#111111">
                     <DataGrid SelectionChanged="DataGrid_SelectionChanged"
                         FontFamily="Tahoma" FontSize="20px" HeadersVisibility="None"
                         ItemsSource="{Binding Path=Tours}" AutoGenerateColumns="False"
