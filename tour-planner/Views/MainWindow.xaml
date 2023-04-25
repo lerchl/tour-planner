@@ -9,6 +9,8 @@
         Background="{StaticResource Background}"
         Foreground="{StaticResource FontColor}">
     <Window.Resources>
+        <local:SecondsConverter x:Key="SecondsConverter" />
+
         <Style TargetType="TabItem">
             <Setter Property="Foreground" Value="{StaticResource FontColor}" />
             <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
@@ -142,14 +144,14 @@
                                     <StackPanel Grid.Column="0" Grid.Row="3">
                                         <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Distance" FontSize="16" />
                                         <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
-                                            <TextBlock Text="{Binding SelectedTour.Distance}" />
+                                            <TextBlock Text="{Binding SelectedTour.Distance, StringFormat={}{0}km}" />
                                         </Border>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="0" Grid.Row="4">
                                         <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Estimated time" FontSize="16" />
                                         <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
-                                            <TextBlock Text="{Binding SelectedTour.EstimatedTime}" />
+                                            <TextBlock Text="{Binding SelectedTour.EstimatedTime, Converter={StaticResource SecondsConverter}}" />
                                         </Border>
                                     </StackPanel>
                                 </Grid>
