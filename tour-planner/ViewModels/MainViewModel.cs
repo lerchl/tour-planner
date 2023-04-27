@@ -5,14 +5,12 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using TourPlanner.Logic.Service;
 using TourPlanner.Model;
-using TourPlanner.Views;
 
 namespace TourPlanner.ViewModels {
 
@@ -61,18 +59,18 @@ namespace TourPlanner.ViewModels {
         private readonly ITourLogService _tourLogService;
         private readonly IRouteService _routeService;
         private readonly IMapService _mapService;
-        private readonly TourDialogViewModel _tourDialogViewModel;
+        private readonly IDialogService _dialogService;
 
         // /////////////////////////////////////////////////////////////////////////
         // Init
         // /////////////////////////////////////////////////////////////////////////
 
-        public MainViewModel(ITourService tourService, ITourLogService tourLogService, IRouteService routeService, IMapService mapService, TourDialogViewModel tourDialogViewModel) {
+        public MainViewModel(ITourService tourService, ITourLogService tourLogService, IRouteService routeService, IMapService mapService, IDialogService dialogService) {
             _tourService = tourService;
             _tourLogService = tourLogService;
             _routeService = routeService;
             _mapService = mapService;
-            _tourDialogViewModel = tourDialogViewModel;
+            _dialogService = dialogService;
             AddTourCommand = new(x => AddTour());
             EditTourCommand = new RelayCommand(x => EditTour());
             DeleteTourCommand = new RelayCommand(x => DeleteTour());
@@ -119,15 +117,13 @@ namespace TourPlanner.ViewModels {
         }
 
         public void AddTour() {
-            var tourDialog = new TourDialog(_tourDialogViewModel);
-            if (tourDialog.ShowDialog() == true) {
+            if (_dialogService.OpenAddTourDialog()) {
                 FetchTours();
             }
         }
 
         public void EditTour() {
-            var tourDialog = new TourDialog(_tourDialogViewModel, new(SelectedTour!));
-            if (tourDialog.ShowDialog() == true) {
+            if (_dialogService.OpenEditTourDialog(new(SelectedTour!))) {
                 FetchTours();
             }
         }
