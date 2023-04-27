@@ -17,7 +17,7 @@ namespace TourPlanner.Logic.Service {
         // Methods
         // /////////////////////////////////////////////////////////////////////////
 
-        public static string GetApiKey(string name) {
+        public static string? GetApiKey(string name) {
             return CONFIG.GetSection("ApiKeys")[name];
         }
     }
