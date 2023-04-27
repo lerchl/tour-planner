@@ -143,9 +143,9 @@ namespace TourPlanner.ViewModels {
         ///     Requires the tour to have a from and to location.
         /// </summary>
         private void FetchRouteData() {
-            try {
-                // Fetch route
-                _routeService.GetRoute(SelectedTour!.From!, SelectedTour.To!, SelectedTour.TransportType).ContinueWith(task => {
+            // Fetch route
+            _routeService.GetRoute(SelectedTour!.From!, SelectedTour.To!, SelectedTour.TransportType).ContinueWith(task => {
+                try {
                     var route = task.Result;
 
                     SelectedTour.RouteFetched = true;
@@ -170,12 +170,12 @@ namespace TourPlanner.ViewModels {
                             MapImage = BitmapToImageSource(bitmap);
                         });
                     });
-                });
-            } catch (Exception e) {
-                // TODO: Show error
-                Console.WriteLine(e.Message);
-                Console.WriteLine(e.StackTrace);
-            }
+                } catch (Exception e) {
+                    // TODO: Show error
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine(e.StackTrace);
+                }
+            });
         }
 
         private static ImageSource BitmapToImageSource(Bitmap bitmap) {
