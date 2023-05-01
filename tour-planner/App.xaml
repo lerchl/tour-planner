@@ -30,6 +30,18 @@
             <SolidColorBrush x:Key="PrimaryActive" Color="#FF9361FF" />
             <FontFamily x:Key="FontFamily">Tahoma</FontFamily>
 
+            <LinearGradientBrush x:Key="GridSplitter Gradient">
+                <GradientStop Color="#222222" Offset="0.1" />
+                <GradientStop Color="#672DC9" Offset="0.5" />
+                <GradientStop Color="#222222" Offset="0.9" />
+            </LinearGradientBrush>
+
+            <LinearGradientBrush x:Key="GridSplitter Gradient Hover">
+                <GradientStop Color="#222222" Offset="0.1" />
+                <GradientStop Color="#3616d9" Offset="0.5" />
+                <GradientStop Color="#222222" Offset="0.9" />
+            </LinearGradientBrush>
+
             <Style TargetType="Label">
                 <Setter Property="Foreground" Value="{StaticResource FontColor}" />
             </Style>
@@ -79,6 +91,21 @@
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter TargetName="Border" Property="Background" Value="{StaticResource Primary Gradient Hover}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="GridSplitter">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="GridSplitter">
+                            <Rectangle Name="Rectangle" Fill="{StaticResource GridSplitter Gradient}" />
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Rectangle" Property="Fill" Value="{StaticResource GridSplitter Gradient Hover}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>

@@ -122,63 +122,48 @@
                         <Border.Effect>
                             <DropShadowEffect />
                         </Border.Effect>
-                        <StackPanel>
-                            <Grid>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="3" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" Margin="0 0 0 5">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="5" />
+                                    <ColumnDefinition Width="3" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <Grid Grid.Column="0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="From" FontSize="16" />
+                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
+                                        <TextBlock Text="{Binding SelectedTour.From}" TextWrapping="Wrap" />
+                                    </Border>
 
-                                    <StackPanel Grid.Column="0" Grid.Row="0">
-                                        <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="From" FontSize="16" />
-                                        <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
-                                            <TextBlock Text="{Binding SelectedTour.From}" TextWrapping="Wrap" />
-                                        </Border>
-                                    </StackPanel>
+                                    <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="To" FontSize="16" />
+                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
+                                        <TextBlock Text="{Binding SelectedTour.To}" />
+                                    </Border>
 
-                                    <StackPanel Grid.Column="0" Grid.Row="1">
-                                        <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="To" FontSize="16" />
-                                        <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
-                                            <TextBlock Text="{Binding SelectedTour.To}" />
-                                        </Border>
-                                    </StackPanel>
+                                    <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Transport type" FontSize="16" />
+                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
+                                        <TextBlock Text="{Binding SelectedTour.TransportType.Name, TargetNullValue=''}" />
+                                    </Border>
 
-                                    <StackPanel Grid.Column="0" Grid.Row="2">
-                                        <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Transport type" FontSize="16" />
-                                        <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
-                                            <TextBlock Text="{Binding SelectedTour.TransportType.Name, TargetNullValue=''}" />
-                                        </Border>
-                                    </StackPanel>
+                                    <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Distance" FontSize="16" />
+                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
+                                        <TextBlock Text="{Binding SelectedTour.Distance, StringFormat={}{0}km}" />
+                                    </Border>
 
-                                    <StackPanel Grid.Column="0" Grid.Row="3">
-                                        <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Distance" FontSize="16" />
-                                        <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
-                                            <TextBlock Text="{Binding SelectedTour.Distance, StringFormat={}{0}km}" />
-                                        </Border>
-                                    </StackPanel>
+                                    <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Estimated time" FontSize="16" />
+                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
+                                        <TextBlock Text="{Binding SelectedTour.EstimatedTime, Converter={StaticResource SecondsConverter}}" />
+                                    </Border>
+                                </StackPanel>
 
-                                    <StackPanel Grid.Column="0" Grid.Row="4">
-                                        <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Estimated time" FontSize="16" />
-                                        <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
-                                            <TextBlock Text="{Binding SelectedTour.EstimatedTime, Converter={StaticResource SecondsConverter}}" />
-                                        </Border>
-                                    </StackPanel>
-                                </Grid>
-
-                                <GridSplitter Grid.Column="1" Width="5" VerticalAlignment="Stretch" />
+                                <GridSplitter Grid.Column="1" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center" Margin="0 20 0 0" />
 
                                 <StackPanel Grid.Column="2">
                                     <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Map" FontSize="16" />
@@ -190,13 +175,17 @@
                                 </StackPanel>
                             </Grid>
 
-                            <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Description" FontSize="16" />
-                            <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
-                                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                    <TextBlock Text="{Binding SelectedTour.Description}" TextWrapping="Wrap" AllowDrop="True" TextAlignment="Justify" Height="252" />
-                                </ScrollViewer>
-                            </Border>
-                        </StackPanel>
+                            <GridSplitter Grid.Row="1" ResizeDirection="Rows" ResizeBehavior="PreviousAndNext" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20 0 20 0" />
+
+                            <StackPanel Grid.Row="2">
+                                <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Description" FontSize="16" />
+                                <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                        <TextBlock Text="{Binding SelectedTour.Description}" TextWrapping="Wrap" AllowDrop="True" TextAlignment="Justify" />
+                                    </ScrollViewer>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
                     </Border>
                 </TabItem>
                 <TabItem Header="Logs">
