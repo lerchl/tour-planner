@@ -24,6 +24,9 @@ namespace TourPlanner.Model {
         [Column("transport_type")]
         public TransportType TransportType { get; set; } = TransportType.FASTEST;
 
+        [Column("last_edited")]
+        public DateTime? LastEdited { get; set; }
+
         /// <summary>
         ///     Whether the route of this tour has been fetched from the api.
         ///     If this is true, the distance, estimated time and map image should be set.

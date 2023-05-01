@@ -18,6 +18,11 @@ namespace TourPlanner.Logic.Service {
         // Methods
         // /////////////////////////////////////////////////////////////////////////
 
+        public override Tour Update(Tour tour) {
+            tour.LastEdited = DateTime.UtcNow;
+            return _repository.Update(tour);
+        }
+
         public List<Tour> GetByNameContains(string search) {
             return _repository.GetByNameContains(search);
         }

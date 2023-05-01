@@ -28,25 +28,25 @@ namespace TourPlanner.Logic.Service {
         // Methods
         // /////////////////////////////////////////////////////////////////////////
 
-        public List<E> GetAll() {
+        public virtual List<E> GetAll() {
             return _repository.GetAll();
         }
 
-        public E? GetById(Guid id) {
+        public virtual E? GetById(Guid id) {
             return _repository.GetById(id);
         }
 
-        public E Add(E entity) {
+        public virtual E Add(E entity) {
             _validator.ValidateSave(entity);
             return _repository.Add(entity);
         }
 
-        public E Update(E entity) {
+        public virtual E Update(E entity) {
             _validator.ValidateSave(entity);
             return _repository.Update(entity);
         }
 
-        public void Remove(E entity) {
+        public virtual void Remove(E entity) {
             _repository.Remove(entity);
         }
     }
