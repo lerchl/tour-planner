@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
         xmlns:local="clr-namespace:TourPlanner.ViewModels"
         mc:Ignorable="d"
         Title="Tour Planner" Width="1200" Height="800"
@@ -126,10 +127,10 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="10" />
-                                <RowDefinition Height="297" />
+                                <RowDefinition Height="280" />
                             </Grid.RowDefinitions>
 
-                            <Grid Grid.Row="0" Margin="0 0 0 5">
+                            <Grid Grid.Row="0" Margin="0 0 0 15">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="3" />
@@ -165,26 +166,29 @@
 
                                 <GridSplitter Grid.Column="1" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center" Margin="0 20 0 0" />
 
-                                <StackPanel Grid.Column="2">
-                                    <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Map" FontSize="16" />
-                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
+                                <DockPanel Grid.Column="2">
+                                    <Label DockPanel.Dock="Top" Margin="10 10 10 -15" Panel.ZIndex="1" Content="Map" FontSize="16" />
+                                    <Border DockPanel.Dock="Top" Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="{StaticResource DataBackground}">
                                         <Border CornerRadius="10">
-                                            <Image Source="{Binding MapImage, UpdateSourceTrigger=PropertyChanged}" />
+                                            <StackPanel>
+                                                <Image gif:AnimationBehavior.SourceUri="https://cdn.pixabay.com/animation/2022/10/11/03/16/03-16-39-160_512.gif" gif:AnimationBehavior.AutoStart="True" />
+                                                <Image Source="{Binding MapImage, UpdateSourceTrigger=PropertyChanged}" />
+                                            </StackPanel>
                                         </Border>
                                     </Border>
-                                </StackPanel>
+                                </DockPanel>
                             </Grid>
 
-                            <GridSplitter Grid.Row="1" ResizeDirection="Rows" ResizeBehavior="PreviousAndNext" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20 7 20 0" />
+                            <GridSplitter Grid.Row="1" ResizeDirection="Rows" ResizeBehavior="PreviousAndNext" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20 5 20 0" />
 
-                            <StackPanel Grid.Row="2">
-                                <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Description" FontSize="16" />
-                                <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
+                            <DockPanel Grid.Row="2">
+                                <Label DockPanel.Dock="Top" Margin="10 10 10 -15" Panel.ZIndex="1" Content="Description" FontSize="16" />
+                                <Border DockPanel.Dock="Top" Margin="10 0 10 10" Padding="10" CornerRadius="10" Background="#111">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                                         <TextBlock Text="{Binding SelectedTour.Description}" TextWrapping="Wrap" AllowDrop="True" TextAlignment="Justify" />
                                     </ScrollViewer>
                                 </Border>
-                            </StackPanel>
+                            </DockPanel>
                         </Grid>
                     </Border>
                 </TabItem>
