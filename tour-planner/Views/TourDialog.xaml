@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TourPlanner.ViewModels"
         mc:Ignorable="d"
-        Title="TourDialog" Height="470" Width="400"
+        Title="TourDialog" Height="600" Width="400"
         Background="{StaticResource Background}"
         Foreground="{StaticResource FontColor}">
     <Window.Resources>

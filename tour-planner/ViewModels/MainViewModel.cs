@@ -52,6 +52,7 @@ namespace TourPlanner.ViewModels {
         public ObservableCollection<TourLog> TourLogs { get; private set; } = new();
 
         public RelayCommand AddTourCommand { get; private set; }
+        public RelayCommand FetchRouteDataCommand { get; private set; }
         public RelayCommand EditTourCommand { get; private set; }
         public RelayCommand DeleteTourCommand { get; private set; }
 
@@ -72,6 +73,7 @@ namespace TourPlanner.ViewModels {
             _mapService = mapService;
             _dialogService = dialogService;
             AddTourCommand = new(x => AddTour());
+            FetchRouteDataCommand = new(x => FetchRouteData());
             EditTourCommand = new RelayCommand(x => EditTour());
             DeleteTourCommand = new RelayCommand(x => DeleteTour());
             FetchTours();

@@ -105,7 +105,7 @@
                             <Label Content="{Binding Path=SelectedTour.LastFetched, TargetNullValue=Never, StringFormat={}{0:dd.MM.yy HH:mm:ss}}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="100" />
                         </StackPanel>
                     </StackPanel>
-                    <Button Content="🔄" ToolTip="Fetch Tour" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" />
+                    <Button Content="🔄" ToolTip="Fetch Tour" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" Command="{Binding Path=FetchRouteDataCommand}" />
                     <Button Content="✏️" ToolTip="Edit Tour" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" Command="{Binding Path=EditTourCommand}" />
                     <Button Content="🗑️" ToolTip="Delete Tour" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" Command="{Binding Path=DeleteTourCommand}" />
                 </StackPanel>
@@ -125,7 +125,7 @@
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
-                                <RowDefinition Height="3" />
+                                <RowDefinition Height="10" />
                                 <RowDefinition Height="297" />
                             </Grid.RowDefinitions>
 
@@ -175,7 +175,7 @@
                                 </StackPanel>
                             </Grid>
 
-                            <GridSplitter Grid.Row="1" ResizeDirection="Rows" ResizeBehavior="PreviousAndNext" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20 0 20 0" />
+                            <GridSplitter Grid.Row="1" ResizeDirection="Rows" ResizeBehavior="PreviousAndNext" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20 7 20 0" />
 
                             <StackPanel Grid.Row="2">
                                 <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Description" FontSize="16" />
