@@ -7,5 +7,5 @@
              xmlns:local="clr-namespace:TourPlanner.Views"
              mc:Ignorable="d" 
              d:DesignHeight="25" d:DesignWidth="25">
-    <Image gif:AnimationBehavior.SourceStream="{Binding Path=Gif}" gif:AnimationBehavior.AutoStart="True" gif:AnimationBehavior.AnimateInDesignMode="True" />
+    <Image Visibility="{Binding Visibility}" gif:AnimationBehavior.SourceStream="{Binding Gif}" gif:AnimationBehavior.AutoStart="True" gif:AnimationBehavior.AnimateInDesignMode="True" />
 </UserControl>

@@ -3,12 +3,14 @@ using Microsoft.Extensions.DependencyInjection;
 using TourPlanner.Data.Repository;
 using TourPlanner.Logic.Service;
 using TourPlanner.ViewModels;
+using TourPlanner.Views;
 
 namespace TourPlanner {
 
     internal class IoCContainerConfig {
 
         public MainViewModel MainViewModel => serviceProvider.GetRequiredService<MainViewModel>();
+        public LoadingViewModel LoadingIndicatorViewModel => serviceProvider.GetRequiredService<LoadingViewModel>();
 
         private readonly IServiceProvider serviceProvider;
 
@@ -31,6 +33,7 @@ namespace TourPlanner {
 
             // ViewModels
             services.AddSingleton<MainViewModel>();
+            services.AddTransient<LoadingViewModel>();
             services.AddTransient<TourDialogViewModel>();
 
             // View Services

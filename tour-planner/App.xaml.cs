@@ -20,10 +20,18 @@ namespace TourPlanner {
 
             var ioCConfig = (IoCContainerConfig) Current.Resources["IoCConfig"];
 
+            var mainViewModel = ioCConfig.MainViewModel;
+            mainViewModel.MapLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
+            mainViewModel.DistanceLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
+            mainViewModel.EstimatedTimeLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
+
             var mainWindow = new MainWindow {
-                DataContext = ioCConfig.MainViewModel,
-                Loading
+                DataContext = mainViewModel,
+                MapLoadingIndicator = { DataContext = mainViewModel.MapLoadingViewModel },
+                DistanceLoadingIndicator = { DataContext = mainViewModel.DistanceLoadingViewModel },
+                EstimatedTimeLoadingIndicator = { DataContext = mainViewModel.EstimatedTimeLoadingViewModel }
             };
+
             mainWindow.Show();
         }
     }

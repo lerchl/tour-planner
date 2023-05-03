@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
         xmlns:local="clr-namespace:TourPlanner.Views"
         mc:Ignorable="d"
         Title="Tour Planner" Width="1200" Height="800"
@@ -11,6 +10,7 @@
         Foreground="{StaticResource FontColor}">
     <Window.Resources>
         <local:SecondsConverter x:Key="SecondsConverter" />
+        <local:VisibleIfNullConverter x:Key="VisibleIfNullConverter" />
 
         <Style TargetType="TabItem">
             <Setter Property="Foreground" Value="{StaticResource FontColor}" />
@@ -139,28 +139,34 @@
 
                                 <StackPanel Grid.Column="0">
                                     <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="From" FontSize="16" />
-                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
+                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="{StaticResource DataBackground}">
                                         <TextBlock Text="{Binding SelectedTour.From}" TextWrapping="Wrap" />
                                     </Border>
 
                                     <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="To" FontSize="16" />
-                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
+                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="{StaticResource DataBackground}">
                                         <TextBlock Text="{Binding SelectedTour.To}" />
                                     </Border>
 
                                     <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Transport type" FontSize="16" />
-                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
+                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="{StaticResource DataBackground}">
                                         <TextBlock Text="{Binding SelectedTour.TransportType.Name, TargetNullValue=''}" />
                                     </Border>
 
                                     <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Distance" FontSize="16" />
-                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
-                                        <TextBlock Text="{Binding SelectedTour.Distance, StringFormat={}{0}km}" />
+                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="{StaticResource DataBackground}">
+                                        <Grid>
+                                            <local:LoadingIndicator x:Name="DistanceLoadingIndicator" Width="25" Height="25" />
+                                            <TextBlock Text="{Binding SelectedTour.Distance, StringFormat={}{0}km}" />
+                                        </Grid>
                                     </Border>
 
                                     <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Estimated time" FontSize="16" />
-                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="#111">
-                                        <TextBlock Text="{Binding SelectedTour.EstimatedTime, Converter={StaticResource SecondsConverter}}" />
+                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="{StaticResource DataBackground}">
+                                        <Grid>
+                                            <local:LoadingIndicator x:Name="EstimatedTimeLoadingIndicator" Width="25" Height="25" />
+                                            <TextBlock Text="{Binding SelectedTour.EstimatedTime, Converter={StaticResource SecondsConverter}}" />
+                                        </Grid>
                                     </Border>
                                 </StackPanel>
 
@@ -170,10 +176,10 @@
                                     <Label DockPanel.Dock="Top" Margin="10 10 10 -15" Panel.ZIndex="1" Content="Map" FontSize="16" />
                                     <Border DockPanel.Dock="Top" Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="{StaticResource DataBackground}">
                                         <Border CornerRadius="10">
-                                            <StackPanel>
-                                                <local:LoadingIndicator />
+                                            <Grid>
+                                                <local:LoadingIndicator x:Name="MapLoadingIndicator" Width="50" Height="50" />
                                                 <Image Source="{Binding MapImage, UpdateSourceTrigger=PropertyChanged}" />
-                                            </StackPanel>
+                                            </Grid>
                                         </Border>
                                     </Border>
                                 </DockPanel>

@@ -48,6 +48,9 @@ namespace TourPlanner.ViewModels {
             }
         }
 
+        public LoadingViewModel MapLoadingViewModel { get; set; }
+        public LoadingViewModel DistanceLoadingViewModel { get; set; }
+        public LoadingViewModel EstimatedTimeLoadingViewModel { get; set; }
 
         public ObservableCollection<TourLog> TourLogs { get; private set; } = new();
 
@@ -141,6 +144,10 @@ namespace TourPlanner.ViewModels {
         ///     Requires the tour to have a from and to location.
         /// </summary>
         private void FetchRouteData() {
+            MapLoadingViewModel.Show();
+            DistanceLoadingViewModel.Show();
+            EstimatedTimeLoadingViewModel.Show();
+
             // Fetch route
             _routeService.GetRoute(SelectedTour!.From!, SelectedTour.To!, SelectedTour.TransportType).ContinueWith(task => {
                 try {
@@ -160,7 +167,10 @@ namespace TourPlanner.ViewModels {
 
                         SelectedTour.MapImage = stream.ToArray();
 
-                        // Update tour and map image in UI thread
+                        MapLoadingViewModel.Hide();
+                        DistanceLoadingViewModel.Hide();
+                        EstimatedTimeLoadingViewModel.Hide();
+
                         Application.Current.Dispatcher.Invoke(() => {
                             int index = Tours.IndexOf(SelectedTour);
                             SelectedTour = _tourService.Update(SelectedTour);
