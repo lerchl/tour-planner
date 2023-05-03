@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Windows.Data;
-using System.Windows.Documents;
 
-namespace TourPlanner.ViewModels {
+namespace TourPlanner.Views {
 
     /// <summary>
     ///     Converts an <see cref="long"/> representing seconds to a user-readable <see cref="string"/>.

@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
-        xmlns:local="clr-namespace:TourPlanner.ViewModels"
+        xmlns:local="clr-namespace:TourPlanner.Views"
         mc:Ignorable="d"
         Title="Tour Planner" Width="1200" Height="800"
         Background="{StaticResource Background}"
@@ -171,7 +171,7 @@
                                     <Border DockPanel.Dock="Top" Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="{StaticResource DataBackground}">
                                         <Border CornerRadius="10">
                                             <StackPanel>
-                                                <Image gif:AnimationBehavior.SourceUri="https://cdn.pixabay.com/animation/2022/10/11/03/16/03-16-39-160_512.gif" gif:AnimationBehavior.AutoStart="True" />
+                                                <local:LoadingIndicator />
                                                 <Image Source="{Binding MapImage, UpdateSourceTrigger=PropertyChanged}" />
                                             </StackPanel>
                                         </Border>
