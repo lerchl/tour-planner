@@ -7,61 +7,161 @@
         <ResourceDictionary>
             <local:IoCContainerConfig x:Key="IoCConfig" />
 
-            <SolidColorBrush x:Key="Background" Color="#090909" />
-            <SolidColorBrush x:Key="DataBackground" Color="#111111" />
-            <SolidColorBrush x:Key="FontColor" Color="#eeeeee" />
+            <FontFamily x:Key="Font Family">Tahoma</FontFamily>
+
+            <!--        -->
+            <!-- COLORS -->
+            <!--        -->
+
+            <!-- #050505 -->
+            <Color x:Key="Background" A="255" R="5" G="5" B="5" />
+
+            <!-- #111 -->
+            <Color x:Key="Data Background" A="255" R="17" G="17" B="17" />
             
-            <SolidColorBrush x:Key="Primary" Color="#672DC9" />
+            <!-- #eee -->
+            <Color x:Key="Font Color" A="255" R="238" G="238" B="238" />
+            
+            <!-- #672dc9 -->
+            <Color x:Key="Primary" A="255" R="103" G="45" B="201" />
+            <!-- #2d32c9 -->
+            <Color x:Key="Primary Hover" A="255" R="45" G="50" B="201" />
+            <!-- #666bff -->
+            <Color x:Key="Primary Active" A="255" R="102" G="107" B="255" />
+
+            <!-- #a52dc9 -->
+            <Color x:Key="Secondary" A="255" R="165" G="45" B="201" />
+            <!-- #c92d6b -->
+            <Color x:Key="Secondary Hover" A="255" R="201" G="45" B="107" />
+
+            <!-- #222 -->
+            <Color x:Key="Gradient Filler" A="255" R="34" G="34" B="34" />
+            <!-- #444 -->
+            <Color x:Key="Gradient Filler Active" A="255" R="68" G="68" B="68" />
+
+            <!--               -->
+            <!-- SOLID BRUSHES -->
+            <!--               -->
+
+            <SolidColorBrush x:Key="Background Solid" Color="{StaticResource Background}" />
+            <SolidColorBrush x:Key="Data Background Solid" Color="{StaticResource Data Background}" />
+            <SolidColorBrush x:Key="Font Color Solid" Color="{StaticResource Font Color}" />
+
+            <!--           -->
+            <!-- GRADIENTS -->
+            <!--           -->
+
             <LinearGradientBrush x:Key="Primary Gradient">
-                <GradientStop Color="#672DC9" Offset="0" />
-                <GradientStop Color="#222222" Offset="0.9" />
+                <GradientStop Color="{StaticResource Primary}" Offset="0" />
+                <GradientStop Color="{StaticResource Gradient Filler}" Offset="0.9" />
             </LinearGradientBrush>
-
             <LinearGradientBrush x:Key="Primary Gradient Hover">
-                <GradientStop Color="#3616d9" Offset="0" />
-                <GradientStop Color="#222222" Offset="0.9" />
+                <GradientStop Color="{StaticResource Primary Hover}" Offset="0" />
+                <GradientStop Color="{StaticResource Gradient Filler}" Offset="0.9" />
             </LinearGradientBrush>
-
             <LinearGradientBrush x:Key="Primary Gradient Active">
-                <GradientStop Color="#3616d9" Offset="0" />
-                <GradientStop Color="#555555" Offset="0.9" />
+                <GradientStop Color="{StaticResource Primary Active}" Offset="0" />
+                <GradientStop Color="{StaticResource Gradient Filler Active}" Offset="0.9" />
             </LinearGradientBrush>
 
-            <SolidColorBrush x:Key="PrimaryActive" Color="#FF9361FF" />
-            <FontFamily x:Key="FontFamily">Tahoma</FontFamily>
+            <LinearGradientBrush x:Key="Secondary Gradient">
+                <GradientStop Color="{StaticResource Secondary}" Offset="0" />
+                <GradientStop Color="{StaticResource Gradient Filler}" Offset="0.9" />
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="Secondary Gradient Hover">
+                <GradientStop Color="{StaticResource Secondary Hover}" Offset="0" />
+                <GradientStop Color="{StaticResource Gradient Filler}" Offset="0.9" />
+            </LinearGradientBrush>
+
+            <LinearGradientBrush x:Key="Tours Panel Gradient">
+                <GradientStop Color="#1f0054" Offset="0.5" />
+                <GradientStop Color="{StaticResource Data Background}" Offset="0.9" />
+            </LinearGradientBrush>
+
+            <LinearGradientBrush x:Key="Details Panel Gradient">
+                <GradientStop Color="#2f2330" Offset="0.5" />
+                <GradientStop Color="{StaticResource Data Background}" Offset="0.9" />
+            </LinearGradientBrush>
+
+            <LinearGradientBrush x:Key="Logs Panel Gradient">
+                <GradientStop Color="#232730" Offset="0.5" />
+                <GradientStop Color="{StaticResource Data Background}" Offset="0.9" />
+            </LinearGradientBrush>
+
+            <LinearGradientBrush x:Key="Dialog Background Gradient">
+                <GradientStop Color="#001c4a" Offset="0.5" />
+                <GradientStop Color="{StaticResource Data Background}" Offset="0.9" />
+            </LinearGradientBrush>
+
+            <!--                         -->
+            <!-- GRID SPLITTER GRADIENTS -->
+            <!--                         -->
 
             <LinearGradientBrush x:Key="GridSplitter Gradient">
-                <GradientStop Color="#222222" Offset="0.1" />
-                <GradientStop Color="#672DC9" Offset="0.5" />
-                <GradientStop Color="#222222" Offset="0.9" />
+                <GradientStop Color="{StaticResource Data Background}" Offset="0.05" />
+                <GradientStop Color="{StaticResource Secondary}" Offset="0.5" />
+                <GradientStop Color="{StaticResource Data Background}" Offset="0.95" />
             </LinearGradientBrush>
 
             <LinearGradientBrush x:Key="GridSplitter Gradient Hover">
-                <GradientStop Color="#222222" Offset="0.1" />
-                <GradientStop Color="#3616d9" Offset="0.5" />
-                <GradientStop Color="#222222" Offset="0.9" />
+                <GradientStop Color="{StaticResource Data Background}" Offset="0.1" />
+                <GradientStop Color="{StaticResource Secondary Hover}" Offset="0.5" />
+                <GradientStop Color="{StaticResource Data Background}" Offset="0.9" />
             </LinearGradientBrush>
 
+            <!--       -->
+            <!-- LABEL -->
+            <!--       -->
+
             <Style TargetType="Label">
-                <Setter Property="Foreground" Value="{StaticResource FontColor}" />
+                <Setter Property="Foreground" Value="{StaticResource Font Color Solid}" />
+                <Setter Property="FontFamily" Value="{StaticResource Font Family}" />
+                <Setter Property="FontSize" Value="16" />
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Label">
+                            <ContentPresenter Margin="10 10 10 -10" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
+
+            <!--          -->
+            <!-- TEXT BOX -->
+            <!--          -->
+
             <Style TargetType="TextBox">
-                <Setter Property="Background" Value="{StaticResource Background}" />
-                <Setter Property="Foreground" Value="{StaticResource FontColor}" />
-                <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
+                <Setter Property="Foreground" Value="{StaticResource Font Color Solid}" />
+                <Setter Property="FontFamily" Value="{StaticResource Font Family}" />
                 <Setter Property="FontSize" Value="20" />
                 <Setter Property="BorderBrush" Value="{x:Null}" />
+                <Setter Property="CaretBrush" Value="{StaticResource Font Color Solid}" />
 
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="TextBoxBase">
-                            <Border Name="Border" CornerRadius="10" Padding="10" Background="{StaticResource DataBackground}">
+                            <Border Name="Border" CornerRadius="10" Padding="10" Background="{StaticResource Data Background Solid}">
                                 <ScrollViewer Height="30" x:Name="PART_ContentHost" />
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
-                </Setter> 
+                </Setter>
             </Style>
+
+            <!--            -->
+            <!-- TEXT BLOCK -->
+            <!--            -->
+
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="{StaticResource Font Family}" />
+                <Setter Property="TextTrimming" Value="WordEllipsis" />
+            </Style>
+            
+            <!--           -->
+            <!-- DATA GRID -->
+            <!--           -->
+
             <Style TargetType="DataGrid">
                 <Setter Property="Background" Value="Transparent" />
                 <Setter Property="Foreground" Value="#eeeeee" />
@@ -76,16 +176,20 @@
                 <Setter Property="Background" Value="#111111" />
             </Style>
 
+            <!--         -->
+            <!-- BUTTONS -->
+            <!--         -->
+
+            <!-- DEFAULT PRIMARY BUTTON -->
+            <!-- CHANGES TO THIS - EXCEPT COLORS - REQUIRE CHANGES TO OPTIONAL SECONDARY BUTTON TOO -->
             <Style TargetType="Button">
-                <Setter Property="Foreground" Value="{StaticResource FontColor}" />
+                <Setter Property="Foreground" Value="{StaticResource Font Color Solid}" />
+                <Setter Property="FontSize" Value="16" />
 
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
                             <Border Name="Border" CornerRadius="10" Background="{StaticResource Primary Gradient}" Padding="10">
-                                <Border.Effect>
-                                    <DropShadowEffect />
-                                </Border.Effect>
                                 <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
                             </Border>
                             <ControlTemplate.Triggers>
@@ -98,6 +202,35 @@
                 </Setter>
             </Style>
 
+            <!-- OPTIONAL SECONDARY BUTTON -->
+            <!-- CHANGES TO THIS - EXCEPT COLORS - REQUIRE CHANGES TO DEFAULT PRIMARY BUTTON TOO -->
+            <Style TargetType="Button" x:Key="Secondary Button">
+                <Setter Property="Foreground" Value="{StaticResource Font Color Solid}" />
+                <Setter Property="FontSize" Value="16" />
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Name="Border" CornerRadius="10" Background="{StaticResource Secondary Gradient}" Padding="10">
+                                <Border.Effect>
+                                    <DropShadowEffect />
+                                </Border.Effect>
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Secondary Gradient Hover}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!--               -->
+            <!-- GRID SPLITTER -->
+            <!--               -->
+
             <Style TargetType="GridSplitter">
                 <Setter Property="Template">
                     <Setter.Value>
@@ -106,6 +239,98 @@
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter TargetName="Rectangle" Property="Fill" Value="{StaticResource GridSplitter Gradient Hover}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!--           -->
+            <!-- COMBO BOX -->
+            <!--           -->
+            
+            <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="ToggleButton">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="20" />
+                    </Grid.ColumnDefinitions>
+                    <Border x:Name="Border"  Grid.ColumnSpan="2" />
+                    <Border Grid.Column="0" Background="Transparent" BorderBrush="Transparent" />
+                    <Path x:Name="Arrow" Grid.Column="1" Fill="{StaticResource Font Color Solid}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z" />
+                </Grid>
+            </ControlTemplate>
+
+            <Style TargetType="ComboBox">
+                <Setter Property="Foreground" Value="{StaticResource Font Color Solid}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ComboBox">
+                            <Border x:Name="ComboBoxBorder"  CornerRadius="10" Padding="10" Background="{StaticResource Data Background Solid}">
+                                <Grid>
+                                    <ToggleButton 
+                                            Name="ToggleButton" 
+                                            Template="{StaticResource ComboBoxToggleButton}" 
+                                            Grid.Column="2" 
+                                            Focusable="false"
+                                            IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                                            ClickMode="Press">
+                                    </ToggleButton>
+                                    <ContentPresenter Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}"
+                                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                            Height="30" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                                    <Popup 
+                                            Name="Popup"
+                                            Placement="Bottom"
+                                            HorizontalOffset="-10"
+                                            VerticalOffset="10"
+                                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                                            AllowsTransparency="True" 
+                                            Focusable="False"
+                                            PopupAnimation="Slide">
+                                        <Grid Name="DropDown"
+                                              MinWidth="{TemplateBinding ActualWidth}"
+                                              MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                            <Border x:Name="DropDownBorder"
+                                                Background="{StaticResource Data Background Solid}" CornerRadius="0 0 10 10" />
+                                            <ScrollViewer>
+                                                <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                            </ScrollViewer>
+                                        </Grid>
+                                    </Popup>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsDropDownOpen" Value="True">
+                                    <Setter TargetName="ComboBoxBorder" Property="CornerRadius" Value="10 10 0 0" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="ComboBoxItem">
+                <Setter Property="Foreground" Value="{StaticResource Font Color Solid}" />
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ComboBoxItem">
+                            <Border Name="Border" Margin="2" Padding="5" CornerRadius="10">
+                                <ContentPresenter />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsHighlighted" Value="true">
+                                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Primary Gradient Hover}" />
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="true">
+                                    <Setter TargetName="Border" Property="Background" Value="{StaticResource Primary Gradient Active}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>

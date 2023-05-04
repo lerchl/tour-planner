@@ -3,53 +3,40 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TourPlanner.ViewModels"
+        xmlns:local="clr-namespace:TourPlanner.Views"
         mc:Ignorable="d"
         Title="TourDialog" Height="600" Width="400"
-        Background="{StaticResource Background}"
-        Foreground="{StaticResource FontColor}">
-    <Window.Resources>
-        <Style TargetType="Label">
-            <Setter Property="Foreground" Value="{StaticResource FontColor}" />
-            <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
-            <Setter Property="FontSize" Value="16" />
+        Background="{StaticResource Background Solid}"
+        Foreground="{StaticResource Font Color Solid}">
+    <Border Margin="10" Padding="10" CornerRadius="10" Background="{StaticResource Dialog Background Gradient}">
+        <DockPanel>
+            <Label DockPanel.Dock="Top" Content="{Binding Path=DialogTitle, UpdateSourceTrigger=PropertyChanged}" FontSize="40" Height="60" Margin="0" />
 
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Label">
-                        <ContentPresenter Margin="10 10 10 -10" />
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Window.Resources>
-    <StackPanel Margin="10">
-        <Label Content="{Binding Path=DialogTitle, UpdateSourceTrigger=PropertyChanged}" FontSize="40" Height="60" Margin="0" />
-        
-        <Label Content="Name" Panel.ZIndex="1" />
-        <TextBox Text="{Binding Path=Tour.Name, UpdateSourceTrigger=PropertyChanged}" />
+            <Label DockPanel.Dock="Top" Content="Name" Panel.ZIndex="1" />
+            <TextBox DockPanel.Dock="Top" Text="{Binding Path=Tour.Name, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Content="From" Panel.ZIndex="1" />
-        <TextBox Text="{Binding Path=Tour.From, UpdateSourceTrigger=PropertyChanged}" />
-        
-        <Label Content="To" Panel.ZIndex="1" />
-        <TextBox Text="{Binding Path=Tour.To, UpdateSourceTrigger=PropertyChanged}" />
+            <Label DockPanel.Dock="Top" Content="From" Panel.ZIndex="1" />
+            <TextBox DockPanel.Dock="Top" Text="{Binding Path=Tour.From, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Content="Transport type" Panel.ZIndex="1" />
-        <ComboBox ItemsSource="{Binding Path=TransportTypes}" SelectedValue="{Binding Path=Tour.TransportType, UpdateSourceTrigger=PropertyChanged}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Path=Name}" />
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
+            <Label DockPanel.Dock="Top" Content="To" Panel.ZIndex="1" />
+            <TextBox DockPanel.Dock="Top" Text="{Binding Path=Tour.To, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Content="Description" Panel.ZIndex="1" />
-        <TextBox Text="{Binding Path=Tour.Description, UpdateSourceTrigger=PropertyChanged}" />
+            <Label DockPanel.Dock="Top" Content="Transport type" Panel.ZIndex="1" />
+            <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding Path=TransportTypes}" SelectedValue="{Binding Path=Tour.TransportType, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontSize="20" Text="{Binding Path=Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 40 0 0">
-            <Button Content="💾 Save" Command="{Binding Path=SaveCommand}" />
-            <Button Content="🗙 Cancel" Margin="10 0 0 0" Command="{Binding Path=CancelCommand}" />
-        </StackPanel>
-    </StackPanel>
+            <Label DockPanel.Dock="Top" Content="Description" Panel.ZIndex="1" />
+            <TextBox DockPanel.Dock="Top" Text="{Binding Path=Tour.Description, UpdateSourceTrigger=PropertyChanged}" />
+
+            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Button Content="💾 Save" Height="50" Command="{Binding Path=SaveCommand}" />
+                <Button Content="🗙 Cancel" Height="50" Margin="10 0 0 0" Style="{StaticResource Secondary Button}" Command="{Binding Path=CancelCommand}" />
+            </StackPanel>
+        </DockPanel>
+    </Border>
 </Window>

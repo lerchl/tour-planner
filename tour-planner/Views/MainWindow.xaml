@@ -6,45 +6,43 @@
         xmlns:local="clr-namespace:TourPlanner.Views"
         mc:Ignorable="d"
         Title="Tour Planner" Width="1200" Height="800"
-        Background="{StaticResource Background}"
-        Foreground="{StaticResource FontColor}">
+        Background="{StaticResource Background Solid}"
+        Foreground="{StaticResource Font Color Solid}">
     <Window.Resources>
         <local:SecondsConverter x:Key="SecondsConverter" />
-        <local:VisibleIfNullConverter x:Key="VisibleIfNullConverter" />
 
         <Style TargetType="TabItem">
-            <Setter Property="Foreground" Value="{StaticResource FontColor}" />
-            <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
+            <Setter Property="Foreground" Value="{StaticResource Font Color Solid}" />
+            <Setter Property="FontFamily" Value="{StaticResource Font Family}" />
             <Setter Property="FontSize" Value="20" />
 
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TabItem">
-                        <StackPanel>
+                        <Grid>
                             <Border Name="Border"
-                                    Margin="5 0 -2 -10"
-                                    Background="Transparent"
-                                    BorderBrush="{x:Null}" 
-                                    CornerRadius="10"
-                                    Width="100">
-                                <Border.Effect>
-                                    <DropShadowEffect />
-                                </Border.Effect>
+                                Margin="5 0 -2 -10"
+                                Background="Transparent"
+                                BorderBrush="{x:Null}" 
+                                CornerRadius="10"
+                                Width="150">
                                 <ContentPresenter x:Name="ContentSite"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        ContentSource="Header"
-                                        Margin="10 2 10 2"
-                                        RecognizesAccessKey="True"/>
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    ContentSource="Header"
+                                    Margin="10 2 10 2"
+                                    RecognizesAccessKey="True"/>
                             </Border>
-                        </StackPanel>
+                        </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Panel.ZIndex" Value="1000" />
                                 <Setter TargetName="Border" Property="Background" Value="{StaticResource Primary Gradient Active}" />
                             </Trigger>
                             <Trigger Property="IsSelected" Value="False">
                                 <Setter TargetName="Border" Property="Background" Value="{StaticResource Primary Gradient}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource Primary Gradient Hover}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -59,21 +57,12 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Border CornerRadius="10" Margin="10">
-            <Border.Background>
-                <LinearGradientBrush>
-                    <GradientStop Color="#1f0054" Offset="0" />
-                    <GradientStop Color="#222222" Offset="0.8" />
-                </LinearGradientBrush>
-            </Border.Background>
-            <Border.Effect>
-                <DropShadowEffect />
-            </Border.Effect>
+        <Border CornerRadius="10" Margin="10" Background="{StaticResource Tours Panel Gradient}">
             <DockPanel Grid.Column="0">
-                <Label DockPanel.Dock="Top" Content="Tours" Margin="10 10 10 0" FontFamily="Tahoma" FontSize="40px" Height="60" HorizontalAlignment="Left" />
-                <Label DockPanel.Dock="Top" Content="🔎" FontSize="16" Margin="10 10 10 -25" Panel.ZIndex="1" />
-                <TextBox Text="{Binding Path=FilterText, UpdateSourceTrigger=PropertyChanged}" Margin="10" DockPanel.Dock="Top" HorizontalAlignment="Stretch" />
-                <Border DockPanel.Dock="Top" Margin="10 0 10 10" CornerRadius="10" Background="#111111">
+                <Label DockPanel.Dock="Top" Content="Tours" Margin="10 10 10 0" FontSize="40px" Height="60" HorizontalAlignment="Center" />
+                <Label DockPanel.Dock="Top" Content="🔎" Panel.ZIndex="1" />
+                <TextBox Text="{Binding Path=FilterText, UpdateSourceTrigger=PropertyChanged}" Margin="10 0 10 10" DockPanel.Dock="Top" HorizontalAlignment="Stretch" />
+                <Border DockPanel.Dock="Top" Margin="10 0 10 10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
                     <DataGrid SelectionChanged="DataGrid_SelectionChanged"
                         FontFamily="Tahoma" FontSize="20px" HeadersVisibility="None"
                         ItemsSource="{Binding Path=Tours}" AutoGenerateColumns="False"
@@ -90,40 +79,34 @@
 
         <DockPanel Grid.Column="1">
             <DockPanel DockPanel.Dock="Top" Margin="25 25 25 0">
-                <Button Content="➕" ToolTip="Add Tour" Width="50" Height="50" FontSize="20" Margin="0 0 20 0" Command="{Binding Path=AddTourCommand}" />
+                <Button DockPanel.Dock="Left" Content="➕" ToolTip="Add Tour" Width="50" Height="50" FontSize="20" Margin="0 0 20 0" Command="{Binding Path=AddTourCommand}" />
 
-                <Label DockPanel.Dock="Left" Content="{Binding SelectedTour.Name}" Height="50" FontSize="30px" FontFamily="Tahoma" />
+                <Button DockPanel.Dock="Right" Content="🗑️" ToolTip="Delete Tour" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" Command="{Binding Path=DeleteTourCommand}" />
+                <Button DockPanel.Dock="Right" Content="✏️" ToolTip="Edit Tour" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" Command="{Binding Path=EditTourCommand}" />
+                <Button DockPanel.Dock="Right" Content="🔄" ToolTip="Fetch Tour" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" Command="{Binding Path=FetchRouteDataCommand}" Style="{StaticResource Secondary Button}" />
+                    
+                <Grid DockPanel.Dock="Right">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="100" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
 
-                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <!-- These should just be one label, I was however not able to get the StringFomat correct. :( -->
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Last edited: " VerticalAlignment="Bottom" />
-                            <Label Content="{Binding Path=SelectedTour.LastEdited, TargetNullValue=Never, StringFormat={}{0:dd.MM.yy HH:mm:ss}}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="100" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Last fetched: " VerticalAlignment="Bottom" />
-                            <Label Content="{Binding Path=SelectedTour.LastFetched, TargetNullValue=Never, StringFormat={}{0:dd.MM.yy HH:mm:ss}}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="100" />
-                        </StackPanel>
-                    </StackPanel>
-                    <Button Content="🔄" ToolTip="Fetch Tour" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" Command="{Binding Path=FetchRouteDataCommand}" />
-                    <Button Content="✏️" ToolTip="Edit Tour" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" Command="{Binding Path=EditTourCommand}" />
-                    <Button Content="🗑️" ToolTip="Delete Tour" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" Command="{Binding Path=DeleteTourCommand}" />
-                </StackPanel>
+                    <TextBlock Grid.RowSpan="2" Text="{Binding SelectedTour.Name}" FontSize="30px" VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="1" Grid.Row="0" Text="Last edited: " VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="1" Grid.Row="1" Text="Last fetched: " VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="2" Grid.Row="0" Text="{Binding Path=SelectedTour.LastEdited, TargetNullValue=Never, StringFormat={}{0:dd.MM.yy HH:mm:ss}}" VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="2" Grid.Row="1" Text="{Binding Path=SelectedTour.LastFetched, TargetNullValue=Never, StringFormat={}{0:dd.MM.yy HH:mm:ss}}" VerticalAlignment="Center" />
+                </Grid>
             </DockPanel>
             <TabControl Background="Transparent" Margin="10 20 10 10" BorderBrush="{x:Null}">
                 <TabItem Header="Details">
-                    <Border CornerRadius="10">
-                        <Border.Background>
-                            <LinearGradientBrush>
-                                <GradientStop Color="#210a24" Offset="0" />
-                                <GradientStop Color="#222222" Offset="0.8" />
-                            </LinearGradientBrush>
-                        </Border.Background>
-                        <Border.Effect>
-                            <DropShadowEffect />
-                        </Border.Effect>
-                        <Grid>
+                    <Border CornerRadius="10" Background="{StaticResource Details Panel Gradient}">
+                        <Grid Margin="0 15 0 0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="10" />
@@ -137,32 +120,32 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <StackPanel Grid.Column="0">
-                                    <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="From" FontSize="16" />
-                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="{StaticResource DataBackground}">
+                                <StackPanel Grid.Column="0" Margin="10 0 10 0">
+                                    <Label Panel.ZIndex="1" Content="From" />
+                                    <Border Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
                                         <TextBlock Text="{Binding SelectedTour.From}" TextWrapping="Wrap" />
                                     </Border>
 
-                                    <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="To" FontSize="16" />
-                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="{StaticResource DataBackground}">
+                                    <Label Panel.ZIndex="1" Content="To" />
+                                    <Border Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
                                         <TextBlock Text="{Binding SelectedTour.To}" />
                                     </Border>
 
-                                    <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Transport type" FontSize="16" />
-                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="{StaticResource DataBackground}">
+                                    <Label Panel.ZIndex="1" Content="Transport type" />
+                                    <Border Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
                                         <TextBlock Text="{Binding SelectedTour.TransportType.Name, TargetNullValue=''}" />
                                     </Border>
 
-                                    <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Distance" FontSize="16" />
-                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="{StaticResource DataBackground}">
+                                    <Label Panel.ZIndex="1" Content="Distance" />
+                                    <Border Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
                                         <Grid>
                                             <local:LoadingIndicator x:Name="DistanceLoadingIndicator" Width="25" Height="25" />
                                             <TextBlock Text="{Binding SelectedTour.Distance, StringFormat={}{0}km}" />
                                         </Grid>
                                     </Border>
 
-                                    <Label Margin="10 10 10 -15" Panel.ZIndex="1" Content="Estimated time" FontSize="16" />
-                                    <Border Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="{StaticResource DataBackground}">
+                                    <Label Panel.ZIndex="1" Content="Estimated time" />
+                                    <Border Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
                                         <Grid>
                                             <local:LoadingIndicator x:Name="EstimatedTimeLoadingIndicator" Width="25" Height="25" />
                                             <TextBlock Text="{Binding SelectedTour.EstimatedTime, Converter={StaticResource SecondsConverter}}" />
@@ -173,8 +156,8 @@
                                 <GridSplitter Grid.Column="1" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center" Margin="0 20 0 0" />
 
                                 <DockPanel Grid.Column="2">
-                                    <Label DockPanel.Dock="Top" Margin="10 10 10 -15" Panel.ZIndex="1" Content="Map" FontSize="16" />
-                                    <Border DockPanel.Dock="Top" Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="{StaticResource DataBackground}">
+                                    <Label DockPanel.Dock="Top" Panel.ZIndex="1" Content="Map" />
+                                    <Border DockPanel.Dock="Top" Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
                                         <Border CornerRadius="10">
                                             <Grid>
                                                 <local:LoadingIndicator x:Name="MapLoadingIndicator" Width="50" Height="50" />
@@ -187,9 +170,9 @@
 
                             <GridSplitter Grid.Row="1" ResizeDirection="Rows" ResizeBehavior="PreviousAndNext" Height="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="20 5 20 0" />
 
-                            <DockPanel Grid.Row="2">
-                                <Label DockPanel.Dock="Top" Margin="10 10 10 -15" Panel.ZIndex="1" Content="Description" FontSize="16" />
-                                <Border DockPanel.Dock="Top" Margin="10 0 10 10" Padding="10" CornerRadius="10" Background="#111">
+                            <DockPanel Grid.Row="2" Margin="10 0 0 10">
+                                <Label DockPanel.Dock="Top" Panel.ZIndex="1" Content="Description" FontSize="16" />
+                                <Border DockPanel.Dock="Top" Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                                         <TextBlock Text="{Binding SelectedTour.Description}" TextWrapping="Wrap" AllowDrop="True" TextAlignment="Justify" />
                                     </ScrollViewer>
@@ -199,17 +182,13 @@
                     </Border>
                 </TabItem>
                 <TabItem Header="Logs">
-                    <Border Background="#FF3D132B" CornerRadius="10">
-                        <Border.Effect>
-                            <DropShadowEffect />
-                        </Border.Effect>
-                        <Border DockPanel.Dock="Top" Margin="10 25 10 10" Padding="5" CornerRadius="10" Background="#111111">
+                    <Border CornerRadius="10" Background="{StaticResource Logs Panel Gradient}">
+                        <Border DockPanel.Dock="Top" Margin="10 25 10 10" Padding="5" CornerRadius="10" Background="{StaticResource Data Background Solid}">
                             <DataGrid
                                     FontFamily="Tahoma" HeadersVisibility="All"
                                     ItemsSource="{Binding Path=TourLogs}" AutoGenerateColumns="False"
                                     CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
-                                    ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}"
-                            >
+                                    ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" IsReadOnly="True" Width="*" />
                                     <DataGridTextColumn Header="Time" Binding="{Binding Path=Time}" IsReadOnly="True" Width="*" />
