@@ -59,6 +59,8 @@ namespace TourPlanner.ViewModels {
         public RelayCommand EditTourCommand { get; private set; }
         public RelayCommand DeleteTourCommand { get; private set; }
 
+        public RelayCommand AddTourLogCommand { get; private set; }
+
         private readonly ITourService _tourService;
         private readonly ITourLogService _tourLogService;
         private readonly IRouteService _routeService;
@@ -79,6 +81,7 @@ namespace TourPlanner.ViewModels {
             FetchRouteDataCommand = new(x => FetchRouteData());
             EditTourCommand = new RelayCommand(x => EditTour());
             DeleteTourCommand = new RelayCommand(x => DeleteTour());
+            AddTourLogCommand = new RelayCommand(x => AddTourLog());
             FetchTours();
         }
 
@@ -203,6 +206,13 @@ namespace TourPlanner.ViewModels {
                                            bitmapData.Stride);
             } finally {
                 bitmap.UnlockBits(bitmapData);
+            }
+        }
+
+        public void AddTourLog() {
+            if (_dialogService.OpenAddTourDialog()) {
+                TourLogs.Clear();
+                _tourLogService.GetByTour(SelectedTour!).ForEach(tourLog => TourLogs.Add(tourLog));
             }
         }
     }

@@ -184,20 +184,27 @@
                     </Border>
                 </TabItem>
                 <TabItem Header="Logs">
-                    <Border CornerRadius="10" Background="{StaticResource Logs Panel Gradient}">
-                        <Border DockPanel.Dock="Top" Margin="10 25 10 10" Padding="5" CornerRadius="10" Background="{StaticResource Data Background Solid}">
-                            <DataGrid
-                                    FontFamily="Tahoma" HeadersVisibility="All"
-                                    ItemsSource="{Binding Path=TourLogs}" AutoGenerateColumns="False"
-                                    CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
-                                    ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}">
-                                <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" IsReadOnly="True" Width="*" />
-                                    <DataGridTextColumn Header="Time" Binding="{Binding Path=Time}" IsReadOnly="True" Width="*" />
-                                    <DataGridTextColumn Header="Rating" Binding="{Binding Path=Rating}" IsReadOnly="True" Width="*" />
-                                </DataGrid.Columns>
-                            </DataGrid>
-                        </Border>
+                    <Border Margin="10 25 10 10" Padding="10" CornerRadius="10" Background="{StaticResource Logs Panel Gradient}">
+                        <DockPanel>
+                            <DockPanel DockPanel.Dock="Top">
+                                <Button DockPanel.Dock="Left" Content="➕" ToolTip="Add Tour Log" Width="50" Height="50" FontSize="20" Command="{Binding AddTourLogCommand}" />
+                                <Button DockPanel.Dock="Right" Content="🗑️" ToolTip="Delete Tour Log" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" />
+                                <Button DockPanel.Dock="Right" Content="✏️" ToolTip="Edit Tour Log" Width="50" Height="50" FontSize="20" />
+                            </DockPanel>
+                            <Border DockPanel.Dock="Top" Margin="0 10 0 0" Padding="5" CornerRadius="10" Background="{StaticResource Data Background Solid}">
+                                <DataGrid
+                                        FontFamily="Tahoma" HeadersVisibility="All"
+                                        ItemsSource="{Binding Path=TourLogs}" AutoGenerateColumns="False"
+                                        CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
+                                        ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" IsReadOnly="True" Width="*" />
+                                        <DataGridTextColumn Header="Time" Binding="{Binding Path=Time}" IsReadOnly="True" Width="*" />
+                                        <DataGridTextColumn Header="Rating" Binding="{Binding Path=Rating}" IsReadOnly="True" Width="*" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </DockPanel>
                     </Border>
                 </TabItem>
             </TabControl>

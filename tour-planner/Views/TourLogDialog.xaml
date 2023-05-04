@@ -1,36 +1,24 @@
-﻿<Window x:Class="TourPlanner.Views.TourDialog"
+﻿<Window x:Class="TourPlanner.Views.TourLogDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Tour Dialog" Height="600" Width="400"
+        Title="Tour Log Dialog" Height="500" Width="400"
         Background="{StaticResource Background Solid}"
         Foreground="{StaticResource Font Color Solid}">
     <Border Margin="10" Padding="10" CornerRadius="10" Background="{StaticResource Dialog Background Gradient}">
         <DockPanel>
             <Label DockPanel.Dock="Top" Content="{Binding Path=DialogTitle, UpdateSourceTrigger=PropertyChanged}" FontSize="40" Height="60" Margin="0" />
 
-            <Label DockPanel.Dock="Top" Content="Name" Panel.ZIndex="1" />
-            <TextBox DockPanel.Dock="Top" Text="{Binding Path=Entity.Name, UpdateSourceTrigger=PropertyChanged}" />
+            <Label DockPanel.Dock="Top" Content="Date" Panel.ZIndex="1" />
+            <DatePicker DockPanel.Dock="Top" SelectedDate="{Binding Path=Entity.Date, UpdateSourceTrigger=PropertyChanged}" />
 
             <Label DockPanel.Dock="Top" Content="From" Panel.ZIndex="1" />
-            <TextBox DockPanel.Dock="Top" Text="{Binding Path=Entity.From, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox DockPanel.Dock="Top" Text="{Binding Path=Entity.Time, UpdateSourceTrigger=PropertyChanged}" />
 
             <Label DockPanel.Dock="Top" Content="To" Panel.ZIndex="1" />
-            <TextBox DockPanel.Dock="Top" Text="{Binding Path=Entity.To, UpdateSourceTrigger=PropertyChanged}" />
-
-            <Label DockPanel.Dock="Top" Content="Transport type" Panel.ZIndex="1" />
-            <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding Path=TransportTypes}" SelectedValue="{Binding Path=Tour.TransportType, UpdateSourceTrigger=PropertyChanged}">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock FontSize="20" Text="{Binding Path=Name}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-
-            <Label DockPanel.Dock="Top" Content="Description" Panel.ZIndex="1" />
-            <TextBox DockPanel.Dock="Top" Text="{Binding Path=Tour.Description, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox DockPanel.Dock="Top" Text="{Binding Path=Entity.Rating, UpdateSourceTrigger=PropertyChanged}" />
 
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <Button Content="💾 Save" Height="50" Command="{Binding Path=SaveCommand}" />
