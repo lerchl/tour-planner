@@ -120,39 +120,41 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <StackPanel Grid.Column="0" Margin="10 0 10 0">
-                                    <Label Panel.ZIndex="1" Content="From" />
-                                    <Border Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
-                                        <TextBlock Text="{Binding SelectedTour.From}" TextWrapping="Wrap" />
-                                    </Border>
+                                <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" Margin="10 0 5 0">
+                                    <StackPanel>
+                                        <Label Panel.ZIndex="1" Content="From" />
+                                        <Border Margin="0 0 5 0" Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
+                                            <TextBlock Text="{Binding SelectedTour.From}" TextWrapping="Wrap" />
+                                        </Border>
 
-                                    <Label Panel.ZIndex="1" Content="To" />
-                                    <Border Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
-                                        <TextBlock Text="{Binding SelectedTour.To}" />
-                                    </Border>
+                                        <Label Panel.ZIndex="1" Content="To" />
+                                        <Border Margin="0 0 5 0" Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
+                                            <TextBlock Text="{Binding SelectedTour.To}" />
+                                        </Border>
 
-                                    <Label Panel.ZIndex="1" Content="Transport type" />
-                                    <Border Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
-                                        <TextBlock Text="{Binding SelectedTour.TransportType.Name, TargetNullValue=''}" />
-                                    </Border>
+                                        <Label Panel.ZIndex="1" Content="Transport type" />
+                                        <Border Margin="0 0 5 0" Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
+                                            <TextBlock Text="{Binding SelectedTour.TransportType.Name, TargetNullValue=''}" />
+                                        </Border>
 
-                                    <Label Panel.ZIndex="1" Content="Distance" />
-                                    <Border Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
-                                        <Grid>
-                                            <local:LoadingIndicator x:Name="DistanceLoadingIndicator" Width="25" Height="25" />
-                                            <TextBlock Text="{Binding SelectedTour.Distance, StringFormat={}{0}km}" />
-                                        </Grid>
-                                    </Border>
+                                        <Label Panel.ZIndex="1" Content="Distance" />
+                                        <Border Margin="0 0 5 0" Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
+                                            <Grid>
+                                                <local:LoadingIndicator x:Name="DistanceLoadingIndicator" Width="25" Height="25" />
+                                                <TextBlock Text="{Binding SelectedTour.Distance, StringFormat={}{0}km}" />
+                                            </Grid>
+                                        </Border>
 
-                                    <Label Panel.ZIndex="1" Content="Estimated time" />
-                                    <Border Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
-                                        <Grid>
-                                            <local:LoadingIndicator x:Name="EstimatedTimeLoadingIndicator" Width="25" Height="25" />
-                                            <TextBlock Text="{Binding SelectedTour.EstimatedTime, Converter={StaticResource SecondsConverter}}" />
-                                        </Grid>
-                                    </Border>
-                                </StackPanel>
-
+                                        <Label Panel.ZIndex="1" Content="Estimated time" />
+                                        <Border Margin="0 0 5 0" Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
+                                            <Grid>
+                                                <local:LoadingIndicator x:Name="EstimatedTimeLoadingIndicator" Width="25" Height="25" />
+                                                <TextBlock Text="{Binding SelectedTour.EstimatedTime, Converter={StaticResource SecondsConverter}}" />
+                                            </Grid>
+                                        </Border>
+                                    </StackPanel>
+                                </ScrollViewer>
+                                
                                 <GridSplitter Grid.Column="1" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center" Margin="0 20 0 0" />
 
                                 <DockPanel Grid.Column="2">
