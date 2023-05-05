@@ -15,7 +15,7 @@ namespace TourPlanner.ViewModels {
         // Init
         // /////////////////////////////////////////////////////////////////////////
 
-        public TourDialogViewModel(TourService tourService) : base(tourService) {
+        public TourDialogViewModel(ITourService tourService) : base(tourService) {
             // noop
         }
     }

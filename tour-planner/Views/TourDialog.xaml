@@ -21,7 +21,7 @@
             <TextBox DockPanel.Dock="Top" Text="{Binding Path=Entity.To, UpdateSourceTrigger=PropertyChanged}" />
 
             <Label DockPanel.Dock="Top" Content="Transport type" Panel.ZIndex="1" />
-            <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding Path=TransportTypes}" SelectedValue="{Binding Path=Tour.TransportType, UpdateSourceTrigger=PropertyChanged}">
+            <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding Path=TransportTypes}" SelectedValue="{Binding Path=Entity.TransportType, UpdateSourceTrigger=PropertyChanged}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock FontSize="20" Text="{Binding Path=Name}" />
@@ -30,7 +30,7 @@
             </ComboBox>
 
             <Label DockPanel.Dock="Top" Content="Description" Panel.ZIndex="1" />
-            <TextBox DockPanel.Dock="Top" Text="{Binding Path=Tour.Description, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox DockPanel.Dock="Top" Text="{Binding Path=Entity.Description, UpdateSourceTrigger=PropertyChanged}" />
 
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <Button Content="💾 Save" Height="50" Command="{Binding Path=SaveCommand}" />

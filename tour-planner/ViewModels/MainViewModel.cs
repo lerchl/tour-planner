@@ -210,7 +210,7 @@ namespace TourPlanner.ViewModels {
         }
 
         public void AddTourLog() {
-            if (_dialogService.OpenAddTourDialog()) {
+            if (_dialogService.OpenAddTourLogDialog()) {
                 TourLogs.Clear();
                 _tourLogService.GetByTour(SelectedTour!).ForEach(tourLog => TourLogs.Add(tourLog));
             }

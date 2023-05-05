@@ -35,6 +35,7 @@ namespace TourPlanner {
             services.AddSingleton<MainViewModel>();
             services.AddTransient<LoadingViewModel>();
             services.AddTransient<TourDialogViewModel>();
+            services.AddTransient<TourLogDialogViewModel>();
 
             // View Services
             services.AddSingleton<IDialogService, DialogService>();

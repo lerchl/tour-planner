@@ -42,7 +42,7 @@ namespace TourPlanner.Views {
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
-            return 0;
+            return 10;
         }
     }
 }

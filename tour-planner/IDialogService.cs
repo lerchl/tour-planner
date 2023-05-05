@@ -9,5 +9,8 @@ namespace TourPlanner {
 
         bool OpenAddTourDialog();
         bool OpenEditTourDialog(Tour tour);
+
+        bool OpenAddTourLogDialog();
+        bool OpenEditTourLogDialog(TourLog tourLog);
     }
 }

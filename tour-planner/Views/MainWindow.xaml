@@ -9,8 +9,6 @@
         Background="{StaticResource Background Solid}"
         Foreground="{StaticResource Font Color Solid}">
     <Window.Resources>
-        <local:SecondsConverter x:Key="SecondsConverter" />
-
         <Style TargetType="TabItem">
             <Setter Property="Foreground" Value="{StaticResource Font Color Solid}" />
             <Setter Property="FontFamily" Value="{StaticResource Font Family}" />
