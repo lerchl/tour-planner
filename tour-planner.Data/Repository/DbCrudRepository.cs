@@ -21,33 +21,33 @@ namespace TourPlanner.Data.Repository {
         // Implementations
         // /////////////////////////////////////////////////////////////////////////
 
-        public List<E> GetAll() {
+        public virtual List<E> GetAll() {
             using var context = new C();
             DbSet<E> dbSet = GetDbSet(context);
             dbSet.Load();
             return dbSet.ToList();
         }
 
-        public E? GetById(Guid id) {
+        public virtual E? GetById(Guid id) {
             using var context = new C();
             return GetDbSet(context).Find(id);
         }
 
-        public E Add(E entity) {
+        public virtual E Add(E entity) {
             using var context = new C();
             context.Add(entity);
             context.SaveChanges();
             return entity;
         }
 
-        public E Update(E entity) {
+        public virtual E Update(E entity) {
             using var context = new C();
             context.Update(entity);
             context.SaveChanges();
             return entity;
         }
 
-        public void Remove(E entity) {
+        public virtual void Remove(E entity) {
             using var context = new C();
             context.Remove(entity);
             context.SaveChanges();

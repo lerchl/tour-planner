@@ -1,13 +1,10 @@
 using System;
-using System.ComponentModel;
 using TourPlanner.Logic.Service;
 using TourPlanner.Model;
 
 namespace TourPlanner.ViewModels {
 
-    public abstract class EntityDialogViewModel<E> : INotifyPropertyChanged where E : Entity, new() {
-
-        public event PropertyChangedEventHandler? PropertyChanged;
+    public abstract class EntityDialogViewModel<E> : BaseViewModel where E : Entity, new() {
 
         public RelayCommand SaveCommand { get; private set; }
         public RelayCommand CancelCommand { get; private set; }
@@ -17,7 +14,7 @@ namespace TourPlanner.ViewModels {
             get => _entity;
             private set {
                 _entity = value;
-                PropertyChanged?.Invoke(this, new(nameof(Entity)));
+                RaisePropertyChanged();
             }
         }
 
@@ -26,7 +23,7 @@ namespace TourPlanner.ViewModels {
             get => _dialogTitle;
             private set {
                 _dialogTitle = value;
-                PropertyChanged?.Invoke(this, new(nameof(DialogTitle)));
+                RaisePropertyChanged();
             }
         }
 
@@ -45,7 +42,7 @@ namespace TourPlanner.ViewModels {
             CancelCommand = new RelayCommand(x => Cancel());
         }
 
-        public void Init(E entity, Action close, Action<bool> setDialogResult) {
+        public virtual void Init(E entity, Action close, Action<bool> setDialogResult) {
             Entity = entity;
             string entityName = typeof(E).Name;
             DialogTitle = (entity.GetGuid() == Guid.Empty ? "Create " : "Edit ") + entityName;
@@ -57,7 +54,7 @@ namespace TourPlanner.ViewModels {
         // Methods
         // /////////////////////////////////////////////////////////////////////////
 
-        private void Save() {
+        protected virtual void Save() {
             if (Entity.GetGuid() == Guid.Empty) {
                 _crudService.Add(Entity);
             } else {

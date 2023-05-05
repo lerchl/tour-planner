@@ -30,8 +30,8 @@ namespace TourPlanner {
             return new TourDialog(_tourDialogViewModel, tour).ShowDialog() == true;
         }
 
-        public bool OpenAddTourLogDialog() {
-            return new TourLogDialog(_tourLogDialogViewModel).ShowDialog() == true;
+        public bool OpenAddTourLogDialog(Tour tour) {
+            return new TourLogDialog(_tourLogDialogViewModel, tour).ShowDialog() == true;
         }
 
         public bool OpenEditTourLogDialog(TourLog tourLog) {

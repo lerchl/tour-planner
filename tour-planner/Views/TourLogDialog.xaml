@@ -41,8 +41,8 @@
             <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding Path=Ratings}" SelectedValue="{Binding Path=Entity.Rating, UpdateSourceTrigger=PropertyChanged}" />
 
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Button Content="💾 Save" Height="50" Command="{Binding Path=SaveCommand}" />
-                <Button Content="🗙 Cancel" Height="50" Margin="10 0 0 0" Style="{StaticResource Secondary Button}" Command="{Binding Path=CancelCommand}" />
+                <Button Content="💾 Save" Height="50" Command="{Binding SaveCommand}" />
+                <Button Content="🗙 Cancel" Height="50" Margin="10 0 0 0" Style="{StaticResource Secondary Button}" Command="{Binding CancelCommand}" />
             </StackPanel>
         </DockPanel>
     </Border>

@@ -157,7 +157,6 @@ namespace TourPlanner.ViewModels {
                     var route = task.Result;
 
                     SelectedTour.RouteFetched = true;
-                    SelectedTour.LastFetched = DateTime.UtcNow;
                     SelectedTour.Distance = route.Distance;
                     SelectedTour.EstimatedTime = route.Time;
 
@@ -176,6 +175,10 @@ namespace TourPlanner.ViewModels {
 
                         Application.Current.Dispatcher.Invoke(() => {
                             int index = Tours.IndexOf(SelectedTour);
+
+                            // setting last fetched as late as possible
+                            SelectedTour.LastFetched = DateTime.UtcNow;
+
                             SelectedTour = _tourService.Update(SelectedTour);
                             Tours[index] = SelectedTour;
                             MapImage = BitmapToImageSource(bitmap);
@@ -210,7 +213,7 @@ namespace TourPlanner.ViewModels {
         }
 
         public void AddTourLog() {
-            if (_dialogService.OpenAddTourLogDialog()) {
+            if (_dialogService.OpenAddTourLogDialog(SelectedTour!)) {
                 TourLogs.Clear();
                 _tourLogService.GetByTour(SelectedTour!).ForEach(tourLog => TourLogs.Add(tourLog));
             }

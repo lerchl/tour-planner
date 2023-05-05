@@ -25,6 +25,28 @@ namespace TourPlanner.Model {
         public Tour? Tour { get; set; }
 
         // /////////////////////////////////////////////////////////////////////////
+        // Init
+        // /////////////////////////////////////////////////////////////////////////
+
+        public TourLog() {
+            // default constructor
+        }
+
+        public TourLog(Tour tour) {
+            Tour = tour;
+        }
+
+        public TourLog(Guid id, DateTime date, int time, int rating, Tour? tour) {
+            Id = id;
+            Date = date;
+            Time = time;
+            Rating = rating;
+            Tour = tour;
+        }
+
+
+
+        // /////////////////////////////////////////////////////////////////////////
         // Methods
         // /////////////////////////////////////////////////////////////////////////
 

@@ -12,7 +12,7 @@ namespace TourPlanner.Views {
             tourLogDialogViewModel.Init(tourLog, () => Close(), dialogResult => DialogResult = dialogResult);
         }
 
-        public TourLogDialog(TourLogDialogViewModel tourLogDialogViewModel) : this(tourLogDialogViewModel, new()) {
+        public TourLogDialog(TourLogDialogViewModel tourLogDialogViewModel, Tour tour) : this(tourLogDialogViewModel, new TourLog(tour)) {
             // noop
         }
     }
