@@ -48,6 +48,15 @@ namespace TourPlanner.ViewModels {
             }
         }
 
+        private TourLog? _selectedTourLog;
+        public TourLog? SelectedTourLog {
+            get => _selectedTourLog;
+            set {
+                _selectedTourLog = value;
+                PropertyChanged?.Invoke(this, new(nameof(SelectedTourLog)));
+            }
+        }
+
         public LoadingViewModel MapLoadingViewModel { get; set; }
         public LoadingViewModel DistanceLoadingViewModel { get; set; }
         public LoadingViewModel EstimatedTimeLoadingViewModel { get; set; }
@@ -60,6 +69,7 @@ namespace TourPlanner.ViewModels {
         public RelayCommand DeleteTourCommand { get; private set; }
 
         public RelayCommand AddTourLogCommand { get; private set; }
+        public RelayCommand EditTourLogCommand { get; private set; }
 
         private readonly ITourService _tourService;
         private readonly ITourLogService _tourLogService;
@@ -82,12 +92,12 @@ namespace TourPlanner.ViewModels {
             EditTourCommand = new RelayCommand(x => EditTour());
             DeleteTourCommand = new RelayCommand(x => DeleteTour());
             AddTourLogCommand = new RelayCommand(x => AddTourLog());
+            EditTourLogCommand = new RelayCommand(x => EditTourLog());
             FetchTours();
         }
 
         private void FetchTours() {
             Tours.Clear();
-            TourLogs.Clear();
             _tourService.GetAll().ForEach(tour => Tours.Add(tour));
 
             if (Tours.Any()) {
@@ -97,7 +107,7 @@ namespace TourPlanner.ViewModels {
         }
 
         private void FetchSelectedTour() {
-            _tourLogService.GetByTour(SelectedTour!).ForEach(tourLog => TourLogs.Add(tourLog));
+            FetchTourLogs();
 
             if (SelectedTour!.RouteFetched) {
                 using var ms = new MemoryStream(SelectedTour.MapImage!);
@@ -106,6 +116,11 @@ namespace TourPlanner.ViewModels {
             } else if (SelectedTour.From != null && SelectedTour.To != null) {
                 FetchRouteData();
             }
+        }
+
+        private void FetchTourLogs() {
+            TourLogs.Clear();
+            _tourLogService.GetByTour(SelectedTour!).ForEach(tourLog => TourLogs.Add(tourLog));
         }
 
         // /////////////////////////////////////////////////////////////////////////
@@ -117,11 +132,9 @@ namespace TourPlanner.ViewModels {
             _tourService.GetByNameContains(FilterText).ForEach(tour => Tours.Add(tour));
         }
 
-        public void SelectTour(object sender, SelectionChangedEventArgs e) {
-            if (e.AddedItems.Count > 0 && e.AddedItems[0] is Tour tour) {
-                SelectedTour = tour;
-                FetchSelectedTour();
-            }
+        public void SelectTour(Tour tour) {
+            SelectedTour = tour;
+            FetchSelectedTour();
         }
 
         public void AddTour() {
@@ -212,10 +225,19 @@ namespace TourPlanner.ViewModels {
             }
         }
 
+        public void SelectTourLog(TourLog tourLog) {
+            SelectedTourLog = tourLog;
+        }
+
         public void AddTourLog() {
             if (_dialogService.OpenAddTourLogDialog(SelectedTour!)) {
-                TourLogs.Clear();
-                _tourLogService.GetByTour(SelectedTour!).ForEach(tourLog => TourLogs.Add(tourLog));
+                FetchTourLogs();
+            }
+        }
+
+        public void EditTourLog() {
+            if (_dialogService.OpenEditTourLogDialog(SelectedTourLog!)) {
+                FetchTourLogs();
             }
         }
     }

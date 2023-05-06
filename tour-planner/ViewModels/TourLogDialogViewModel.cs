@@ -54,7 +54,7 @@ namespace TourPlanner.ViewModels {
             // Set days
             Days = entity.Time / MINUTES_PER_DAY;
             // Calculate remaining hours and minutes
-            int hoursInMinutes = entity.Time - MINUTES_PER_DAY;
+            int hoursInMinutes = entity.Time - (Days * MINUTES_PER_DAY);
             // Set hours
             Hours = hoursInMinutes >= 0 ? hoursInMinutes / MINUTES_PER_HOUR : 0;
             // Set minutes
@@ -68,7 +68,7 @@ namespace TourPlanner.ViewModels {
 
         protected override void Save() {
             Entity.Time = MINUTES_PER_DAY * Days + MINUTES_PER_HOUR * Hours + Minutes;
-            base.Save(); 
+            base.Save();
         }
     }
 }

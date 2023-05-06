@@ -61,7 +61,7 @@
                 <Label DockPanel.Dock="Top" Content="🔎" Panel.ZIndex="1" />
                 <TextBox Text="{Binding Path=FilterText, UpdateSourceTrigger=PropertyChanged}" Margin="10 0 10 10" DockPanel.Dock="Top" HorizontalAlignment="Stretch" />
                 <Border DockPanel.Dock="Top" Margin="10 0 10 10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
-                    <DataGrid SelectionChanged="DataGrid_SelectionChanged"
+                    <DataGrid SelectionChanged="TourSelectionChanged" SelectionMode="Single"
                         FontFamily="Tahoma" FontSize="20px" HeadersVisibility="None"
                         ItemsSource="{Binding Path=Tours}" AutoGenerateColumns="False"
                         CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
@@ -182,16 +182,15 @@
                     </Border>
                 </TabItem>
                 <TabItem Header="Logs">
-                    <Border Margin="10 25 10 10" Padding="10" CornerRadius="10" Background="{StaticResource Logs Panel Gradient}">
-                        <DockPanel>
+                    <Border Padding="10" CornerRadius="10" Background="{StaticResource Logs Panel Gradient}">
+                        <DockPanel Margin="0 15 0 0">
                             <DockPanel DockPanel.Dock="Top">
                                 <Button DockPanel.Dock="Left" Content="➕" ToolTip="Add Tour Log" Width="50" Height="50" FontSize="20" Command="{Binding AddTourLogCommand}" />
                                 <Button DockPanel.Dock="Right" Content="🗑️" ToolTip="Delete Tour Log" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" />
-                                <Button DockPanel.Dock="Right" Content="✏️" ToolTip="Edit Tour Log" Width="50" Height="50" FontSize="20" />
+                                <Button DockPanel.Dock="Right" Content="✏️" ToolTip="Edit Tour Log" Width="50" Height="50" FontSize="20" Command="{Binding EditTourLogCommand}" />
                             </DockPanel>
                             <Border DockPanel.Dock="Top" Margin="0 10 0 0" Padding="5" CornerRadius="10" Background="{StaticResource Data Background Solid}">
-                                <DataGrid
-                                        FontFamily="Tahoma" HeadersVisibility="All"
+                                <DataGrid SelectionChanged="TourLogSelectionChanged" HeadersVisibility="All" SelectionMode="Single"
                                         ItemsSource="{Binding Path=TourLogs}" AutoGenerateColumns="False"
                                         CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
                                         ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}">
