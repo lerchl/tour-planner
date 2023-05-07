@@ -21,6 +21,12 @@ namespace TourPlanner.Logic.Validation {
             // Rating
             ValidateRange(t.Rating, 1, 10, "Rating", result);
 
+            // Difficulty
+            ValidateRange(t.Difficulty, 1, 10, "Difficulty", result);
+
+            // Comment
+            ValidateMaxLength(t.Comment, 1000, "Comment", result);
+
             // Tour
             ValidateRequired(t.Tour, "Tour", result);
 

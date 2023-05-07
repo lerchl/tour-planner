@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using TourPlanner.Logic.Service;
 using TourPlanner.Model;
 
@@ -41,7 +40,7 @@ namespace TourPlanner.ViewModels {
         }
 
         [SuppressMessage("Usage", "CA1822", Justification = "Intended for use in XAML.")]
-        public List<int> Ratings => Enumerable.Range(1, 10).ToList();
+        public List<int> OneToTen => Enumerable.Range(1, 10).ToList();
 
         // /////////////////////////////////////////////////////////////////////////
         // Init

@@ -10,7 +10,7 @@ namespace TourPlanner {
         private void Application_Startup(object sender, StartupEventArgs seas) {
             using (var context = new PostgreContext()) {
                 try {
-                    // context.Database.EnsureDeleted();
+                    context.Database.EnsureDeleted();
                     context.Database.EnsureCreated();
                 } catch (Exception e) {
                     Console.WriteLine(e.Message);

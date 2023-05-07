@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Tour Log Dialog" Height="500" Width="400"
+        Title="Tour Log Dialog" Height="600" Width="400"
         Background="{StaticResource Background Solid}"
         Foreground="{StaticResource Font Color Solid}">
     <Border Margin="10" Padding="10" CornerRadius="10" Background="{StaticResource Dialog Background Gradient}">
@@ -37,8 +37,14 @@
                 </StackPanel>
             </Grid>
 
-            <Label DockPanel.Dock="Top" Content="To" Panel.ZIndex="1" />
-            <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding Path=Ratings}" SelectedValue="{Binding Path=Entity.Rating, UpdateSourceTrigger=PropertyChanged}" />
+            <Label DockPanel.Dock="Top" Content="Rating" Panel.ZIndex="1" />
+            <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding Path=OneToTen}" SelectedValue="{Binding Path=Entity.Rating, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Label DockPanel.Dock="Top" Content="Difficulty" Panel.ZIndex="1" />
+            <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding Path=OneToTen}" SelectedValue="{Binding Path=Entity.Difficulty, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Label DockPanel.Dock="Top" Content="Comment" Panel.ZIndex="1" />
+            <TextBox DockPanel.Dock="Top" Text="{Binding Path=Entity.Comment, UpdateSourceTrigger=PropertyChanged}" />
 
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <Button Content="💾 Save" Height="50" Command="{Binding SaveCommand}" />

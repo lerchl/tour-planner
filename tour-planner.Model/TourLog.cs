@@ -21,6 +21,12 @@ namespace TourPlanner.Model {
         [Column("rating")]
         public int Rating { get; set; }
 
+        [Column("difficulty")]
+        public int Difficulty { get; set; }
+
+        [Column("comment"), MaxLength(1000)]
+        public string? Comment { get; set; }
+
         [ForeignKey("tour_id"), Required]
         public Tour? Tour { get; set; }
 
