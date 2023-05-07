@@ -6,7 +6,6 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using TourPlanner.Logic.Service;
@@ -70,6 +69,7 @@ namespace TourPlanner.ViewModels {
 
         public RelayCommand AddTourLogCommand { get; private set; }
         public RelayCommand EditTourLogCommand { get; private set; }
+        public RelayCommand DeleteTourLogCommand { get; private set; }
 
         private readonly ITourService _tourService;
         private readonly ITourLogService _tourLogService;
@@ -93,6 +93,7 @@ namespace TourPlanner.ViewModels {
             DeleteTourCommand = new RelayCommand(x => DeleteTour());
             AddTourLogCommand = new RelayCommand(x => AddTourLog());
             EditTourLogCommand = new RelayCommand(x => EditTourLog());
+            DeleteTourLogCommand = new RelayCommand(x => DeleteTourLog());
             FetchTours();
         }
 
@@ -134,6 +135,7 @@ namespace TourPlanner.ViewModels {
 
         public void SelectTour(Tour tour) {
             SelectedTour = tour;
+            MapImage = new BitmapImage();
             FetchSelectedTour();
         }
 
@@ -239,6 +241,11 @@ namespace TourPlanner.ViewModels {
             if (_dialogService.OpenEditTourLogDialog(SelectedTourLog!)) {
                 FetchTourLogs();
             }
+        }
+
+        public void DeleteTourLog() {
+            _tourLogService.Remove(SelectedTourLog!);
+            FetchTourLogs();
         }
     }
 }
