@@ -8,6 +8,7 @@
         <ResourceDictionary>
             <local:IoCContainerConfig x:Key="IoCConfig" />
             <Views:SecondsConverter x:Key="SecondsConverter" />
+            <Views:MinutesConverter x:Key="MinutesConverter" />
 
             <FontFamily x:Key="Font Family">Tahoma</FontFamily>
 

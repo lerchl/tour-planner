@@ -139,7 +139,7 @@
                                         <Border Margin="0 0 5 0" Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
                                             <Grid>
                                                 <local:LoadingIndicator x:Name="DistanceLoadingIndicator" Width="25" Height="25" />
-                                                <TextBlock Text="{Binding SelectedTour.Distance, StringFormat={}{0}km}" />
+                                                <TextBlock Text="{Binding SelectedTour.Distance, StringFormat={}{0}km, TargetNullValue=''}" />
                                             </Grid>
                                         </Border>
 
@@ -152,7 +152,7 @@
                                         </Border>
                                     </StackPanel>
                                 </ScrollViewer>
-                                
+
                                 <GridSplitter Grid.Column="1" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center" Margin="0 20 0 0" />
 
                                 <DockPanel Grid.Column="2">
@@ -160,7 +160,7 @@
                                     <Border DockPanel.Dock="Top" Margin="10 0 10 0" Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
                                         <Border CornerRadius="10">
                                             <Grid>
-                                                <local:LoadingIndicator x:Name="MapLoadingIndicator" Width="50" Height="50" />
+                                                <local:LoadingIndicator x:Name="MapLoadingIndicator" Panel.ZIndex="1" Width="50" Height="50" />
                                                 <Image Source="{Binding MapImage, UpdateSourceTrigger=PropertyChanged}" />
                                             </Grid>
                                         </Border>
@@ -195,8 +195,8 @@
                                         CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
                                         ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" IsReadOnly="True" Width="*" />
-                                        <DataGridTextColumn Header="Time" Binding="{Binding Path=Time}" IsReadOnly="True" Width="*" />
+                                        <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=\{0:dd.MM.yy\}}" IsReadOnly="True" Width="*" />
+                                        <DataGridTextColumn Header="Time" Binding="{Binding Path=Time, Converter={StaticResource MinutesConverter}}" IsReadOnly="True" Width="*" />
                                         <DataGridTextColumn Header="Rating" Binding="{Binding Path=Rating}" IsReadOnly="True" Width="*" />
                                     </DataGrid.Columns>
                                 </DataGrid>

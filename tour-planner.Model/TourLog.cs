@@ -16,7 +16,7 @@ namespace TourPlanner.Model {
         ///     Time in minutes.
         /// </summary>
         [Column("time")]
-        public int Time { get; set; }
+        public long Time { get; set; }
 
         [Column("rating")]
         public int Rating { get; set; }

@@ -54,19 +54,19 @@ namespace TourPlanner.Logic.Validation {
 
         // numbers
 
-        public static void ValidateMinValue(int value, int minValue, string name, ValidationResult result) {
+        public static void ValidateMinValue(decimal value, decimal minValue, string name, ValidationResult result) {
             if (value < minValue) {
                 result.AddMessage(new(Error, $"{name} is too small (min. {minValue})"));
             }
         }
 
-        public static void ValidateMaxValue(int value, int maxValue, string name, ValidationResult result) {
+        public static void ValidateMaxValue(decimal value, decimal maxValue, string name, ValidationResult result) {
             if (value > maxValue) {
                 result.AddMessage(new(Error, $"{name} is too large (max. {maxValue})"));
             }
         }
 
-        public static void ValidateRange(int value, int minValue, int maxValue, string name, ValidationResult result) {
+        public static void ValidateRange(decimal value, decimal minValue, decimal maxValue, string name, ValidationResult result) {
             ValidateMinValue(value, minValue, name, result);
             ValidateMaxValue(value, maxValue, name, result);
         }

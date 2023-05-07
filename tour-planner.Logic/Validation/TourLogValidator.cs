@@ -19,7 +19,7 @@ namespace TourPlanner.Logic.Validation {
             ValidateMinValue(t.Time, 1, "Time", result);
 
             // Rating
-            ValidateRange(t.Rating, 1, 5, "Rating", result);
+            ValidateRange(t.Rating, 1, 10, "Rating", result);
 
             // Tour
             ValidateRequired(t.Tour, "Tour", result);

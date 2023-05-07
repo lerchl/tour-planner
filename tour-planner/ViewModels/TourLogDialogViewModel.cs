@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using TourPlanner.Logic.Service;
 using TourPlanner.Model;
 
@@ -9,11 +10,11 @@ namespace TourPlanner.ViewModels {
 
     public class TourLogDialogViewModel : EntityDialogViewModel<TourLog> {
 
-        private const int MINUTES_PER_DAY = MINUTES_PER_HOUR * 24;
-        private const int MINUTES_PER_HOUR = 60;
+        private const long MINUTES_PER_DAY = MINUTES_PER_HOUR * 24;
+        private const long MINUTES_PER_HOUR = 60;
 
-        private int _days = 0;
-        public int Days {
+        private long _days = 0;
+        public long Days {
             get => _days;
             set {
                 _days = value;
@@ -21,8 +22,8 @@ namespace TourPlanner.ViewModels {
             }
         }
 
-        private int _hours = 0;
-        public int Hours {
+        private long _hours = 0;
+        public long Hours {
             get => _hours;
             set {
                 _hours = value;
@@ -30,8 +31,8 @@ namespace TourPlanner.ViewModels {
             }
         }
 
-        private int _minutes = 0;
-        public int Minutes {
+        private long _minutes = 0;
+        public long Minutes {
             get => _minutes;
             set {
                 _minutes = value;
@@ -54,7 +55,7 @@ namespace TourPlanner.ViewModels {
             // Set days
             Days = entity.Time / MINUTES_PER_DAY;
             // Calculate remaining hours and minutes
-            int hoursInMinutes = entity.Time - (Days * MINUTES_PER_DAY);
+            long hoursInMinutes = entity.Time - (Days * MINUTES_PER_DAY);
             // Set hours
             Hours = hoursInMinutes >= 0 ? hoursInMinutes / MINUTES_PER_HOUR : 0;
             // Set minutes

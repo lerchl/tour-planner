@@ -47,7 +47,7 @@ namespace TourPlanner.Model {
         public double? Distance { get; set; }
 
         /// <summary>
-        ///     Estimated time for the tour in minutes.
+        ///     Estimated time for the tour in seconds.
         /// </summary>
         [Column("estimated_time")]
         public long? EstimatedTime { get; set; }
