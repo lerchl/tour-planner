@@ -25,7 +25,7 @@ namespace TourPlanner {
             mainViewModel.MapLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
             mainViewModel.DistanceLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
             mainViewModel.EstimatedTimeLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
-            mainViewModel.PopularityLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
+            mainViewModel.PopularityRankLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
             mainViewModel.ChildFriendlinessLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
             mainViewModel.TourLogsLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
 
@@ -35,7 +35,7 @@ namespace TourPlanner {
                 MapLoadingIndicator = { DataContext = mainViewModel.MapLoadingViewModel },
                 DistanceLoadingIndicator = { DataContext = mainViewModel.DistanceLoadingViewModel },
                 EstimatedTimeLoadingIndicator = { DataContext = mainViewModel.EstimatedTimeLoadingViewModel },
-                PopularityLoadingIndicator = { DataContext = mainViewModel.PopularityLoadingViewModel },
+                PopularityRankLoadingIndicator = { DataContext = mainViewModel.PopularityRankLoadingViewModel },
                 ChildFriendlinessLoadingIndicator = { DataContext = mainViewModel.ChildFriendlinessLoadingViewModel },
                 TourLogsLoadingIndicator = { DataContext = mainViewModel.TourLogsLoadingViewModel }
             };

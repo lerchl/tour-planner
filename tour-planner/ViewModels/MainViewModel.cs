@@ -15,16 +15,14 @@ using TourPlanner.Model;
 
 namespace TourPlanner.ViewModels {
 
-    internal class MainViewModel : INotifyPropertyChanged {
-
-        public event PropertyChangedEventHandler? PropertyChanged;
+    internal class MainViewModel : BaseViewModel {
 
         private string _filterText = "";
         public string FilterText {
             get => _filterText;
             set {
                 _filterText = value;
-                PropertyChanged?.Invoke(this, new(nameof(FilterText)));
+                RaisePropertyChanged();
                 FilterTours();
             }
         }
@@ -36,7 +34,7 @@ namespace TourPlanner.ViewModels {
             get => _selectedTour;
             set {
                 _selectedTour = value;
-                PropertyChanged?.Invoke(this, new(nameof(SelectedTour)));
+                RaisePropertyChanged();
             }
         }
 
@@ -45,7 +43,16 @@ namespace TourPlanner.ViewModels {
             get => _mapImage;
             set {
                 _mapImage = value;
-                PropertyChanged?.Invoke(this, new(nameof(MapImage)));
+                RaisePropertyChanged();
+            }
+        }
+
+        private int? _popularityRank = null;
+        public int? PopularityRank {
+            get => _popularityRank;
+            set {
+                _popularityRank = value;
+                RaisePropertyChanged();
             }
         }
 
@@ -54,7 +61,7 @@ namespace TourPlanner.ViewModels {
             get => _selectedTourLog;
             set {
                 _selectedTourLog = value;
-                PropertyChanged?.Invoke(this, new(nameof(SelectedTourLog)));
+                RaisePropertyChanged();
             }
         }
 
@@ -62,7 +69,7 @@ namespace TourPlanner.ViewModels {
         public LoadingViewModel MapLoadingViewModel { get; set; }
         public LoadingViewModel DistanceLoadingViewModel { get; set; }
         public LoadingViewModel EstimatedTimeLoadingViewModel { get; set; }
-        public LoadingViewModel PopularityLoadingViewModel { get; set; }
+        public LoadingViewModel PopularityRankLoadingViewModel { get; set; }
         public LoadingViewModel ChildFriendlinessLoadingViewModel { get; set; }
         public LoadingViewModel TourLogsLoadingViewModel { get; set; }
 
@@ -137,14 +144,19 @@ namespace TourPlanner.ViewModels {
         private void FetchTourLogs() {
             Application.Current.Dispatcher.Invoke(() => {
                 TourLogs.Clear();
-                PopularityLoadingViewModel.Show();
+                PopularityRankLoadingViewModel.Show();
                 ChildFriendlinessLoadingViewModel.Show();
                 TourLogsLoadingViewModel.Show();
             });
 
+            int popularityRank = _tourService.GetPopularityRank(SelectedTour!);
+            Application.Current.Dispatcher.Invoke(() => {
+                PopularityRankLoadingViewModel.Hide();
+                PopularityRank = popularityRank;
+            });
+
             var fetchingTourLogsTask = new Task<List<TourLog>>(() => _tourLogService.GetByTour(SelectedTour!));
             fetchingTourLogsTask.ContinueWith(task => Application.Current.Dispatcher.Invoke(() => {
-                PopularityLoadingViewModel.Hide();
                 ChildFriendlinessLoadingViewModel.Hide();
                 TourLogsLoadingViewModel.Hide();
                 task.Result.ForEach(tourLog => TourLogs.Add(tourLog));

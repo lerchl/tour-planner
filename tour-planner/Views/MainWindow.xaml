@@ -154,11 +154,11 @@
                                             </Grid>
                                         </Border>
 
-                                        <Label Panel.ZIndex="1" Content="Popularity" />
+                                        <Label Panel.ZIndex="1" Content="Popularity Rank" />
                                         <Border Margin="0 0 5 0" Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
                                             <Grid>
-                                                <local:LoadingIndicator x:Name="PopularityLoadingIndicator" Width="25" Height="25" />
-                                                <TextBlock Text="{Binding TourLogs.Count}" />
+                                                <local:LoadingIndicator x:Name="PopularityRankLoadingIndicator" Width="25" Height="25" />
+                                                <TextBlock Text="{Binding PopularityRank}" />
                                             </Grid>
                                         </Border>
 

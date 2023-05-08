@@ -26,5 +26,9 @@ namespace TourPlanner.Logic.Service {
         public List<Tour> GetByNameContains(string search) {
             return _repository.GetByNameContains(search);
         }
+
+        public int GetPopularityRank(Tour tour) {
+            return _repository.GetPopularityRank(tour);
+        }
     }
 }

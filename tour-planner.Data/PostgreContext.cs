@@ -27,7 +27,7 @@ namespace TourPlanner.Data {
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.Entity<Tour>()
                         .Property(t => t.TransportType)
-                        .HasConversion(new TransportTypeConverter());
+                        .HasConversion(new TransportTypeConverter()!);
         }
     }
 }
