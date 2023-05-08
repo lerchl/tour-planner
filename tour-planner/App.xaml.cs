@@ -10,7 +10,7 @@ namespace TourPlanner {
         private void Application_Startup(object sender, StartupEventArgs seas) {
             using (var context = new PostgreContext()) {
                 try {
-                    context.Database.EnsureDeleted();
+                    // context.Database.EnsureDeleted();
                     context.Database.EnsureCreated();
                 } catch (Exception e) {
                     Console.WriteLine(e.Message);
@@ -21,15 +21,23 @@ namespace TourPlanner {
             var ioCConfig = (IoCContainerConfig) Current.Resources["IoCConfig"];
 
             var mainViewModel = ioCConfig.MainViewModel;
+            mainViewModel.ToursLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
             mainViewModel.MapLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
             mainViewModel.DistanceLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
             mainViewModel.EstimatedTimeLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
+            mainViewModel.PopularityLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
+            mainViewModel.ChildFriendlinessLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
+            mainViewModel.TourLogsLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
 
             var mainWindow = new MainWindow {
                 DataContext = mainViewModel,
+                ToursLoadingIndicator = { DataContext = mainViewModel.ToursLoadingViewModel },
                 MapLoadingIndicator = { DataContext = mainViewModel.MapLoadingViewModel },
                 DistanceLoadingIndicator = { DataContext = mainViewModel.DistanceLoadingViewModel },
-                EstimatedTimeLoadingIndicator = { DataContext = mainViewModel.EstimatedTimeLoadingViewModel }
+                EstimatedTimeLoadingIndicator = { DataContext = mainViewModel.EstimatedTimeLoadingViewModel },
+                PopularityLoadingIndicator = { DataContext = mainViewModel.PopularityLoadingViewModel },
+                ChildFriendlinessLoadingIndicator = { DataContext = mainViewModel.ChildFriendlinessLoadingViewModel },
+                TourLogsLoadingIndicator = { DataContext = mainViewModel.TourLogsLoadingViewModel }
             };
 
             mainWindow.Show();

@@ -61,16 +61,19 @@
                 <Label DockPanel.Dock="Top" Content="🔎" Panel.ZIndex="1" />
                 <TextBox Text="{Binding Path=FilterText, UpdateSourceTrigger=PropertyChanged}" Margin="10 0 10 10" DockPanel.Dock="Top" HorizontalAlignment="Stretch" />
                 <Border DockPanel.Dock="Top" Margin="10 0 10 10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
-                    <DataGrid SelectionChanged="TourSelectionChanged" SelectionMode="Single"
-                        FontFamily="Tahoma" FontSize="20px" HeadersVisibility="None"
-                        ItemsSource="{Binding Path=Tours}" AutoGenerateColumns="False"
-                        CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
-                        ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}"
-                    >
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Path=Name}" IsReadOnly="True" Width="*" />
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <Grid>
+                        <local:LoadingIndicator x:Name="ToursLoadingIndicator" Width="50" Height="50" />
+                        <DataGrid SelectionChanged="TourSelectionChanged" SelectionMode="Single"
+                            FontFamily="Tahoma" FontSize="20px" HeadersVisibility="None"
+                            ItemsSource="{Binding Path=Tours}" AutoGenerateColumns="False"
+                            CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
+                            ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}"
+                        >
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Path=Name}" IsReadOnly="True" Width="*" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
                 </Border>
             </DockPanel>
         </Border>
@@ -150,6 +153,22 @@
                                                 <TextBlock Text="{Binding SelectedTour.EstimatedTime, Converter={StaticResource SecondsConverter}}" />
                                             </Grid>
                                         </Border>
+
+                                        <Label Panel.ZIndex="1" Content="Popularity" />
+                                        <Border Margin="0 0 5 0" Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
+                                            <Grid>
+                                                <local:LoadingIndicator x:Name="PopularityLoadingIndicator" Width="25" Height="25" />
+                                                <TextBlock Text="{Binding TourLogs.Count}" />
+                                            </Grid>
+                                        </Border>
+
+                                        <Label Panel.ZIndex="1" Content="Child friendliness" />
+                                        <Border Margin="0 0 5 0" Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
+                                            <Grid>
+                                                <local:LoadingIndicator x:Name="ChildFriendlinessLoadingIndicator" Width="25" Height="25" />
+                                                <TextBlock Text="{Binding SelectedTour.EstimatedTime}" />
+                                            </Grid>
+                                        </Border>
                                     </StackPanel>
                                 </ScrollViewer>
 
@@ -183,27 +202,30 @@
                 </TabItem>
                 <TabItem Header="Logs">
                     <Border Padding="10" CornerRadius="10" Background="{StaticResource Logs Panel Gradient}">
-                        <DockPanel Margin="0 15 0 0">
-                            <DockPanel DockPanel.Dock="Top">
-                                <Button DockPanel.Dock="Left" Content="➕" ToolTip="Add Tour Log" Width="50" Height="50" FontSize="20" Command="{Binding AddTourLogCommand}" />
-                                <Button DockPanel.Dock="Right" Content="🗑️" ToolTip="Delete Tour Log" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" Command="{Binding DeleteTourLogCommand}" />
-                                <Button DockPanel.Dock="Right" Content="✏️" ToolTip="Edit Tour Log" Width="50" Height="50" FontSize="20" Command="{Binding EditTourLogCommand}" />
+                        <Grid>
+                            <local:LoadingIndicator Panel.ZIndex="1" x:Name="TourLogsLoadingIndicator" Width="50" Height="50" />
+                            <DockPanel Margin="0 15 0 0">
+                                <DockPanel DockPanel.Dock="Top">
+                                    <Button DockPanel.Dock="Left" Content="➕" ToolTip="Add Tour Log" Width="50" Height="50" FontSize="20" Command="{Binding AddTourLogCommand}" />
+                                    <Button DockPanel.Dock="Right" Content="🗑️" ToolTip="Delete Tour Log" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" Command="{Binding DeleteTourLogCommand}" />
+                                    <Button DockPanel.Dock="Right" Content="✏️" ToolTip="Edit Tour Log" Width="50" Height="50" FontSize="20" Command="{Binding EditTourLogCommand}" />
+                                </DockPanel>
+                                <Border DockPanel.Dock="Top" Margin="0 10 0 0" Padding="5" CornerRadius="10" Background="{StaticResource Data Background Solid}">
+                                    <DataGrid SelectionChanged="TourLogSelectionChanged" HeadersVisibility="All" SelectionMode="Single"
+                                            ItemsSource="{Binding Path=TourLogs}" AutoGenerateColumns="False"
+                                            CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
+                                            ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=\{0:dd.MM.yy\}}" IsReadOnly="True" Width="*" />
+                                            <DataGridTextColumn Header="Time" Binding="{Binding Path=Time, Converter={StaticResource MinutesConverter}}" IsReadOnly="True" Width="*" />
+                                            <DataGridTextColumn Header="Rating" Binding="{Binding Path=Rating}" IsReadOnly="True" Width="*" />
+                                            <DataGridTextColumn Header="Difficulty" Binding="{Binding Path=Difficulty}" IsReadOnly="True" Width="*" />
+                                            <DataGridTextColumn Header="Comment" Binding="{Binding Path=Comment}" IsReadOnly="True" Width="*" />
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </Border>
                             </DockPanel>
-                            <Border DockPanel.Dock="Top" Margin="0 10 0 0" Padding="5" CornerRadius="10" Background="{StaticResource Data Background Solid}">
-                                <DataGrid SelectionChanged="TourLogSelectionChanged" HeadersVisibility="All" SelectionMode="Single"
-                                        ItemsSource="{Binding Path=TourLogs}" AutoGenerateColumns="False"
-                                        CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
-                                        ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}">
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=\{0:dd.MM.yy\}}" IsReadOnly="True" Width="*" />
-                                        <DataGridTextColumn Header="Time" Binding="{Binding Path=Time, Converter={StaticResource MinutesConverter}}" IsReadOnly="True" Width="*" />
-                                        <DataGridTextColumn Header="Rating" Binding="{Binding Path=Rating}" IsReadOnly="True" Width="*" />
-                                        <DataGridTextColumn Header="Difficulty" Binding="{Binding Path=Difficulty}" IsReadOnly="True" Width="*" />
-                                        <DataGridTextColumn Header="Comment" Binding="{Binding Path=Comment}" IsReadOnly="True" Width="*" />
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </Border>
-                        </DockPanel>
+                        </Grid>
                     </Border>
                 </TabItem>
             </TabControl>

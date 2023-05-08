@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -56,9 +58,13 @@ namespace TourPlanner.ViewModels {
             }
         }
 
+        public LoadingViewModel ToursLoadingViewModel { get; set;}
         public LoadingViewModel MapLoadingViewModel { get; set; }
         public LoadingViewModel DistanceLoadingViewModel { get; set; }
         public LoadingViewModel EstimatedTimeLoadingViewModel { get; set; }
+        public LoadingViewModel PopularityLoadingViewModel { get; set; }
+        public LoadingViewModel ChildFriendlinessLoadingViewModel { get; set; }
+        public LoadingViewModel TourLogsLoadingViewModel { get; set; }
 
         public ObservableCollection<TourLog> TourLogs { get; private set; } = new();
 
@@ -94,17 +100,26 @@ namespace TourPlanner.ViewModels {
             AddTourLogCommand = new RelayCommand(x => AddTourLog());
             EditTourLogCommand = new RelayCommand(x => EditTourLog());
             DeleteTourLogCommand = new RelayCommand(x => DeleteTourLog());
-            FetchTours();
+            new Task(FetchTours).Start();
         }
 
         private void FetchTours() {
-            Tours.Clear();
-            _tourService.GetAll().ForEach(tour => Tours.Add(tour));
+            Application.Current.Dispatcher.Invoke(() => {
+                Tours.Clear();
+                ToursLoadingViewModel.Show();
+            });
 
-            if (Tours.Any()) {
-                SelectedTour = Tours[0];
-                FetchSelectedTour();
-            }
+            var tours = _tourService.GetAll();
+
+            Application.Current.Dispatcher.Invoke(() => {
+                ToursLoadingViewModel.Hide();
+                tours.ForEach(tour => Tours.Add(tour));
+
+                if (Tours.Any()) {
+                    SelectedTour = Tours[0];
+                    new Task(FetchSelectedTour).Start();
+                }
+            });
         }
 
         private void FetchSelectedTour() {
@@ -113,47 +128,28 @@ namespace TourPlanner.ViewModels {
             if (SelectedTour!.RouteFetched) {
                 using var ms = new MemoryStream(SelectedTour.MapImage!);
                 var bitmap = new Bitmap(ms);
-                MapImage = BitmapToImageSource(bitmap);
+                Application.Current.Dispatcher.Invoke(() => MapImage = BitmapToImageSource(bitmap));
             } else if (SelectedTour.From != null && SelectedTour.To != null) {
                 FetchRouteData();
             }
         }
 
         private void FetchTourLogs() {
-            TourLogs.Clear();
-            _tourLogService.GetByTour(SelectedTour!).ForEach(tourLog => TourLogs.Add(tourLog));
-        }
+            Application.Current.Dispatcher.Invoke(() => {
+                TourLogs.Clear();
+                PopularityLoadingViewModel.Show();
+                ChildFriendlinessLoadingViewModel.Show();
+                TourLogsLoadingViewModel.Show();
+            });
 
-        // /////////////////////////////////////////////////////////////////////////
-        // Methods
-        // /////////////////////////////////////////////////////////////////////////
-
-        public void FilterTours() {
-            Tours.Clear();
-            _tourService.GetByNameContains(FilterText).ForEach(tour => Tours.Add(tour));
-        }
-
-        public void SelectTour(Tour tour) {
-            SelectedTour = tour;
-            MapImage = new BitmapImage();
-            FetchSelectedTour();
-        }
-
-        public void AddTour() {
-            if (_dialogService.OpenAddTourDialog()) {
-                FetchTours();
-            }
-        }
-
-        public void EditTour() {
-            if (_dialogService.OpenEditTourDialog(new(SelectedTour!))) {
-                FetchTours();
-            }
-        }
-
-        public void DeleteTour() {
-            _tourService.Remove(SelectedTour!);
-            FetchTours();
+            var fetchingTourLogsTask = new Task<List<TourLog>>(() => _tourLogService.GetByTour(SelectedTour!));
+            fetchingTourLogsTask.ContinueWith(task => Application.Current.Dispatcher.Invoke(() => {
+                PopularityLoadingViewModel.Hide();
+                ChildFriendlinessLoadingViewModel.Hide();
+                TourLogsLoadingViewModel.Hide();
+                task.Result.ForEach(tourLog => TourLogs.Add(tourLog));
+            }));
+            fetchingTourLogsTask.Start();
         }
 
         /// <summary>
@@ -162,9 +158,11 @@ namespace TourPlanner.ViewModels {
         ///     Requires the tour to have a from and to location.
         /// </summary>
         private void FetchRouteData() {
-            MapLoadingViewModel.Show();
-            DistanceLoadingViewModel.Show();
-            EstimatedTimeLoadingViewModel.Show();
+            Application.Current.Dispatcher.Invoke(() => {
+                MapLoadingViewModel.Show();
+                DistanceLoadingViewModel.Show();
+                EstimatedTimeLoadingViewModel.Show();
+            });
 
             // Fetch route
             _routeService.GetRoute(SelectedTour!.From!, SelectedTour.To!, SelectedTour.TransportType).ContinueWith(task => {
@@ -225,6 +223,38 @@ namespace TourPlanner.ViewModels {
             } finally {
                 bitmap.UnlockBits(bitmapData);
             }
+        }
+
+        // /////////////////////////////////////////////////////////////////////////
+        // Methods
+        // /////////////////////////////////////////////////////////////////////////
+
+        public void FilterTours() {
+            Tours.Clear();
+            _tourService.GetByNameContains(FilterText).ForEach(tour => Tours.Add(tour));
+        }
+
+        public void SelectTour(Tour tour) {
+            SelectedTour = tour;
+            MapImage = new BitmapImage();
+            FetchSelectedTour();
+        }
+
+        public void AddTour() {
+            if (_dialogService.OpenAddTourDialog()) {
+                FetchTours();
+            }
+        }
+
+        public void EditTour() {
+            if (_dialogService.OpenEditTourDialog(new(SelectedTour!))) {
+                FetchTours();
+            }
+        }
+
+        public void DeleteTour() {
+            _tourService.Remove(SelectedTour!);
+            FetchTours();
         }
 
         public void SelectTourLog(TourLog tourLog) {
