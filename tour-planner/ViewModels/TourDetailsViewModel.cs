@@ -23,6 +23,22 @@ namespace TourPlanner.ViewModels {
 
         public EventHandler? RouteFetched;
 
+        public double? Distance {
+            get => Tour?.Distance;
+            set {
+                Tour!.Distance = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public long? EstimatedTime {
+            get => Tour?.EstimatedTime;
+            set {
+                Tour!.EstimatedTime = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private ImageSource? _mapImage;
         public ImageSource? MapImage {
             get => _mapImage;
@@ -82,7 +98,11 @@ namespace TourPlanner.ViewModels {
 
         public async void LoadTourDetails(Tour tour) {
             Tour = tour;
-            InUI(ClearTourDetails);
+            InUI(() => {
+                ClearTourDetails();
+                RaisePropertyChanged(nameof(Distance));
+                RaisePropertyChanged(nameof(EstimatedTime));
+            });
 
             int popularityRank = _tourService.GetPopularityRank(tour);
             // TODO: Implement child friendliness
@@ -141,33 +161,18 @@ namespace TourPlanner.ViewModels {
 
         private async Task FetchRoute() {
             try {
-                InUI(() => {
-                    EstimatedTimeLoadingViewModel?.Show();
-                    MapLoadingViewModel?.Show();
-                });
-
+                ClearDistanceAndTime();
                 // TODO: comment why this line is okay :)
                 var route = await _routeService.GetRoute(Tour!.From!, Tour.To!, Tour.TransportType);
-
-                Tour.RouteFetched = true;
-                Tour.Distance = route.Distance;
-                Tour.EstimatedTime = route.Time;
-
-                InUI(() => {
-                    DistanceLoadingViewModel?.Hide();
-                    EstimatedTimeLoadingViewModel?.Hide();
-                });
+                ShowDistanceAndTime(route);
 
                 var bitmap = await _mapService.GetMap(route);
                 using var stream = new MemoryStream();
                 bitmap.Save(stream, ImageFormat.Png);
+                ShowMapImage(bitmap);
 
+                Tour.RouteFetched = true;
                 Tour.MapImage = stream.ToArray();
-                InUI(() => {
-                    MapLoadingViewModel?.Hide();
-                    MapImage = BitmapToImageSource(bitmap);
-                });
-
                 Tour.LastFetched = DateTime.UtcNow;
                 Tour = _tourService.Update(Tour);
 
@@ -177,6 +182,31 @@ namespace TourPlanner.ViewModels {
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
             }
+        }
+
+        private void ShowMapImage(Bitmap bitmap) {
+            InUI(() => {
+                MapLoadingViewModel?.Hide();
+                MapImage = BitmapToImageSource(bitmap);
+            });
+        }
+
+        private void ShowDistanceAndTime(Route route) {
+            InUI(() => {
+                Distance = route.Distance;
+                EstimatedTime = route.Time;
+                DistanceLoadingViewModel?.Hide();
+                EstimatedTimeLoadingViewModel?.Hide();
+            });
+        }
+
+        private void ClearDistanceAndTime() {
+            InUI(() => {
+                Distance = null;
+                EstimatedTime = null;
+                DistanceLoadingViewModel?.Show();
+                EstimatedTimeLoadingViewModel?.Show();
+            });
         }
     }
 }

@@ -1,10 +1,8 @@
 using System;
-using System.Net.Security;
 using Microsoft.Extensions.DependencyInjection;
 using TourPlanner.Data.Repository;
 using TourPlanner.Logic.Service;
 using TourPlanner.ViewModels;
-using TourPlanner.Views;
 
 namespace TourPlanner {
 

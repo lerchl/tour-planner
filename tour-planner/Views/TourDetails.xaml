@@ -59,7 +59,7 @@
                         <Border Margin="0 0 5 0" Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
                             <Grid>
                                 <local:LoadingIndicator x:Name="DistanceLoadingIndicator" Width="25" Height="25" />
-                                <TextBlock Text="{Binding Tour.Distance, StringFormat={}{0}km, TargetNullValue=''}" />
+                                <TextBlock Text="{Binding Distance, StringFormat={}{0}km, TargetNullValue='', UpdateSourceTrigger=PropertyChanged}" />
                             </Grid>
                         </Border>
 
@@ -67,7 +67,7 @@
                         <Border Margin="0 0 5 0" Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
                             <Grid>
                                 <local:LoadingIndicator x:Name="EstimatedTimeLoadingIndicator" Width="25" Height="25" />
-                                <TextBlock Text="{Binding Tour.EstimatedTime, Converter={StaticResource SecondsConverter}}" />
+                                <TextBlock Text="{Binding EstimatedTime, Converter={StaticResource SecondsConverter}, UpdateSourceTrigger=PropertyChanged}" />
                             </Grid>
                         </Border>
 
@@ -75,7 +75,7 @@
                         <Border Margin="0 0 5 0" Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
                             <Grid>
                                 <local:LoadingIndicator x:Name="PopularityRankLoadingIndicator" Width="25" Height="25" />
-                                <TextBlock Text="{Binding PopularityRank}" />
+                                <TextBlock Text="{Binding PopularityRank, UpdateSourceTrigger=PropertyChanged}" />
                             </Grid>
                         </Border>
 
@@ -83,7 +83,7 @@
                         <Border Margin="0 0 5 0" Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
                             <Grid>
                                 <local:LoadingIndicator x:Name="ChildFriendlinessLoadingIndicator" Width="25" Height="25" />
-                                <TextBlock Text="{Binding ChildFriendliness}" />
+                                <TextBlock Text="{Binding ChildFriendliness, UpdateSourceTrigger=PropertyChanged}" />
                             </Grid>
                         </Border>
                     </StackPanel>
