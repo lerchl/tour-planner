@@ -21,7 +21,6 @@ namespace TourPlanner.ViewModels {
                 RaisePropertyChanged();
             }
         }
-        public event EventHandler? TourLogSelected;
 
         public RelayCommand AddTourLogCommand { get; private set; }
         public RelayCommand EditTourLogCommand { get; private set; }
