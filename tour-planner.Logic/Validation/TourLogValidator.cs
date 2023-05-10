@@ -18,12 +18,6 @@ namespace TourPlanner.Logic.Validation {
             // Time
             ValidateMinValue(t.Time, 1, "Time", result);
 
-            // Rating
-            ValidateRange(t.Rating, 1, 10, "Rating", result);
-
-            // Difficulty
-            ValidateRange(t.Difficulty, 1, 10, "Difficulty", result);
-
             // Comment
             ValidateMaxLength(t.Comment, 1000, "Comment", result);
 

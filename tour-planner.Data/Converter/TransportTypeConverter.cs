@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TourPlanner.Model;
 
-namespace TourPlanner.Data {
+namespace TourPlanner.Data.Converter {
 
     /// <summary>
     ///     <see cref="ValueConverter{TModel, TProvider}"/> for <see cref="TransportType"/>.

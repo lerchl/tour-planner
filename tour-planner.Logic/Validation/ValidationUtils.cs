@@ -59,16 +59,5 @@ namespace TourPlanner.Logic.Validation {
                 result.AddMessage(new(Error, $"{name} is too small (min. {minValue})"));
             }
         }
-
-        public static void ValidateMaxValue(decimal value, decimal maxValue, string name, ValidationResult result) {
-            if (value > maxValue) {
-                result.AddMessage(new(Error, $"{name} is too large (max. {maxValue})"));
-            }
-        }
-
-        public static void ValidateRange(decimal value, decimal minValue, decimal maxValue, string name, ValidationResult result) {
-            ValidateMinValue(value, minValue, name, result);
-            ValidateMaxValue(value, maxValue, name, result);
-        }
     }
 }

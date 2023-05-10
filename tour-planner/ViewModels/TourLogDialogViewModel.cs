@@ -40,7 +40,10 @@ namespace TourPlanner.ViewModels {
         }
 
         [SuppressMessage("Usage", "CA1822", Justification = "Intended for use in XAML.")]
-        public List<int> OneToTen => Enumerable.Range(1, 10).ToList();
+        public List<Rating> Ratings => Rating.ALL.ToList();
+
+        [SuppressMessage("Usage", "CA1822", Justification = "Intended for use in XAML.")]
+        public List<Difficulty> Difficulties => Difficulty.ALL.ToList();
 
         // /////////////////////////////////////////////////////////////////////////
         // Init

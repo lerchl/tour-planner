@@ -38,10 +38,22 @@
             </Grid>
 
             <Label DockPanel.Dock="Top" Content="Rating" Panel.ZIndex="1" />
-            <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding Path=OneToTen}" SelectedValue="{Binding Path=Entity.Rating, UpdateSourceTrigger=PropertyChanged}" />
+            <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding Path=Ratings}" SelectedValue="{Binding Path=Entity.Rating, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontSize="20" Text="{Binding Path=Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
 
             <Label DockPanel.Dock="Top" Content="Difficulty" Panel.ZIndex="1" />
-            <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding Path=OneToTen}" SelectedValue="{Binding Path=Entity.Difficulty, UpdateSourceTrigger=PropertyChanged}" />
+            <ComboBox DockPanel.Dock="Top" ItemsSource="{Binding Path=Difficulties}" SelectedValue="{Binding Path=Entity.Difficulty, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontSize="20" Text="{Binding Path=Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
 
             <Label DockPanel.Dock="Top" Content="Comment" Panel.ZIndex="1" />
             <TextBox DockPanel.Dock="Top" Text="{Binding Path=Entity.Comment, UpdateSourceTrigger=PropertyChanged}" />

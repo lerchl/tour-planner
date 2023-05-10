@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using TourPlanner.Data.Converter;
 using TourPlanner.Model;
 
 namespace TourPlanner.Data {
@@ -28,6 +29,14 @@ namespace TourPlanner.Data {
             modelBuilder.Entity<Tour>()
                         .Property(t => t.TransportType)
                         .HasConversion(new TransportTypeConverter()!);
+
+            modelBuilder.Entity<TourLog>()
+                        .Property(tl => tl.Rating)
+                        .HasConversion(new RatingConverter()!);
+
+            modelBuilder.Entity<TourLog>()
+                        .Property(tl => tl.Difficulty)
+                        .HasConversion(new DifficultyConverter()!);
         }
     }
 }

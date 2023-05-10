@@ -4,7 +4,6 @@ namespace TourPlanner.Model {
 
         public static HashSet<TransportType> ALL {
             get => new() { FASTEST, SHORTEST, BIKE, FOOT };
-            private set => ALL = value;
         }
 
         public static readonly TransportType FASTEST = new(0, "Fastest", "fastest");
@@ -31,13 +30,8 @@ namespace TourPlanner.Model {
         // /////////////////////////////////////////////////////////////////////////
 
         public static TransportType FromId(int id) {
-            var transportType = ALL.FirstOrDefault(t => t!.Id == id, null);
-
-            if (transportType == null) {
-                throw new ArgumentException($"No transport type with id {id} found.");
-            }
-
-            return transportType;
+            return ALL.FirstOrDefault(t => t!.Id == id, null) ??
+                    throw new ArgumentException($"No transport type with id {id} found.");
         }
     }
 }

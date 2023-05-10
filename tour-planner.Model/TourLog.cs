@@ -10,7 +10,7 @@ namespace TourPlanner.Model {
         public Guid Id { get; set; }
 
         [Column("date"), Required]
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.UtcNow;
 
         /// <summary>
         ///     Time in minutes.
@@ -19,10 +19,10 @@ namespace TourPlanner.Model {
         public long Time { get; set; }
 
         [Column("rating")]
-        public int Rating { get; set; }
+        public Rating Rating { get; set; } = Rating.OK;
 
         [Column("difficulty")]
-        public int Difficulty { get; set; }
+        public Difficulty Difficulty { get; set; } = Difficulty.MEDIUM;
 
         [Column("comment"), MaxLength(1000)]
         public string? Comment { get; set; }
@@ -42,15 +42,14 @@ namespace TourPlanner.Model {
             Tour = tour;
         }
 
-        public TourLog(Guid id, DateTime date, int time, int rating, Tour? tour) {
+        public TourLog(Guid id, DateTime date, int time, Rating rating, Difficulty difficulty, Tour? tour) {
             Id = id;
             Date = date;
             Time = time;
             Rating = rating;
+            Difficulty = difficulty;
             Tour = tour;
         }
-
-
 
         // /////////////////////////////////////////////////////////////////////////
         // Methods

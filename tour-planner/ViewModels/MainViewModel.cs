@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using TourPlanner.Model;
 
 namespace TourPlanner.ViewModels {
 
