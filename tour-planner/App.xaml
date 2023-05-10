@@ -215,9 +215,6 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
                             <Border Name="Border" CornerRadius="10" Background="{StaticResource Secondary Gradient}" Padding="10">
-                                <Border.Effect>
-                                    <DropShadowEffect />
-                                </Border.Effect>
                                 <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
                             </Border>
                             <ControlTemplate.Triggers>

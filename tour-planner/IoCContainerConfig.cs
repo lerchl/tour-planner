@@ -1,4 +1,5 @@
 using System;
+using System.Net.Security;
 using Microsoft.Extensions.DependencyInjection;
 using TourPlanner.Data.Repository;
 using TourPlanner.Logic.Service;
@@ -10,7 +11,11 @@ namespace TourPlanner {
     internal class IoCContainerConfig {
 
         public MainViewModel MainViewModel => serviceProvider.GetRequiredService<MainViewModel>();
-        public LoadingViewModel LoadingIndicatorViewModel => serviceProvider.GetRequiredService<LoadingViewModel>();
+        public TourListViewModel TourListViewModel => serviceProvider.GetRequiredService<TourListViewModel>();
+        public TourActionRowViewModel TourActionRowViewModel => serviceProvider.GetRequiredService<TourActionRowViewModel>();
+        public TourDetailsViewModel TourDetailsViewModel => serviceProvider.GetRequiredService<TourDetailsViewModel>();
+        public TourLogTableViewModel TourLogTableViewModel => serviceProvider.GetRequiredService<TourLogTableViewModel>();
+        public LoadingIndicatorViewModel LoadingIndicatorViewModel => serviceProvider.GetRequiredService<LoadingIndicatorViewModel>();
 
         private readonly IServiceProvider serviceProvider;
 
@@ -33,7 +38,12 @@ namespace TourPlanner {
 
             // ViewModels
             services.AddSingleton<MainViewModel>();
-            services.AddTransient<LoadingViewModel>();
+            services.AddSingleton<TourListViewModel>();
+            services.AddSingleton<TourActionRowViewModel>();
+            services.AddSingleton<TourDetailsViewModel>();
+            services.AddSingleton<TourLogTableViewModel>();
+
+            services.AddTransient<LoadingIndicatorViewModel>();
             services.AddTransient<TourDialogViewModel>();
             services.AddTransient<TourLogDialogViewModel>();
 

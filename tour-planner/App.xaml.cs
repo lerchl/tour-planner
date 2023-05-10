@@ -20,24 +20,29 @@ namespace TourPlanner {
 
             var ioCConfig = (IoCContainerConfig) Current.Resources["IoCConfig"];
 
-            var mainViewModel = ioCConfig.MainViewModel;
-            mainViewModel.ToursLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
-            mainViewModel.MapLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
-            mainViewModel.DistanceLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
-            mainViewModel.EstimatedTimeLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
-            mainViewModel.PopularityRankLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
-            mainViewModel.ChildFriendlinessLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
-            mainViewModel.TourLogsLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
+            var tourListViewModel = ioCConfig.TourListViewModel;
+            tourListViewModel.LoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
+
+            var tourDetailsViewModel = ioCConfig.TourDetailsViewModel;
+            tourDetailsViewModel.MapLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
+            tourDetailsViewModel.DistanceLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
+            tourDetailsViewModel.EstimatedTimeLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
+            tourDetailsViewModel.PopularityRankLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
+            tourDetailsViewModel.ChildFriendlinessLoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
+
+            var tourLogTableViewModel = ioCConfig.TourLogTableViewModel;
+            tourLogTableViewModel.LoadingViewModel = ioCConfig.LoadingIndicatorViewModel;
 
             var mainWindow = new MainWindow {
-                DataContext = mainViewModel,
-                ToursLoadingIndicator = { DataContext = mainViewModel.ToursLoadingViewModel },
-                MapLoadingIndicator = { DataContext = mainViewModel.MapLoadingViewModel },
-                DistanceLoadingIndicator = { DataContext = mainViewModel.DistanceLoadingViewModel },
-                EstimatedTimeLoadingIndicator = { DataContext = mainViewModel.EstimatedTimeLoadingViewModel },
-                PopularityRankLoadingIndicator = { DataContext = mainViewModel.PopularityRankLoadingViewModel },
-                ChildFriendlinessLoadingIndicator = { DataContext = mainViewModel.ChildFriendlinessLoadingViewModel },
-                TourLogsLoadingIndicator = { DataContext = mainViewModel.TourLogsLoadingViewModel }
+                DataContext = ioCConfig.MainViewModel,
+                TourList = { DataContext = tourListViewModel, LoadingIndicator = { DataContext = tourListViewModel.LoadingViewModel } },
+                TourActionRow = { DataContext = ioCConfig.TourActionRowViewModel },
+                TourDetails = { DataContext = tourDetailsViewModel, PopularityRankLoadingIndicator = { DataContext = tourDetailsViewModel.PopularityRankLoadingViewModel },
+                                                                    ChildFriendlinessLoadingIndicator = { DataContext = tourDetailsViewModel.ChildFriendlinessLoadingViewModel },
+                                                                    DistanceLoadingIndicator = { DataContext = tourDetailsViewModel.DistanceLoadingViewModel },
+                                                                    EstimatedTimeLoadingIndicator = { DataContext = tourDetailsViewModel.EstimatedTimeLoadingViewModel },
+                                                                    MapLoadingIndicator = { DataContext = tourDetailsViewModel.MapLoadingViewModel } },
+                TourLogTable = { DataContext = tourLogTableViewModel, LoadingIndicator = { DataContext = tourLogTableViewModel.LoadingViewModel } },
             };
 
             mainWindow.Show();

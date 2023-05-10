@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="TourPlanner.Views.TourLogTable"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TourPlanner.Views"
+             mc:Ignorable="d"
+             Foreground="{StaticResource Font Color Solid}"
+             FontFamily="{StaticResource Font Family}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border Padding="10" CornerRadius="10" Background="{StaticResource Logs Panel Gradient}">
+        <Grid>
+            <local:LoadingIndicator Panel.ZIndex="1" x:Name="LoadingIndicator" Width="50" Height="50" />
+            <DockPanel>
+                <DockPanel DockPanel.Dock="Top">
+                    <Button DockPanel.Dock="Left" Content="➕" ToolTip="Add Tour Log" Width="50" Height="50" FontSize="20" Command="{Binding AddTourLogCommand}" />
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="✏️" ToolTip="Edit Tour Log" Width="50" Height="50" FontSize="20" Command="{Binding EditTourLogCommand}" />
+                        <Button Content="🗑️" ToolTip="Delete Tour Log" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" Command="{Binding DeleteTourLogCommand}" />
+                    </StackPanel>
+                </DockPanel>
+                <Border DockPanel.Dock="Top" Margin="0 10 0 0" Padding="5" CornerRadius="10" Background="{StaticResource Data Background Solid}">
+                    <DataGrid SelectionChanged="TourLogSelectionChanged" HeadersVisibility="All" SelectionMode="Single"
+                                            ItemsSource="{Binding Path=TourLogs}" AutoGenerateColumns="False"
+                                            CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
+                                            ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=\{0:dd.MM.yy\}}" IsReadOnly="True" Width="*" />
+                            <DataGridTextColumn Header="Time" Binding="{Binding Path=Time, Converter={StaticResource MinutesConverter}}" IsReadOnly="True" Width="*" />
+                            <DataGridTextColumn Header="Rating" Binding="{Binding Path=Rating}" IsReadOnly="True" Width="*" />
+                            <DataGridTextColumn Header="Difficulty" Binding="{Binding Path=Difficulty}" IsReadOnly="True" Width="*" />
+                            <DataGridTextColumn Header="Comment" Binding="{Binding Path=Comment}" IsReadOnly="True" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+            </DockPanel>
+        </Grid>
+    </Border>
+</UserControl>

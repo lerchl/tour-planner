@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
-             xmlns:local="clr-namespace:TourPlanner.Views"
              mc:Ignorable="d" 
              d:DesignHeight="25" d:DesignWidth="25">
     <Image Visibility="{Binding Visibility}" gif:AnimationBehavior.SourceStream="{Binding Gif}" gif:AnimationBehavior.AutoStart="True" gif:AnimationBehavior.AnimateInDesignMode="True" />
