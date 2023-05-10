@@ -89,6 +89,7 @@ namespace TourPlanner.ViewModels {
 
             // TODO: fetch route should be disabled if tour is null
             // or from or to are not set
+            // TODO: manual fetch does not hide map or show loading indicator
             FetchRouteCommand = new(async x => await FetchRoute());
         }
 

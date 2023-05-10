@@ -24,15 +24,15 @@ namespace TourPlanner.ViewModels {
             _tourLogTableViewModel = tourLogTableViewModel;
 
             _tourListViewModel.TourSelected += (sender, args) => Task.Run(SelectTour);
-            _tourActionRowViewModel.OnAction += (sender, args) => Init();
+            _tourActionRowViewModel.OnAction += (sender, args) => Task.Run(_tourListViewModel.LoadTours);
             _tourDetailsViewModel.RouteFetched += (sender, args) => UpdateSelectedTour();
 
-            new Task(Init).Start();
+            Task.Run(() => _tourListViewModel.LoadTours());
         }
 
-        private void Init() {
-            Task.Run(_tourListViewModel.LoadTours).ContinueWith(task => SelectTour());
-        }
+        // /////////////////////////////////////////////////////////////////////////
+        // Methods
+        // /////////////////////////////////////////////////////////////////////////
 
         private void SelectTour() {
             if (_tourListViewModel.SelectedTour == null) {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using TourPlanner.Logic.Service;
 using TourPlanner.Model;
@@ -28,7 +29,7 @@ namespace TourPlanner.ViewModels {
             get => _filterText;
             set {
                 _filterText = value;
-                FilterTours();
+                Task.Run(() => new TourListFilterRequest(LoadTours).Filter());
                 RaisePropertyChanged();
             }
         }
@@ -52,7 +53,7 @@ namespace TourPlanner.ViewModels {
         public void LoadTours() {
             Guid selected = SelectedTour?.Id ?? Guid.Empty;
             InUI(ClearTours);
-            var tours = _tourService.GetAll();
+            var tours = _tourService.GetByNameContains(FilterText);
             InUI(() => ShowTours(tours, selected));
         }
 
@@ -72,11 +73,8 @@ namespace TourPlanner.ViewModels {
             } else {
                 SelectedTour = null;
             }
-        }
 
-        public void FilterTours() {
-            Tours.Clear();
-            _tourService.GetByNameContains(FilterText).ForEach(tour => Tours.Add(tour));
+            TourSelected?.Invoke(this, EventArgs.Empty);
         }
 
         public void SelectTour(Tour tour) {

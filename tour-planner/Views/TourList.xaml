@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TourPlanner.Views"
              mc:Ignorable="d" 
+             Foreground="{StaticResource Font Color Solid}"
+             FontFamily="{StaticResource Font Family}"
              d:DesignHeight="800" d:DesignWidth="400">
     <Border CornerRadius="10" Margin="10" Background="{StaticResource Tours Panel Gradient}">
         <DockPanel>
@@ -15,11 +17,10 @@
                 <Grid>
                     <local:LoadingIndicator x:Name="LoadingIndicator" Width="50" Height="50" />
                     <DataGrid SelectionChanged="SelectionChanged" SelectionMode="Single"
-                            FontFamily="Tahoma" FontSize="20px" HeadersVisibility="None"
-                            ItemsSource="{Binding Path=Tours}" AutoGenerateColumns="False"
+                            FontSize="20px" HeadersVisibility="None" Padding="5"
+                            d:ItemsSource="{d:SampleData}" ItemsSource="{Binding Path=Tours}" AutoGenerateColumns="False"
                             CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False"
-                            ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}"
-                        >
+                            ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Path=Name}" IsReadOnly="True" Width="*" />
                         </DataGrid.Columns>
