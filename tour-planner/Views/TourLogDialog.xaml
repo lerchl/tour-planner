@@ -12,7 +12,7 @@
             <Label DockPanel.Dock="Top" Content="{Binding Path=DialogTitle, UpdateSourceTrigger=PropertyChanged}" FontSize="40" Height="60" Margin="0" />
 
             <Label DockPanel.Dock="Top" Content="Date" Panel.ZIndex="1" />
-            <DatePicker DockPanel.Dock="Top" SelectedDate="{Binding Path=Entity.Date, UpdateSourceTrigger=PropertyChanged}" />
+            <DatePicker DockPanel.Dock="Top" SelectedDate="{Binding Path=Date, UpdateSourceTrigger=PropertyChanged}" />
 
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>

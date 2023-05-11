@@ -55,7 +55,7 @@ namespace TourPlanner.Model {
         [Column("map_image")]
         public byte[]? MapImage { get; set; }
 
-        public List<TourLog> TourLogs { get; set; }
+        public List<TourLog> TourLogs { get; set; } = new();
 
         // /////////////////////////////////////////////////////////////////////////
         // Init

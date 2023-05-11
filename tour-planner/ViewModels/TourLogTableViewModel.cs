@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -75,7 +74,7 @@ namespace TourPlanner.ViewModels {
 
         private void EditTourLog() {
             // command is only enabled if tour log is not null
-            if (_dialogService.OpenEditTourLogDialog(SelectedTourLog!)) {
+            if (_dialogService.OpenEditTourLogDialog(new(SelectedTourLog!))) {
                 Task.Run(() => LoadTourLogs(Tour!));
             }
         }
