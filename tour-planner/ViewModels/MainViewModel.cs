@@ -24,7 +24,7 @@ namespace TourPlanner.ViewModels {
 
             _tourListViewModel.TourSelected += (sender, args) => Task.Run(SelectTour);
             _tourActionRowViewModel.OnAction += (sender, args) => Task.Run(_tourListViewModel.LoadTours);
-            _tourDetailsViewModel.RouteFetched += (sender, args) => UpdateSelectedTour();
+            _tourDetailsViewModel.RouteFetched += (sender, args) => InUI(UpdateSelectedTour);
 
             Task.Run(() => _tourListViewModel.LoadTours());
         }
