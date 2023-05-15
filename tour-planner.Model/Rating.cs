@@ -1,6 +1,6 @@
 namespace TourPlanner.Model {
 
-    public class Rating {
+    public class Rating : EnumLike<Rating, int> {
 
         public static HashSet<Rating> ALL {
             get => new() { GARBAGE, BAD, OK, GOOD, GREAT, EXCELLENT };
@@ -13,27 +13,12 @@ namespace TourPlanner.Model {
         public static readonly Rating GREAT = new(500, "Great", 4);
         public static readonly Rating EXCELLENT = new(600, "Excellent", 5);
 
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-        public int Value { get; private set; }
-
         // /////////////////////////////////////////////////////////////////////////
         // Init
         // /////////////////////////////////////////////////////////////////////////
 
-        private Rating(int id, string name, int value) {
-            Id = id;
-            Name = name;
-            Value = value;
-        }
-
-        // /////////////////////////////////////////////////////////////////////////
-        // Methods
-        // /////////////////////////////////////////////////////////////////////////
-
-        public static Rating FromId(int id) {
-            return ALL.FirstOrDefault(t => t!.Id == id, null) ??
-                    throw new ArgumentException($"No rating with id {id} found.");
+        protected Rating(int id, string name, int value) : base(id, name, value) {
+            // noop
         }
     }
 }

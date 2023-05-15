@@ -12,7 +12,7 @@ namespace TourPlanner.Data.Converter {
         // https://learn.microsoft.com/en-us/ef/core/modeling/value-conversions?tabs=data-annotations#configuring-a-value-converter
         public RatingConverter() : base(
             r => r!.Id,
-            id => Rating.FromId(id)
+            id => Rating.FromId(id, Rating.ALL)
         ) {
             // noop
         }

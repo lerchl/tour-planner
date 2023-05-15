@@ -14,6 +14,11 @@ namespace TourPlanner.Logic.Report {
         /// <returns>The generated report.</returns>
         public E TourReport(Tour tour);
 
+        /// <summary>
+        ///     Generates a report for a list of <paramref name="tours"/>.
+        /// </summary>
+        /// <param name="tours">The <see cref="Tour"/>s to generate a report for</param>
+        /// <returns>The generated report.</returns>
         public E ToursReport(List<Tour> tours);
     }
 }

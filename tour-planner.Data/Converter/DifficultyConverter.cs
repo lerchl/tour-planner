@@ -12,7 +12,7 @@ namespace TourPlanner.Data.Converter {
         // https://learn.microsoft.com/en-us/ef/core/modeling/value-conversions?tabs=data-annotations#configuring-a-value-converter
         public DifficultyConverter() : base(
             d => d!.Id,
-            id => Difficulty.FromId(id)
+            id => Difficulty.FromId(id, Difficulty.ALL)
         ) {
             // noop
         }

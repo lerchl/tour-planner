@@ -10,7 +10,10 @@
              d:DesignHeight="800" d:DesignWidth="400">
     <Border CornerRadius="10" Margin="10" Background="{StaticResource Tours Panel Gradient}">
         <DockPanel>
-            <Label DockPanel.Dock="Top" Content="Tours" Margin="10 10 10 0" FontSize="40px" Height="60" HorizontalAlignment="Center" />
+            <DockPanel DockPanel.Dock="Top" Margin="10 10 10 0">
+                <Label DockPanel.Dock="Left" Content="Tours" FontSize="40px" Height="60" HorizontalAlignment="Left" />
+                <Button DockPanel.Dock="Right" Content="📝" ToolTip="Create Tours Report" Width="50" Height="50" FontSize="20" HorizontalAlignment="Right" Command="{Binding Path=CreateToursReportCommand}" Style="{StaticResource Secondary Button}" />
+            </DockPanel>
             <Label DockPanel.Dock="Top" Content="🔎" Panel.ZIndex="1" />
             <TextBox Text="{Binding Path=FilterText, UpdateSourceTrigger=PropertyChanged}" Margin="10 0 10 10" DockPanel.Dock="Top" HorizontalAlignment="Stretch" />
             <Border DockPanel.Dock="Top" Margin="10 0 10 10" CornerRadius="10" Background="{StaticResource Data Background Solid}">

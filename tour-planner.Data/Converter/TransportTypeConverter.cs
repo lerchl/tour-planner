@@ -12,7 +12,7 @@ namespace TourPlanner.Data.Converter {
         // https://learn.microsoft.com/en-us/ef/core/modeling/value-conversions?tabs=data-annotations#configuring-a-value-converter
         public TransportTypeConverter() : base(
             tt => tt!.Id,
-            id => TransportType.FromId(id)
+            id => TransportType.FromId(id, TransportType.ALL)
         ) {
             // noop
         }

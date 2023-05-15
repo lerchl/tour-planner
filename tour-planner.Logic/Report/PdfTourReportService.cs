@@ -87,7 +87,56 @@ namespace TourPlanner.Logic.Report {
         }
 
         public PdfDocument ToursReport(List<Tour> tours) {
-            throw new NotImplementedException();
+            var pdf = new PdfDocument(_createPdfWriter());
+            var document = CreateBlankDocumentWithHeadline(pdf, "Tours Report");
+
+            document.Add(new Paragraph("This report contains the averages of all tour logs of all tours."));
+
+            document.Add(new Paragraph("Available Ratings: " + Rating.ALL.Select(rating => $"{rating.Name} ({rating.Value})").Aggregate((a, b) => a + ", " + b)));
+            document.Add(new Paragraph("Available Difficulties: " + Difficulty.ALL.Select(difficulty => $"{difficulty.Name} ({difficulty.Value})").Aggregate((a, b) => a + ", " + b)));
+
+            var table = new Table(UnitValue.CreatePercentArray(4)).UseAllAvailableWidth();
+            table.AddHeaderCell("Name");
+            table.AddHeaderCell("Time");
+            table.AddHeaderCell("Difficulty");
+            table.AddHeaderCell("Rating");
+
+            var minutesTimeConverter = new TimeConverter(s => TimeSpan.FromMinutes(s), HOURS, MINUTES, SECONDS);
+            tours.ForEach(tour => {
+                long averageTime = (long) tour.TourLogs.Select(tourLog => tourLog.Time).Average();
+                double averageDifficulty = tour.TourLogs.Select(tourLog => tourLog.Difficulty.Value).Average();
+                double averageRating = tour.TourLogs.Select(tourLog => tourLog.Rating.Value).Average();
+
+                table.AddCell(tour.Name);
+                table.AddCell(minutesTimeConverter.Convert(averageTime));
+                table.AddCell(FormatAverage(averageDifficulty, Difficulty.ALL));
+                table.AddCell(FormatAverage(averageRating, Rating.ALL));
+            });
+
+            document.Add(table);
+            return pdf;
+        }
+
+        private static string FormatAverage<I>(double average, IEnumerable<EnumLike<I, int>> all) where I : EnumLike<I, int> {
+            var list = all.ToList();
+
+            if (average - Math.Truncate(average) == 0) {
+                var name = list.Find(difficulty => difficulty.Value == average)!.Name;
+                return $"{name} ({average:0.00})";
+            }
+
+            string closer;
+            string further;
+
+            if (average - Math.Truncate(average) > 0.5) {
+                closer = list.Find(difficulty => difficulty.Value == Math.Floor(average))!.Name;
+                further = list.Find(difficulty => difficulty.Value == Math.Ceiling(average))!.Name;
+            } else {
+                closer = list.Find(difficulty => difficulty.Value == Math.Ceiling(average))!.Name;
+                further = list.Find(difficulty => difficulty.Value == Math.Floor(average))!.Name;
+            }
+
+            return $"More {further} than {closer} ({average:0.00})";
         }
 
         private static Document CreateBlankDocumentWithHeadline(PdfDocument pdf, string headlineText) {
