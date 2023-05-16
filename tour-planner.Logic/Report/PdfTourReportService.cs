@@ -68,7 +68,7 @@ namespace TourPlanner.Logic.Report {
 
             var tourLogTable = new Table(UnitValue.CreatePercentArray(5)).UseAllAvailableWidth();
             tourLogTable.AddHeaderCell("Date");
-            tourLogTable.AddHeaderCell("Time");
+            tourLogTable.AddHeaderCell("Duration");
             tourLogTable.AddHeaderCell("Rating");
             tourLogTable.AddHeaderCell("Difficulty");
             tourLogTable.AddHeaderCell("Comment");
@@ -76,7 +76,7 @@ namespace TourPlanner.Logic.Report {
             var minutesTimeConverter = new TimeConverter(s => TimeSpan.FromMinutes(s), HOURS, MINUTES, SECONDS);
             tour.TourLogs.ForEach(tourLog => {
                 tourLogTable.AddCell(tourLog.Date.ToString("dd.MM.yyyy"));
-                tourLogTable.AddCell(minutesTimeConverter.Convert(tourLog.Time));
+                tourLogTable.AddCell(minutesTimeConverter.Convert(tourLog.Duration));
                 tourLogTable.AddCell(tourLog.Rating.Name);
                 tourLogTable.AddCell(tourLog.Difficulty.Name);
                 tourLogTable.AddCell(tourLog.Comment ?? "");
@@ -97,18 +97,18 @@ namespace TourPlanner.Logic.Report {
 
             var table = new Table(UnitValue.CreatePercentArray(4)).UseAllAvailableWidth();
             table.AddHeaderCell("Name");
-            table.AddHeaderCell("Time");
+            table.AddHeaderCell("Duration");
             table.AddHeaderCell("Difficulty");
             table.AddHeaderCell("Rating");
 
             var minutesTimeConverter = new TimeConverter(s => TimeSpan.FromMinutes(s), HOURS, MINUTES, SECONDS);
             tours.ForEach(tour => {
-                long averageTime = (long) tour.TourLogs.Select(tourLog => tourLog.Time).Average();
+                long averageDuration = (long) tour.TourLogs.Select(tourLog => tourLog.Duration).Average();
                 double averageDifficulty = tour.TourLogs.Select(tourLog => tourLog.Difficulty.Value).Average();
                 double averageRating = tour.TourLogs.Select(tourLog => tourLog.Rating.Value).Average();
 
                 table.AddCell(tour.Name);
-                table.AddCell(minutesTimeConverter.Convert(averageTime));
+                table.AddCell(minutesTimeConverter.Convert(averageDuration));
                 table.AddCell(FormatAverage(averageDifficulty, Difficulty.ALL));
                 table.AddCell(FormatAverage(averageRating, Rating.ALL));
             });

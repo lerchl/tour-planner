@@ -8,7 +8,19 @@ namespace TourPlanner.ViewModels {
 
     public class TourActionRowViewModel : BaseViewModel {
 
-        public Tour? Tour { get; set; }
+        private Tour? _tour;
+        public Tour? Tour {
+            get => _tour;
+            set {
+                _tour = value;
+                InUI(() => {
+                    CreateTourReportCommand.RaiseCanExecuteChanged();
+                    EditTourCommand.RaiseCanExecuteChanged();
+                    DeleteTourCommand.RaiseCanExecuteChanged();
+                });
+            }
+        }
+
         public EventHandler? OnAction;
 
         public RelayCommand AddTourCommand { get; private set; }
@@ -34,10 +46,9 @@ namespace TourPlanner.ViewModels {
             _pdfTourReporter = new PdfTourReporter(() => new PdfWriter(Tour!.Name + ".pdf"));
 
             AddTourCommand = new(x => AddTour());
-            // TODO: create report, edit and delete command should be disabled if tour is null
-            CreateTourReportCommand = new RelayCommand(x => CreateTourReport());
-            EditTourCommand = new RelayCommand(x => EditTour());
-            DeleteTourCommand = new RelayCommand(x => DeleteTour());
+            CreateTourReportCommand = new RelayCommand(x => CreateTourReport(), x => Tour != null);
+            EditTourCommand = new RelayCommand(x => EditTour(), x => Tour != null);
+            DeleteTourCommand = new RelayCommand(x => DeleteTour(), x => Tour != null);
         }
 
         // /////////////////////////////////////////////////////////////////////////

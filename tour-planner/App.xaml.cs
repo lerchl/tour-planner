@@ -8,9 +8,11 @@ namespace TourPlanner {
     public partial class App : Application {
 
         private void Application_Startup(object sender, StartupEventArgs seas) {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
             using (var context = new PostgreContext()) {
                 try {
-                    // context.Database.EnsureDeleted();
+                    context.Database.EnsureDeleted();
                     context.Database.EnsureCreated();
                 } catch (Exception e) {
                     Console.WriteLine(e.Message);

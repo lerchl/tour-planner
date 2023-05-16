@@ -27,6 +27,10 @@ namespace TourPlanner.ViewModels {
         // Methods
         // /////////////////////////////////////////////////////////////////////////
 
+        public void RaiseCanExecuteChanged() {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
+
         public void Execute(object? parameter) {
             _execute(parameter);
         }

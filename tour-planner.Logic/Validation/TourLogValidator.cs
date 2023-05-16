@@ -16,7 +16,7 @@ namespace TourPlanner.Logic.Validation {
             ValidateRequired(t.Date, "Date", result);
 
             // Time
-            ValidateMinValue(t.Time, 1, "Time", result);
+            ValidateMinValue(t.Duration, 1, "Time", result);
 
             // Comment
             ValidateMaxLength(t.Comment, 1000, "Comment", result);

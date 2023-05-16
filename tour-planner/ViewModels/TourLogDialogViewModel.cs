@@ -64,13 +64,13 @@ namespace TourPlanner.ViewModels {
 
         public override void Init(TourLog entity, Action close, Action<bool> setDialogResult) {
             // Set days
-            Days = entity.Time / MINUTES_PER_DAY;
+            Days = entity.Duration / MINUTES_PER_DAY;
             // Calculate remaining hours and minutes
-            long hoursInMinutes = entity.Time - (Days * MINUTES_PER_DAY);
+            long hoursInMinutes = entity.Duration - (Days * MINUTES_PER_DAY);
             // Set hours
             Hours = hoursInMinutes >= 0 ? hoursInMinutes / MINUTES_PER_HOUR : 0;
             // Set minutes
-            Minutes = entity.Time % MINUTES_PER_HOUR;
+            Minutes = entity.Duration % MINUTES_PER_HOUR;
             base.Init(entity, close, setDialogResult);
         }
 
@@ -79,8 +79,8 @@ namespace TourPlanner.ViewModels {
         // /////////////////////////////////////////////////////////////////////////
 
         protected override void Save() {
-            Entity.Date = DateOnly.FromDateTime(Date);
-            Entity.Time = MINUTES_PER_DAY * Days + MINUTES_PER_HOUR * Hours + Minutes;
+            Entity.Date = Date;
+            Entity.Duration = MINUTES_PER_DAY * Days + MINUTES_PER_HOUR * Hours + Minutes;
             base.Save();
         }
     }
