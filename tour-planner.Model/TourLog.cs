@@ -25,7 +25,7 @@ namespace TourPlanner.Model {
         public Difficulty Difficulty { get; set; } = Difficulty.MEDIUM;
 
         [Column("comment"), MaxLength(1000)]
-        public string? Comment { get; set; }
+        public string Comment { get; set; } = "";
 
         [ForeignKey("tour_id"), Required]
         public Tour? Tour { get; set; }

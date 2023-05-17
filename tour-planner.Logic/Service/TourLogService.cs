@@ -18,6 +18,16 @@ namespace TourPlanner.Logic.Service {
         // Methods
         // /////////////////////////////////////////////////////////////////////////
 
+        public override TourLog Add(TourLog tourLog) {
+            tourLog.Comment = tourLog.Comment.Trim();
+            return base.Add(tourLog);
+        }
+
+        public override TourLog Update(TourLog tourLog) {
+            tourLog.Comment = tourLog.Comment.Trim();
+            return base.Update(tourLog);
+        }
+
         public List<TourLog> GetByTour(Tour tour) {
             return _repository.GetByTour(tour);
         }
