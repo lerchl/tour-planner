@@ -18,6 +18,7 @@ namespace TourPlanner.ViewModels {
             set {
                 _tour = value;
                 RaisePropertyChanged();
+                InUI(FetchRouteCommand.RaiseCanExecuteChanged);
             }
         }
 
@@ -81,16 +82,16 @@ namespace TourPlanner.ViewModels {
         // /////////////////////////////////////////////////////////////////////////
         // Init
         // /////////////////////////////////////////////////////////////////////////
-    
+
         public TourDetailsViewModel(ITourService _tourService, IRouteService _routeService, IMapService _mapService) {
             this._tourService = _tourService;
             this._routeService = _routeService;
             this._mapService = _mapService;
 
-            // TODO: fetch route should be disabled if tour is null
-            // or from or to are not set
-            // TODO: manual fetch does not hide map or show loading indicator
-            FetchRouteCommand = new(async x => await FetchRoute());
+            FetchRouteCommand = new(
+                async x => await FetchRoute(),
+                x => Tour != null && Tour.From.Length > 0 && Tour.To.Length > 0
+            );
         }
 
         // /////////////////////////////////////////////////////////////////////////
@@ -100,44 +101,58 @@ namespace TourPlanner.ViewModels {
         public async void LoadTourDetails(Tour tour) {
             Tour = tour;
             InUI(() => {
-                ClearTourDetails();
                 RaisePropertyChanged(nameof(Distance));
                 RaisePropertyChanged(nameof(EstimatedTime));
             });
+            ClearPopularityRankAndChildFriendliness();
+            ClearMap();
 
             int popularityRank = _tourService.GetPopularityRank(tour);
             // TODO: Implement child friendliness
             int childFriendliness = 0;
+            ShowPopularityRankAndChildFriendliness(popularityRank, childFriendliness);
 
-            InUI(() => {
-                PopularityRankLoadingViewModel?.Hide();
-                ChildFriendlinessLoadingViewModel?.Hide();
-                PopularityRank = popularityRank;
-                ChildFriendliness = childFriendliness;
-            });
-
-            if (Tour.RouteFetched) {
+            if (Tour.LastFetched != null) {
                 // Route has been fetched, map image should therefore be available
                 using var stream = new MemoryStream(Tour.MapImage!);
                 var bitmap = new Bitmap(stream);
-
-                InUI(() => {
-                    MapLoadingViewModel?.Hide();
-                    MapImage = BitmapToImageSource(bitmap);
-                });
+                ShowMap(bitmap);
             } else if (Tour.From != null && Tour.To != null) {
                 // From and to are set, can therefore fetch route
                 await FetchRoute();
             }
         }
 
-        private void ClearTourDetails() {
-            PopularityRank = null;
-            ChildFriendliness = null;
-            MapImage = null;
-            PopularityRankLoadingViewModel?.Show();
-            ChildFriendlinessLoadingViewModel?.Show();
-            MapLoadingViewModel?.Show();
+        private void ClearPopularityRankAndChildFriendliness() {
+            InUI(() => {
+                PopularityRank = null;
+                ChildFriendliness = null;
+                PopularityRankLoadingViewModel?.Show();
+                ChildFriendlinessLoadingViewModel?.Show();
+            });
+        }
+
+        private void ShowPopularityRankAndChildFriendliness(int popularityRank, int childFriendliness) {
+            InUI(() => {
+                PopularityRankLoadingViewModel?.Hide();
+                ChildFriendlinessLoadingViewModel?.Hide();
+                PopularityRank = popularityRank;
+                ChildFriendliness = childFriendliness;
+            });
+        }
+
+        private void ClearMap() {
+            InUI(() => {
+                MapImage = null;
+                MapLoadingViewModel?.Show();
+            });
+        }
+
+        private void ShowMap(Bitmap bitmap) {
+            InUI(() => {
+                MapLoadingViewModel?.Hide();
+                MapImage = BitmapToImageSource(bitmap);
+            });
         }
 
         private static ImageSource BitmapToImageSource(Bitmap bitmap) {
@@ -163,16 +178,17 @@ namespace TourPlanner.ViewModels {
         private async Task FetchRoute() {
             try {
                 ClearDistanceAndTime();
-                // TODO: comment why this line is okay :)
+                ClearMap();
+                // see FetchRouteCommand, will only be called if Tour is not null
+                // and From and To are are not empty
                 var route = await _routeService.GetRoute(Tour!.From!, Tour.To!, Tour.TransportType);
                 ShowDistanceAndTime(route);
 
                 var bitmap = await _mapService.GetMap(route);
                 using var stream = new MemoryStream();
                 bitmap.Save(stream, ImageFormat.Png);
-                ShowMapImage(bitmap);
+                ShowMap(bitmap);
 
-                Tour.RouteFetched = true;
                 Tour.MapImage = stream.ToArray();
                 Tour.LastFetched = DateTime.UtcNow;
                 Tour = _tourService.Update(Tour);
@@ -185,10 +201,12 @@ namespace TourPlanner.ViewModels {
             }
         }
 
-        private void ShowMapImage(Bitmap bitmap) {
+        private void ClearDistanceAndTime() {
             InUI(() => {
-                MapLoadingViewModel?.Hide();
-                MapImage = BitmapToImageSource(bitmap);
+                Distance = null;
+                EstimatedTime = null;
+                DistanceLoadingViewModel?.Show();
+                EstimatedTimeLoadingViewModel?.Show();
             });
         }
 
@@ -198,15 +216,6 @@ namespace TourPlanner.ViewModels {
                 EstimatedTime = route.Time;
                 DistanceLoadingViewModel?.Hide();
                 EstimatedTimeLoadingViewModel?.Hide();
-            });
-        }
-
-        private void ClearDistanceAndTime() {
-            InUI(() => {
-                Distance = null;
-                EstimatedTime = null;
-                DistanceLoadingViewModel?.Show();
-                EstimatedTimeLoadingViewModel?.Show();
             });
         }
     }

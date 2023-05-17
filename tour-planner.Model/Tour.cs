@@ -10,29 +10,22 @@ namespace TourPlanner.Model {
         public Guid Id { get; set; }
 
         [Column("name"), MaxLength(100), Required]
-        public string? Name { get; set; }
+        public string Name { get; set; } = "";
 
         [Column("description"), MaxLength(1000)]
-        public string? Description { get; set; }
+        public string Description { get; set; } = "";
 
         [Column("from"), MaxLength(100)]
-        public string? From { get; set; }
+        public string From { get; set; } = "";
 
         [Column("to"), MaxLength(100)]
-        public string? To { get; set; }
+        public string To { get; set; } = "";
 
         [Column("transport_type")]
         public TransportType TransportType { get; set; } = TransportType.FASTEST;
 
         [Column("last_edited")]
         public DateTime? LastEdited { get; set; }
-
-        /// <summary>
-        ///     Whether the route of this tour has been fetched from the api.
-        ///     If this is true, the distance, estimated time and map image should be set.
-        /// </summary>
-        [Column("route_fetched"), Required]
-        public bool RouteFetched { get; set; } = false;
 
         /// <summary>
         ///     The last time the route of this tour has been fetched from the api.
@@ -72,7 +65,6 @@ namespace TourPlanner.Model {
             From = other.From;
             To = other.To;
             TransportType = other.TransportType;
-            RouteFetched = other.RouteFetched;
             LastFetched = other.LastFetched;
             Distance = other.Distance;
             EstimatedTime = other.EstimatedTime;
