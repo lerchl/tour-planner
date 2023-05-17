@@ -92,9 +92,9 @@ namespace TourPlanner.ViewModels {
         }
 
         private void CreateToursReport() {
-            var tours = new List<Tour>(Tours);
-            tours.ForEach(t => t.TourLogs = _tourLogService.GetByTour(t));
-            _pdfTourReporter.ToursReport(tours.ToList()).Close();
+            var tourLogs = new Dictionary<Tour, List<TourLog>>();
+            Tours.ToList().ForEach(t => tourLogs.Add(t, _tourLogService.GetByTour(t)));
+            _pdfTourReporter.ToursReport(Tours.ToList(), tourLogs).Close();
         }
     }
 }

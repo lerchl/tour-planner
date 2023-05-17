@@ -34,10 +34,6 @@ namespace TourPlanner.ViewModels {
         // /////////////////////////////////////////////////////////////////////////
 
         private void SelectTour() {
-            if (_tourListViewModel.SelectedTour == null) {
-                return;
-            }
-
             _tourActionRowViewModel.Tour = _tourListViewModel.SelectedTour;
             _tourDetailsViewModel.LoadTourDetails(_tourListViewModel.SelectedTour);
             _tourLogTableViewModel.LoadTourLogs(_tourListViewModel.SelectedTour);

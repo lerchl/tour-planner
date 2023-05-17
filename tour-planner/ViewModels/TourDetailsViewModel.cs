@@ -18,6 +18,8 @@ namespace TourPlanner.ViewModels {
             set {
                 _tour = value;
                 RaisePropertyChanged();
+                RaisePropertyChanged(nameof(Distance));
+                RaisePropertyChanged(nameof(EstimatedTime));
                 InUI(FetchRouteCommand.RaiseCanExecuteChanged);
             }
         }
@@ -27,16 +29,20 @@ namespace TourPlanner.ViewModels {
         public double? Distance {
             get => Tour?.Distance;
             set {
-                Tour!.Distance = value;
-                RaisePropertyChanged();
+                if (Tour != null) {
+                    Tour.Distance = value;
+                    RaisePropertyChanged();
+                }
             }
         }
 
         public long? EstimatedTime {
             get => Tour?.EstimatedTime;
             set {
-                Tour!.EstimatedTime = value;
-                RaisePropertyChanged();
+                if (Tour != null) {
+                    Tour.EstimatedTime = value;
+                    RaisePropertyChanged();
+                }
             }
         }
 
@@ -98,16 +104,23 @@ namespace TourPlanner.ViewModels {
         // Methods
         // /////////////////////////////////////////////////////////////////////////
 
-        public async void LoadTourDetails(Tour tour) {
+        public async void LoadTourDetails(Tour? tour) {
             Tour = tour;
+
+            if (Tour == null) {
+                ClearPopularityRankAndChildFriendliness();
+                ClearMap();
+                return;
+            }
+
             InUI(() => {
                 RaisePropertyChanged(nameof(Distance));
                 RaisePropertyChanged(nameof(EstimatedTime));
             });
-            ClearPopularityRankAndChildFriendliness();
-            ClearMap();
+            ClearPopularityRankAndChildFriendliness(true);
+            ClearMap(true);
 
-            int popularityRank = _tourService.GetPopularityRank(tour);
+            int popularityRank = _tourService.GetPopularityRank(Tour);
             // TODO: Implement child friendliness
             int childFriendliness = 0;
             ShowPopularityRankAndChildFriendliness(popularityRank, childFriendliness);
@@ -123,12 +136,15 @@ namespace TourPlanner.ViewModels {
             }
         }
 
-        private void ClearPopularityRankAndChildFriendliness() {
+        private void ClearPopularityRankAndChildFriendliness(bool showLoading = false) {
             InUI(() => {
                 PopularityRank = null;
                 ChildFriendliness = null;
-                PopularityRankLoadingViewModel?.Show();
-                ChildFriendlinessLoadingViewModel?.Show();
+
+                if (showLoading) {
+                    PopularityRankLoadingViewModel?.Show();
+                    ChildFriendlinessLoadingViewModel?.Show();
+                }
             });
         }
 
@@ -141,10 +157,12 @@ namespace TourPlanner.ViewModels {
             });
         }
 
-        private void ClearMap() {
+        private void ClearMap(bool showLoading = false) {
             InUI(() => {
                 MapImage = null;
-                MapLoadingViewModel?.Show();
+                if (showLoading) {
+                    MapLoadingViewModel?.Show();
+                }
             });
         }
 
@@ -177,8 +195,8 @@ namespace TourPlanner.ViewModels {
 
         private async Task FetchRoute() {
             try {
-                ClearDistanceAndTime();
-                ClearMap();
+                ClearDistanceAndTime(true);
+                ClearMap(true);
                 // see FetchRouteCommand, will only be called if Tour is not null
                 // and From and To are are not empty
                 var route = await _routeService.GetRoute(Tour!.From!, Tour.To!, Tour.TransportType);
@@ -201,12 +219,15 @@ namespace TourPlanner.ViewModels {
             }
         }
 
-        private void ClearDistanceAndTime() {
+        private void ClearDistanceAndTime(bool showLoading = false) {
             InUI(() => {
                 Distance = null;
                 EstimatedTime = null;
-                DistanceLoadingViewModel?.Show();
-                EstimatedTimeLoadingViewModel?.Show();
+
+                if (showLoading) {
+                    DistanceLoadingViewModel?.Show();
+                    EstimatedTimeLoadingViewModel?.Show();
+                }
             });
         }
 

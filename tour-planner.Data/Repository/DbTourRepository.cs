@@ -19,13 +19,5 @@ namespace TourPlanner.Data.Repository {
             bool nameMatches(Tour t) => t.Name!.ToLower().Contains(search.ToLower());
             return GetDbSet(context).Where(nameMatches).ToList();
         }
-
-        public int GetPopularityRank(Tour tour) {
-            using var context = new PostgreContext();
-            return GetDbSet(context).Include(t => t.TourLogs)
-                                    .OrderByDescending(t => t.TourLogs.Count)
-                                    .ToList()
-                                    .FindIndex(t => t.Id == tour.Id) + 1;
-        }
     }
 }

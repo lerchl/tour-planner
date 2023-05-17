@@ -58,17 +58,23 @@ namespace TourPlanner.ViewModels {
         // Methods
         // /////////////////////////////////////////////////////////////////////////
 
-        public void LoadTourLogs(Tour tour) {
+        public void LoadTourLogs(Tour? tour) {
             Tour = tour;
-            InUI(ClearTourLogs);
-            var tourLogs = _tourLogService.GetByTour(tour);
-            InUI(() => ShowTourLogs(tourLogs));
+            InUI(() => ClearTourLogs(Tour != null));
+
+            if (Tour != null) {
+                var tourLogs = _tourLogService.GetByTour(Tour);
+                InUI(() => ShowTourLogs(tourLogs));
+            }
         }
 
-        private void ClearTourLogs() {
+        private void ClearTourLogs(bool showLoading = false) {
             SelectedTourLog = null;
             TourLogs.Clear();
-            LoadingViewModel?.Show();
+
+            if (showLoading) {
+                LoadingViewModel?.Show();
+            }
         }
 
         private void ShowTourLogs(List<TourLog> tourLogs) {

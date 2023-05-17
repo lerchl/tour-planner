@@ -63,8 +63,7 @@ namespace TourPlanner.ViewModels {
 
         private void CreateTourReport() {
             // command is only enabled if tour is not null
-            Tour!.TourLogs = _tourLogService.GetByTour(Tour);
-            _pdfTourReporter.TourReport(Tour!).Close();
+            _pdfTourReporter.TourReport(Tour!, _tourLogService.GetByTour(Tour!)).Close();
         }
 
         private void EditTour() {

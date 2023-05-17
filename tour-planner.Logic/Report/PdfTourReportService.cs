@@ -37,7 +37,7 @@ namespace TourPlanner.Logic.Report {
         // Methods
         // /////////////////////////////////////////////////////////////////////////
 
-        public PdfDocument TourReport(Tour tour) {
+        public PdfDocument TourReport(Tour tour, List<TourLog> tourLogs) {
             var pdf = new PdfDocument(_createPdfWriter());
             var document = CreateBlankDocumentWithHeadline(pdf, "Tour Report: " + tour.Name);
 
@@ -74,7 +74,7 @@ namespace TourPlanner.Logic.Report {
             tourLogTable.AddHeaderCell("Comment");
 
             var minutesTimeConverter = new TimeConverter(s => TimeSpan.FromMinutes(s), HOURS, MINUTES, SECONDS);
-            tour.TourLogs.ForEach(tourLog => {
+            tourLogs.ForEach(tourLog => {
                 tourLogTable.AddCell(tourLog.Date.ToString("dd.MM.yyyy"));
                 tourLogTable.AddCell(minutesTimeConverter.Convert(tourLog.Duration));
                 tourLogTable.AddCell(tourLog.Rating.Name);
@@ -86,7 +86,7 @@ namespace TourPlanner.Logic.Report {
             return pdf;
         }
 
-        public PdfDocument ToursReport(List<Tour> tours) {
+        public PdfDocument ToursReport(List<Tour> tours, Dictionary<Tour, List<TourLog>> tourLogs) {
             var pdf = new PdfDocument(_createPdfWriter());
             var document = CreateBlankDocumentWithHeadline(pdf, "Tours Report");
 
@@ -103,9 +103,9 @@ namespace TourPlanner.Logic.Report {
 
             var minutesTimeConverter = new TimeConverter(s => TimeSpan.FromMinutes(s), HOURS, MINUTES, SECONDS);
             tours.ForEach(tour => {
-                long averageDuration = (long) tour.TourLogs.Select(tourLog => tourLog.Duration).Average();
-                double averageDifficulty = tour.TourLogs.Select(tourLog => tourLog.Difficulty.Value).Average();
-                double averageRating = tour.TourLogs.Select(tourLog => tourLog.Rating.Value).Average();
+                long averageDuration = (long) tourLogs[tour].Select(tourLog => tourLog.Duration).Average();
+                double averageDifficulty = tourLogs[tour].Select(tourLog => tourLog.Difficulty.Value).Average();
+                double averageRating = tourLogs[tour].Select(tourLog => tourLog.Rating.Value).Average();
 
                 table.AddCell(tour.Name);
                 table.AddCell(minutesTimeConverter.Convert(averageDuration));

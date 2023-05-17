@@ -9,9 +9,15 @@ namespace TourPlanner.Logic.Service {
     /// </summary>
     public class TourService : CrudService<Tour, ITourRepository, TourValidator>, ITourService {
 
-        public TourService(ITourRepository tourRepository) :
+        private readonly ITourLogRepository _tourLogRepository;
+
+        // /////////////////////////////////////////////////////////////////////////
+        // Init
+        // /////////////////////////////////////////////////////////////////////////
+
+        public TourService(ITourRepository tourRepository, ITourLogRepository tourLogRepository) :
                 base(tourRepository, new TourValidator()) {
-            // noop
+            _tourLogRepository = tourLogRepository;
         }
 
         // /////////////////////////////////////////////////////////////////////////
@@ -34,7 +40,15 @@ namespace TourPlanner.Logic.Service {
         }
 
         public int GetPopularityRank(Tour tour) {
-            return _repository.GetPopularityRank(tour);
+            return _repository.GetAll()
+                        // map tour to a tuple itself and it's logs
+                       .Select(t => new Tuple<Tour, List<TourLog>>(t, _tourLogRepository.GetByTour(t)))
+                        // order by number of logs
+                       .OrderByDescending(t => t.Item2.Count)
+                       .ToList()
+                        // get index of tour and add 1 to get the rank
+                        // index 0 results in rank 1 and so on
+                       .FindIndex(t => t.Item1.Id == tour.Id) + 1;
         }
 
         private static void Trim(Tour tour) {
