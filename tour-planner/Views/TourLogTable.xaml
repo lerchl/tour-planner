@@ -26,7 +26,7 @@
                                             ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderBrush="{x:Null}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Date" Binding="{Binding Path=Date, StringFormat=\{0:dd.MM.yy\}}" IsReadOnly="True" Width="*" />
-                            <DataGridTextColumn Header="Time" Binding="{Binding Path=Time, Converter={StaticResource MinuteValueConverter}}" IsReadOnly="True" Width="*" />
+                            <DataGridTextColumn Header="Duration" Binding="{Binding Path=Duration, Converter={StaticResource MinuteValueConverter}}" IsReadOnly="True" Width="*" />
                             <DataGridTextColumn Header="Rating" Binding="{Binding Path=Rating.Name}" IsReadOnly="True" Width="*" />
                             <DataGridTextColumn Header="Difficulty" Binding="{Binding Path=Difficulty.Name}" IsReadOnly="True" Width="*" />
                             <DataGridTextColumn Header="Comment" Binding="{Binding Path=Comment}" IsReadOnly="True" Width="*" />

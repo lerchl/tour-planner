@@ -10,7 +10,14 @@ namespace TourPlanner.ViewModels {
 
         public ObservableCollection<TourLog> TourLogs { get; private set; } = new();
 
-        public Tour? Tour { get; set; }
+        private Tour? _tour;
+        public Tour? Tour {
+            get => _tour;
+            set {
+                _tour = value;
+                InUI(AddTourLogCommand.RaiseCanExecuteChanged);
+            }
+        }
 
         private TourLog? _selectedTourLog;
         public TourLog? SelectedTourLog {
@@ -18,6 +25,10 @@ namespace TourPlanner.ViewModels {
             set {
                 _selectedTourLog = value;
                 RaisePropertyChanged();
+                InUI(() => {
+                    EditTourLogCommand.RaiseCanExecuteChanged();
+                    DeleteTourLogCommand.RaiseCanExecuteChanged();
+                });
             }
         }
 
@@ -38,9 +49,9 @@ namespace TourPlanner.ViewModels {
             _dialogService = dialogService;
             _tourLogService = tourLogService;
 
-            AddTourLogCommand = new RelayCommand(x => AddTourLog());
-            EditTourLogCommand = new RelayCommand(x => EditTourLog());
-            DeleteTourLogCommand = new RelayCommand(x => DeleteTourLog());
+            AddTourLogCommand = new RelayCommand(x => AddTourLog(), x => Tour != null);
+            EditTourLogCommand = new RelayCommand(x => EditTourLog(), x => SelectedTourLog != null);
+            DeleteTourLogCommand = new RelayCommand(x => DeleteTourLog(), x => SelectedTourLog != null);
         }
 
         // /////////////////////////////////////////////////////////////////////////
