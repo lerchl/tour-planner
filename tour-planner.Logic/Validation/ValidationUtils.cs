@@ -42,16 +42,6 @@ namespace TourPlanner.Logic.Validation {
             ValidateMaxLength(s, maxLength, name, result);
         }
 
-        public static void ValidateUrl(string? url, string name, ValidationResult result) {
-            if (url == null) {
-                return;
-            }
-
-            if (!Uri.IsWellFormedUriString(url, UriKind.Absolute)) {
-                result.AddMessage(new(Error, $"{name} is not a valid URL"));
-            }
-        }
-
         // numbers
 
         public static void ValidateMinValue(decimal value, decimal minValue, string name, ValidationResult result) {

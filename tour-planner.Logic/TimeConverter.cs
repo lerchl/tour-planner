@@ -33,16 +33,11 @@ namespace TourPlanner.Logic {
                 int unitValue = mapper(timeSpan);
 
                 if (unitValue > 0) {
-                    stringBuilder.Append($"{unitValue}{unit}");
-
-                    // add space after unit if not last
-                    if (unit != _unitMappers[^1].Item2) {
-                        stringBuilder.Append(' ');
-                    }
+                    stringBuilder.Append($"{unitValue}{unit} ");
                 }
             }
 
-            return stringBuilder.ToString();
+            return stringBuilder.ToString().Trim();
         }
     }
 }

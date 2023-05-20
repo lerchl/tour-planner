@@ -7,7 +7,7 @@ namespace TourPlanner.Logic.Service {
     /// <summary>
     ///     <see cref="ICrudService{E}" /> implementation with <see cref="IValidator{T}" />
     /// </summary>
-    public abstract class CrudService<E, R, V> : ICrudService<E>
+    public class CrudService<E, R, V> : ICrudService<E>
             where E : Entity
             where R : ICrudRepository<E>
             where V : IValidator<E> {

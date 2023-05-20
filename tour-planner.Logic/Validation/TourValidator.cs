@@ -24,10 +24,6 @@ namespace TourPlanner.Logic.Validation {
             // To
             ValidateRequiredString(t.To, 2, 100, "To", result);
 
-            // ImageUrl TODO: Change to byte array, if can be validated
-            // ValidateUrl(t.ImageUrl, "Image URL", result);
-            // ValidateMaxLength(t.ImageUrl, 1000, "Image URL", result);
-
             return result;
         }
     }
