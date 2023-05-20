@@ -47,6 +47,7 @@ namespace TourPlanner {
 
             // View Services
             services.AddSingleton<IDialogService, DialogService>();
+            services.AddSingleton<IShowErrorService, ShowErrorService>();
 
             serviceProvider = services.BuildServiceProvider();
         }

@@ -1,5 +1,6 @@
 using System;
 using TourPlanner.Logic.Service;
+using TourPlanner.Logic.Validation;
 using TourPlanner.Model;
 
 namespace TourPlanner.ViewModels {
@@ -30,14 +31,17 @@ namespace TourPlanner.ViewModels {
         public Action Close { get; private set; } = () => { };
         public Action<bool> SetDialogResult { get; private set; } = (result) => { };
 
+        private readonly IShowErrorService _showErrorService;
+
         private readonly ICrudService<E> _crudService;
 
         // /////////////////////////////////////////////////////////////////////////
         // Init
         // /////////////////////////////////////////////////////////////////////////
 
-        public EntityDialogViewModel(ICrudService<E> crudService) {
+        public EntityDialogViewModel(ICrudService<E> crudService, IShowErrorService showErrorService) {
             _crudService = crudService;
+            _showErrorService = showErrorService;
             SaveCommand = new RelayCommand(x => Save());
             CancelCommand = new RelayCommand(x => Cancel());
         }
@@ -55,13 +59,17 @@ namespace TourPlanner.ViewModels {
         // /////////////////////////////////////////////////////////////////////////
 
         protected virtual void Save() {
-            if (Entity.GetGuid() == Guid.Empty) {
-                _crudService.Add(Entity);
-            } else {
-                _crudService.Update(Entity);
+            try {
+                if (Entity.GetGuid() == Guid.Empty) {
+                    _crudService.Add(Entity);
+                } else {
+                    _crudService.Update(Entity);
+                }
+                SetDialogResult(true);
+                Close();
+            } catch (ValidationException e) {
+                _showErrorService.ShowErrors(e);
             }
-            SetDialogResult(true);
-            Close();
         }
 
         private void Cancel() {

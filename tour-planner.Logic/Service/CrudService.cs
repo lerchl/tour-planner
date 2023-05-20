@@ -37,12 +37,22 @@ namespace TourPlanner.Logic.Service {
         }
 
         public virtual E Add(E entity) {
-            _validator.ValidateSave(entity);
+            var result = _validator.ValidateSave(entity);
+
+            if (!result.Valid) {
+                throw new ValidationException(result);
+            }
+
             return _repository.Add(entity);
         }
 
         public virtual E Update(E entity) {
-            _validator.ValidateSave(entity);
+            var result = _validator.ValidateSave(entity);
+
+            if (!result.Valid) {
+                throw new ValidationException(result);
+            }
+
             return _repository.Update(entity);
         }
 

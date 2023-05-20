@@ -4,16 +4,16 @@ namespace TourPlanner.Logic.Validation {
 
         public List<ValidationMessage> Messages { get; } = new();
 
+        public bool Valid {
+            get => !Messages.Where(m => m.Status == ValidationMessageStatus.Error).Any();
+        }
+
         // /////////////////////////////////////////////////////////////////////////
         // Methods
         // /////////////////////////////////////////////////////////////////////////
 
         public void AddMessage(ValidationMessage message) {
             Messages.Add(message);
-        }
-
-        public bool IsValid() {
-            return !Messages.Where(m => m.Status == ValidationMessageStatus.Error).Any();
         }
     }
 }

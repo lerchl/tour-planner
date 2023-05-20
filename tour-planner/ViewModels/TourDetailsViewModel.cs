@@ -81,6 +81,8 @@ namespace TourPlanner.ViewModels {
         public LoadingIndicatorViewModel? EstimatedTimeLoadingViewModel { get; set; }
         public LoadingIndicatorViewModel? MapLoadingViewModel { get; set; }
 
+        private readonly IShowErrorService _showErrorService;
+
         private readonly ITourService _tourService;
         private readonly IRouteService _routeService;
         private readonly IMapService _mapService;
@@ -89,10 +91,14 @@ namespace TourPlanner.ViewModels {
         // Init
         // /////////////////////////////////////////////////////////////////////////
 
-        public TourDetailsViewModel(ITourService _tourService, IRouteService _routeService, IMapService _mapService) {
-            this._tourService = _tourService;
-            this._routeService = _routeService;
-            this._mapService = _mapService;
+        public TourDetailsViewModel(IShowErrorService showErrorService,
+                                    ITourService tourService,
+                                    IRouteService routeService,
+                                    IMapService mapService) {
+            _showErrorService = showErrorService;
+            _tourService = tourService;
+            _routeService = routeService;
+            _mapService = mapService;
 
             FetchRouteCommand = new(
                 async x => await FetchRoute(),
@@ -213,9 +219,7 @@ namespace TourPlanner.ViewModels {
 
                 RouteFetched?.Invoke(this, EventArgs.Empty);
             } catch (Exception e) {
-                // TODO: Show error
-                Console.WriteLine(e.Message);
-                Console.WriteLine(e.StackTrace);
+                _showErrorService.ShowError(e);
             }
         }
 
