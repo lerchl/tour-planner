@@ -81,7 +81,7 @@
 
                         <Label Panel.ZIndex="1" Content="Child friendliness" />
                         <Border Margin="0 0 5 0" Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
-                            <Grid>
+                            <Grid ToolTip="the lower the better">
                                 <local:LoadingIndicator x:Name="ChildFriendlinessLoadingIndicator" Width="25" Height="25" />
                                 <TextBlock Text="{Binding ChildFriendliness, UpdateSourceTrigger=PropertyChanged}" />
                             </Grid>

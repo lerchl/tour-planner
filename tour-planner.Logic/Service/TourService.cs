@@ -51,6 +51,27 @@ namespace TourPlanner.Logic.Service {
                        .FindIndex(t => t.Item1.Id == tour.Id) + 1;
         }
 
+        public double GetChildFriendliness(Tour tour) {
+            var tourLogs = _tourLogRepository.GetByTour(tour);
+            double distance = tour.Distance ?? 0;
+            double time = tour.EstimatedTime ?? 0;
+            double difficulty = 1;
+
+            if (tourLogs.Any()) {
+                time = tourLogs.Select(tl => tl.Duration).Average();
+                difficulty = Difficulty.ALL.Count / tourLogs.Select(tl => tl.Difficulty.Value).Average();
+            }
+
+            int factor = 1;
+            if (tour.TransportType == TransportType.BIKE) {
+                factor = 10;
+            } else if (tour.TransportType == TransportType.FASTEST || tour.TransportType == TransportType.SHORTEST) {
+                factor = 100;
+            }
+
+            return Math.Round(distance * time * difficulty / factor, 2);
+        }
+
         private static void Trim(Tour tour) {
             tour.Name = tour.Name.Trim();
             tour.Description = tour.Description.Trim();

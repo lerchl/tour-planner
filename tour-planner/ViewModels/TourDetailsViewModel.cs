@@ -64,8 +64,8 @@ namespace TourPlanner.ViewModels {
             }
         }
 
-        private int? _childFriendliness;
-        public int? ChildFriendliness {
+        private double? _childFriendliness;
+        public double? ChildFriendliness {
             get => _childFriendliness;
             set {
                 _childFriendliness = value;
@@ -113,23 +113,24 @@ namespace TourPlanner.ViewModels {
         public async void LoadTourDetails(Tour? tour) {
             Tour = tour;
 
-            if (Tour == null) {
-                ClearPopularityRankAndChildFriendliness();
-                ClearMap();
-                return;
-            }
-
             InUI(() => {
                 RaisePropertyChanged(nameof(Distance));
                 RaisePropertyChanged(nameof(EstimatedTime));
             });
-            ClearPopularityRankAndChildFriendliness(true);
+
+            if (Tour == null) {
+                ClearPopularityRank();
+                ClearChildFriendliness();
+                ClearMap();
+                return;
+            }
+
+            ClearPopularityRank(true);
+            ClearChildFriendliness(true);
             ClearMap(true);
 
             int popularityRank = _tourService.GetPopularityRank(Tour);
-            // TODO: Implement child friendliness
-            int childFriendliness = 0;
-            ShowPopularityRankAndChildFriendliness(popularityRank, childFriendliness);
+            ShowPopularityRank(popularityRank);
 
             if (Tour.LastFetched != null) {
                 // Route has been fetched, map image should therefore be available
@@ -140,25 +141,50 @@ namespace TourPlanner.ViewModels {
                 // From and to are set, can therefore fetch route
                 await FetchRoute();
             }
+
+            double childFriendliness = _tourService.GetChildFriendliness(Tour);
+            ShowChildFriendliness(childFriendliness);
         }
 
-        private void ClearPopularityRankAndChildFriendliness(bool showLoading = false) {
+        public void UpdatePopularityRankAndChildFriendliness() {
+            ClearPopularityRank(true);
+            ClearChildFriendliness(true);
+            int popularityRank = _tourService.GetPopularityRank(Tour!);
+            double childFriendliness = _tourService.GetChildFriendliness(Tour!);
+            ShowPopularityRank(popularityRank);
+            ShowChildFriendliness(childFriendliness);
+        }
+
+        private void ClearPopularityRank(bool showLoading = false) {
             InUI(() => {
                 PopularityRank = null;
-                ChildFriendliness = null;
 
                 if (showLoading) {
                     PopularityRankLoadingViewModel?.Show();
+                }
+            });
+        }
+
+        private void ClearChildFriendliness(bool showLoading = false) {
+            InUI(() => {
+                ChildFriendliness = null;
+
+                if (showLoading) {
                     ChildFriendlinessLoadingViewModel?.Show();
                 }
             });
         }
 
-        private void ShowPopularityRankAndChildFriendliness(int popularityRank, int childFriendliness) {
+        private void ShowPopularityRank(int popularityRank) {
             InUI(() => {
                 PopularityRankLoadingViewModel?.Hide();
-                ChildFriendlinessLoadingViewModel?.Hide();
                 PopularityRank = popularityRank;
+            });
+        }
+
+        private void ShowChildFriendliness(double childFriendliness) {
+            InUI(() => {
+                ChildFriendlinessLoadingViewModel?.Hide();
                 ChildFriendliness = childFriendliness;
             });
         }

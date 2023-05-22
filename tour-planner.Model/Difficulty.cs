@@ -6,9 +6,9 @@ namespace TourPlanner.Model {
             get => new() { EASY, MEDIUM, HARD };
         }
 
-        public static readonly Difficulty EASY = new(100, "Easy", 0);
-        public static readonly Difficulty MEDIUM = new(200, "Medium", 1);
-        public static readonly Difficulty HARD = new(300, "Hard", 2);
+        public static readonly Difficulty EASY = new(100, "Easy", 1);
+        public static readonly Difficulty MEDIUM = new(200, "Medium", 2);
+        public static readonly Difficulty HARD = new(300, "Hard", 3);
 
         // /////////////////////////////////////////////////////////////////////////
         // Init

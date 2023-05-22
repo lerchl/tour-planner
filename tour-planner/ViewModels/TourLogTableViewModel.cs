@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -31,6 +32,8 @@ namespace TourPlanner.ViewModels {
                 });
             }
         }
+
+        public EventHandler? OnAction;
 
         public RelayCommand AddTourLogCommand { get; private set; }
         public RelayCommand EditTourLogCommand { get; private set; }
@@ -86,6 +89,7 @@ namespace TourPlanner.ViewModels {
             // command is only enabled if tour is not null
             if (_dialogService.OpenAddTourLogDialog(Tour!)) {
                 Task.Run(() => LoadTourLogs(Tour!));
+                OnAction?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -93,6 +97,7 @@ namespace TourPlanner.ViewModels {
             // command is only enabled if tour log is not null
             if (_dialogService.OpenEditTourLogDialog(new(SelectedTourLog!))) {
                 Task.Run(() => LoadTourLogs(Tour!));
+                OnAction?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -100,6 +105,7 @@ namespace TourPlanner.ViewModels {
             // command is only enabled if tour log is not null
             _tourLogService.Remove(SelectedTourLog!);
             Task.Run(() => LoadTourLogs(Tour!));
+            OnAction?.Invoke(this, EventArgs.Empty);
         }
     }
 }
