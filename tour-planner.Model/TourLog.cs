@@ -10,10 +10,10 @@ namespace TourPlanner.Model {
         public Guid Id { get; set; }
 
         [Column("date"), Required]
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime DateTime { get; set; } = DateTime.Now;
 
         /// <summary>
-        ///     Time in minutes.
+        ///     Duration in minutes.
         /// </summary>
         [Column("duration")]
         public long Duration { get; set; }
@@ -44,7 +44,7 @@ namespace TourPlanner.Model {
 
         public TourLog(TourLog other) {
             Id = other.Id;
-            Date = other.Date;
+            DateTime = other.DateTime;
             Duration = other.Duration;
             Rating = other.Rating;
             Difficulty = other.Difficulty;

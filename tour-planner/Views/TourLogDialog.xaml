@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:tk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Tour Log Dialog" Height="600" Width="400"
         Background="{StaticResource Background Solid}"
@@ -12,7 +13,7 @@
             <Label DockPanel.Dock="Top" Content="{Binding Path=DialogTitle, UpdateSourceTrigger=PropertyChanged}" FontSize="40" Height="60" Margin="0" />
 
             <Label DockPanel.Dock="Top" Content="Date" Panel.ZIndex="1" />
-            <DatePicker DockPanel.Dock="Top" SelectedDate="{Binding Path=Date, UpdateSourceTrigger=PropertyChanged}" />
+            <tk:DateTimePicker DockPanel.Dock="Top" Value="{Binding Path=Entity.DateTime}" />
 
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>

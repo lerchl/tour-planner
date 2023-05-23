@@ -13,7 +13,7 @@ namespace TourPlanner.Logic.Validation {
             var result = new ValidationResult();
 
             // Date
-            ValidateRequired(t.Date, "Date", result);
+            ValidateRequired(t.DateTime, "Date", result);
 
             // Time
             ValidateMinValue(t.Duration, 1, "Time", result);

@@ -240,7 +240,7 @@ namespace TourPlanner.ViewModels {
                 ShowMap(bitmap);
 
                 Tour.MapImage = stream.ToArray();
-                Tour.LastFetched = DateTime.UtcNow;
+                Tour.LastFetched = DateTime.Now;
                 Tour = _tourService.Update(Tour);
 
                 RouteFetched?.Invoke(this, EventArgs.Empty);

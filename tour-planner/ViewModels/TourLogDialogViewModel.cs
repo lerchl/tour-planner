@@ -12,15 +12,6 @@ namespace TourPlanner.ViewModels {
         private const long MINUTES_PER_DAY = MINUTES_PER_HOUR * 24;
         private const long MINUTES_PER_HOUR = 60;
 
-        private DateTime _date = DateTime.Now;
-        public DateTime Date {
-            get => _date;
-            set {
-                _date = value;
-                RaisePropertyChanged();
-            }
-        }
-
         private long _days = 0;
         public long Days {
             get => _days;
@@ -81,7 +72,6 @@ namespace TourPlanner.ViewModels {
         // /////////////////////////////////////////////////////////////////////////
 
         protected override void Save() {
-            Entity.Date = Date;
             Entity.Duration = MINUTES_PER_DAY * Days + MINUTES_PER_HOUR * Hours + Minutes;
             base.Save();
         }

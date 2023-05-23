@@ -75,7 +75,7 @@ namespace TourPlanner.Logic.Report {
 
             var minutesTimeConverter = new TimeConverter(s => TimeSpan.FromMinutes(s), HOURS, MINUTES, SECONDS);
             tourLogs.ForEach(tourLog => {
-                tourLogTable.AddCell(tourLog.Date.ToString("dd.MM.yyyy"));
+                tourLogTable.AddCell(tourLog.DateTime.ToString("dd.MM.yyyy hh:mm"));
                 tourLogTable.AddCell(minutesTimeConverter.Convert(tourLog.Duration));
                 tourLogTable.AddCell(tourLog.Rating.Name);
                 tourLogTable.AddCell(tourLog.Difficulty.Name);
