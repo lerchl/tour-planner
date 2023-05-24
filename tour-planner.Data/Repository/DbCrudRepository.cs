@@ -15,7 +15,7 @@ namespace TourPlanner.Data.Repository {
         /// <summary>
         ///     Get the <see cref="DbSet{E}"/> for <typeparamref name="E"/> from the <see cref="DbContext"/>.
         /// </summary>
-        abstract protected DbSet<E> GetDbSet(C context);
+        protected abstract DbSet<E> GetDbSet(C context);
 
         // /////////////////////////////////////////////////////////////////////////
         // Implementations

@@ -11,13 +11,5 @@ namespace TourPlanner.Data.Repository {
         protected override DbSet<Tour> GetDbSet(PostgreContext context) {
             return context.Tours;
         }
-
-        public List<Tour> GetByNameContains(string search) {
-            using var context = new PostgreContext();
-            // only saved tours can be searched for
-            // and name is required in the database
-            bool nameMatches(Tour t) => t.Name!.ToLower().Contains(search.ToLower());
-            return GetDbSet(context).Where(nameMatches).ToList();
-        }
     }
 }

@@ -1,4 +1,6 @@
+using System.Globalization;
 using TourPlanner.Data.Repository;
+using TourPlanner.Logic.Search;
 using TourPlanner.Logic.Validation;
 using TourPlanner.Model;
 
@@ -9,15 +11,15 @@ namespace TourPlanner.Logic.Service {
     /// </summary>
     public class TourService : CrudService<Tour, ITourRepository, TourValidator>, ITourService {
 
-        private readonly ITourLogRepository _tourLogRepository;
+        private readonly ITourLogService _tourLogService;
 
         // /////////////////////////////////////////////////////////////////////////
         // Init
         // /////////////////////////////////////////////////////////////////////////
 
-        public TourService(ITourRepository tourRepository, ITourLogRepository tourLogRepository) :
+        public TourService(ITourRepository tourRepository, ITourLogService tourLogService) :
                 base(tourRepository, new TourValidator()) {
-            _tourLogRepository = tourLogRepository;
+            _tourLogService = tourLogService;
         }
 
         // /////////////////////////////////////////////////////////////////////////
@@ -35,14 +37,27 @@ namespace TourPlanner.Logic.Service {
             return base.Update(tour);
         }
 
-        public List<Tour> GetByNameContains(string search) {
-            return _repository.GetByNameContains(search);
+        public List<Tour> FullTextSearch(string search) {
+            var tours = _repository.GetAll();
+
+            if (search.Length == 0) {
+                return tours;
+            }
+
+            var matchers = new List<IFullTextSearchMatcher> {
+                new TourMatcher(),
+                new TourLogMatcher(_tourLogService),
+                new PopularityRankMatcher(this),
+                new ChildfriendlinessMatcher(this)
+            };
+
+            return tours.Where(tour => matchers.Any(matcher => matcher.Matches(tour, search))).ToList();
         }
 
         public int GetPopularityRank(Tour tour) {
             return _repository.GetAll()
                         // map tour to a tuple itself and it's logs
-                       .Select(t => new Tuple<Tour, List<TourLog>>(t, _tourLogRepository.GetByTour(t)))
+                       .Select(t => new Tuple<Tour, List<TourLog>>(t, _tourLogService.GetByTour(t)))
                         // order by number of logs
                        .OrderByDescending(t => t.Item2.Count)
                        .ToList()
@@ -52,7 +67,7 @@ namespace TourPlanner.Logic.Service {
         }
 
         public double GetChildFriendliness(Tour tour) {
-            var tourLogs = _tourLogRepository.GetByTour(tour);
+            var tourLogs = _tourLogService.GetByTour(tour);
             double distance = tour.Distance ?? 0;
             double time = tour.EstimatedTime ?? 0;
             double difficulty = 1;

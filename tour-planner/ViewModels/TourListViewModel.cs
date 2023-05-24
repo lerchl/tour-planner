@@ -62,7 +62,7 @@ namespace TourPlanner.ViewModels {
         public void LoadTours() {
             Guid selected = SelectedTour?.Id ?? Guid.Empty;
             InUI(ClearTours);
-            var tours = _tourService.GetByNameContains(FilterText);
+            var tours = _tourService.FullTextSearch(FilterText);
             InUI(() => ShowTours(tours, selected));
         }
 

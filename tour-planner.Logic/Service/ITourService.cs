@@ -5,11 +5,11 @@ namespace TourPlanner.Logic.Service {
     public interface ITourService : ICrudService<Tour> {
 
         /// <summary>
-        ///     Get all <see cref="Tour"/>s that contain the given string in their name.
+        ///     Get all <see cref="Tour"/>s that match via full text search for a string.
         /// </summary>
         /// <param name="search">the string to search for</param>
-        /// <returns>A list of <see cref="Tour"/>s that contain the given string in their name</returns>
-        public List<Tour> GetByNameContains(string search);
+        /// <returns>A list of <see cref="Tour"/>s that match</returns>
+        public List<Tour> FullTextSearch(string search);
 
         /// <summary>
         ///     Get the popularity rank of a <see cref="Tour"/>.
