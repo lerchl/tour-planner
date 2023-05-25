@@ -32,5 +32,10 @@ namespace TourPlanner.Data.Repository {
             using var context = new PostgreContext();
             return GetDbSet(context).Where(tl => tl.Tour == tour).Include(tourLog => tourLog.Tour).ToList();
         }
+
+        public List<TourLog> GetAllWithTours() {
+            using var context = new PostgreContext();
+            return GetDbSet(context).Include(tourLog => tourLog.Tour).ToList();
+        }
     }
 }

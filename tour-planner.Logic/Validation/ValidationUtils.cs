@@ -5,19 +5,9 @@ namespace TourPlanner.Logic.Validation {
     /// <summary>
     ///     Utility class for validation.
     /// </summary>
-    public class ValidationUtils {
-
-        private ValidationUtils() {
-            // Utils class should not be instantiated
-            throw new NotSupportedException();
-        }
-
-        // /////////////////////////////////////////////////////////////////////////
-        // Methods
-        // /////////////////////////////////////////////////////////////////////////
+    public static class ValidationUtils {
 
         // strings
-
         public static void ValidateRequired(object? o, string name, ValidationResult result) {
             if (o == null) {
                 result.AddMessage(new(Error, $"{name} is required"));
@@ -43,7 +33,6 @@ namespace TourPlanner.Logic.Validation {
         }
 
         // numbers
-
         public static void ValidateMinValue(decimal value, decimal minValue, string name, ValidationResult result) {
             if (value < minValue) {
                 result.AddMessage(new(Error, $"{name} is too small (min. {minValue})"));

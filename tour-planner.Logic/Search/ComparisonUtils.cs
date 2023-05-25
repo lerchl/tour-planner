@@ -2,7 +2,7 @@ using TourPlanner.Model;
 
 namespace TourPlanner.Logic.Search {
 
-    public class ComparisonUtils {
+    public static class ComparisonUtils {
 
         public static bool ContainsIgnoreCase(object? str, string search) {
             if (str == null) {

@@ -31,5 +31,9 @@ namespace TourPlanner.Logic.Service {
         public List<TourLog> GetByTour(Tour tour) {
             return _repository.GetByTour(tour);
         }
+
+        public List<TourLog> GetAllWithTours() {
+            return _repository.GetAllWithTours();
+        }
     }
 }

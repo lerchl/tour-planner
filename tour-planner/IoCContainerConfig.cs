@@ -1,7 +1,9 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using TourPlanner.Data.Repository;
+using TourPlanner.Logic.Port;
 using TourPlanner.Logic.Service;
+using TourPlanner.Model;
 using TourPlanner.ViewModels;
 
 namespace TourPlanner {
@@ -33,6 +35,10 @@ namespace TourPlanner {
             services.AddSingleton<ITourLogService, TourLogService>();
             services.AddSingleton<IRouteService, RouteService>();
             services.AddSingleton<IMapService, MapService>();
+
+            // Porting
+            services.AddSingleton<ITourCSVParser, TourCSVParser>();
+            services.AddSingleton<ITourLogCSVParser, TourLogCSVParser>();
 
             // ViewModels
             services.AddSingleton<MainViewModel>();

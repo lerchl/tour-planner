@@ -24,5 +24,10 @@ namespace TourPlanner.Model {
             return all.FirstOrDefault(t => t!.Id == id, null) ??
                     throw new ArgumentException($"No transport type with id {id} found.");
         }
+
+        public static I FromValue(V value, IEnumerable<I> all) {
+            return all.FirstOrDefault(t => t!.Value?.Equals(value) == true, null) ??
+                    throw new ArgumentException($"No transport type with value {value} found.");
+        }
     }
 }

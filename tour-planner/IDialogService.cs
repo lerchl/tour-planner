@@ -1,4 +1,5 @@
-﻿using TourPlanner.Model;
+﻿using System;
+using TourPlanner.Model;
 
 namespace TourPlanner {
 
@@ -12,5 +13,7 @@ namespace TourPlanner {
 
         bool OpenAddTourLogDialog(Tour tour);
         bool OpenEditTourLogDialog(TourLog tourLog);
+
+        Tuple<bool, string> OpenSelectImportDialog();
     }
 }

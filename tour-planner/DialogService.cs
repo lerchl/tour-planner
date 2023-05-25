@@ -1,4 +1,5 @@
-﻿using TourPlanner.Model;
+﻿using System;
+using TourPlanner.Model;
 using TourPlanner.ViewModels;
 using TourPlanner.Views;
 
@@ -36,6 +37,11 @@ namespace TourPlanner {
 
         public bool OpenEditTourLogDialog(TourLog tourLog) {
             return new TourLogDialog(_tourLogDialogViewModel, tourLog).ShowDialog() == true;
+        }
+
+        public Tuple<bool, string> OpenSelectImportDialog() {
+            var dialog = new Microsoft.Win32.OpenFileDialog();
+            return new(dialog.ShowDialog() == true, dialog.FileName);
         }
     }
 }
