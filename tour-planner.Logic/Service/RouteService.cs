@@ -1,6 +1,6 @@
-using System.Net;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using TourPlanner.Logging;
 using TourPlanner.Logic.Service.Except;
 using TourPlanner.Model;
 using static TourPlanner.Logic.Service.ApiConfig;
@@ -10,6 +10,7 @@ namespace TourPlanner.Logic.Service {
 
     public class RouteService : IRouteService {
 
+        [LogTimeSpent]
         public async Task<Route> GetRoute(string from, string to, TransportType transportType) {
             var url = $"https://www.mapquestapi.com/directions/v2/route?" +
                     $"key={GetApiKey(MAP_QUEST)}&" +
@@ -21,7 +22,7 @@ namespace TourPlanner.Logic.Service {
             using var client = new HttpClient();
             var res = await client.GetAsync(url);
 
-            if (res.StatusCode == HttpStatusCode.Unauthorized) {
+            if (res.StatusCode == System.Net.HttpStatusCode.Unauthorized) {
                 throw new InvalidKeyException();
             }
 

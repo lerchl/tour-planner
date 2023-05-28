@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using TourPlanner.Logging;
 using TourPlanner.Model;
 
 namespace TourPlanner.Data.Repository {
@@ -21,6 +22,7 @@ namespace TourPlanner.Data.Repository {
         // Implementations
         // /////////////////////////////////////////////////////////////////////////
 
+        [LogTimeSpent]
         public virtual List<E> GetAll() {
             using var context = new C();
             DbSet<E> dbSet = GetDbSet(context);
@@ -28,11 +30,13 @@ namespace TourPlanner.Data.Repository {
             return dbSet.ToList();
         }
 
+        [LogTimeSpent]
         public virtual E? GetById(Guid id) {
             using var context = new C();
             return GetDbSet(context).Find(id);
         }
 
+        [LogTimeSpent]
         public virtual E Add(E entity) {
             using var context = new C();
             context.Add(entity);
@@ -40,6 +44,7 @@ namespace TourPlanner.Data.Repository {
             return entity;
         }
 
+        [LogTimeSpent]
         public virtual E Update(E entity) {
             using var context = new C();
             context.Update(entity);
@@ -47,6 +52,7 @@ namespace TourPlanner.Data.Repository {
             return entity;
         }
 
+        [LogTimeSpent]
         public virtual void Remove(E entity) {
             using var context = new C();
             context.Remove(entity);

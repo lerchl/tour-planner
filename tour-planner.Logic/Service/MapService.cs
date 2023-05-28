@@ -1,4 +1,5 @@
 using System.Drawing;
+using TourPlanner.Logging;
 using TourPlanner.Model;
 using static TourPlanner.Logic.Service.ApiConfig;
 
@@ -10,6 +11,7 @@ namespace TourPlanner.Logic.Service {
         // Methods
         // /////////////////////////////////////////////////////////////////////////
 
+        [LogTimeSpent]
         public async Task<Bitmap> GetMap(Route route) {
             var boundingBox = $"{route.BoundingBox!.UpperLeft.Latitude.ToString().Replace(',', '.')}," +
                               $"{route.BoundingBox.UpperLeft.Longitude.ToString().Replace(',', '.')}," +

@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\tour-planner.Model\TourPlanner.Model.csproj" />
+    <ProjectReference Include="..\tour-planner.Logging\TourPlanner.Logging.csproj" />
 
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />

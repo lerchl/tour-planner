@@ -1,3 +1,4 @@
+using TourPlanner.Logging;
 using TourPlanner.Model;
 
 namespace TourPlanner.Data.Repository {
