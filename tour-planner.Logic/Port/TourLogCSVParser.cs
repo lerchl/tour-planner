@@ -23,7 +23,7 @@ namespace TourPlanner.Logic.Port {
 
         public string Serialize(List<TourLog> list) {
             return list.Select(tourLog => $"{tourLog.Id};" +
-                                          $"{FormatDateTime(tourLog.DateTime)};" + 
+                                          $"{FormatDateTime(tourLog.DateTime, DATE_TIME_FORMAT_WITHOUT_SECONDS)};" + 
                                           $"{tourLog.Duration};" +
                                           $"{tourLog.Rating.Value};" +
                                           $"{tourLog.Difficulty.Value};" +
@@ -37,7 +37,7 @@ namespace TourPlanner.Logic.Port {
 
                 return new TourLog {
                     Id = Guid.Parse(parts[0]),
-                    DateTime = ParseDateTime(parts[1]),
+                    DateTime = ParseDateTime(parts[1], DATE_TIME_FORMAT_WITHOUT_SECONDS),
                     Duration = long.Parse(parts[2]),
                     Rating = Rating.FromValue(int.Parse(parts[3]), Rating.ALL),
                     Difficulty = Difficulty.FromValue(int.Parse(parts[4]), Difficulty.ALL),

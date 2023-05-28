@@ -12,6 +12,8 @@ using TourPlanner.Logic.Report;
 using TourPlanner.Logic.Service;
 using TourPlanner.Model;
 
+using static TourPlanner.Logic.DateUtils;
+
 namespace TourPlanner.ViewModels {
 
     public class TourListViewModel : BaseViewModel {
@@ -117,7 +119,7 @@ namespace TourPlanner.ViewModels {
         }
 
         private void Export() {
-            string date = Regex.Replace(DateUtils.FormatDateTime(DateTime.Now), "[.: ]", "_");
+            string date = Regex.Replace(FormatDateTime(DateTime.Now, DATE_TIME_FORMAT_WITH_SECONDS), "[.: ]", "_");
             using var exportStreamWriter = new StreamWriter($"Export_{date}.csv");
 
             exportStreamWriter.Write(_tourCSVParser.Serialize(Tours.ToList()));
