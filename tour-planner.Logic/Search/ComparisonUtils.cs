@@ -1,5 +1,7 @@
 using TourPlanner.Model;
 
+using static TourPlanner.Logic.DateUtils;
+
 namespace TourPlanner.Logic.Search {
 
     public static class ComparisonUtils {
@@ -21,7 +23,7 @@ namespace TourPlanner.Logic.Search {
                 return false;
             }
 
-            return ContainsIgnoreCase(dateTime.Value.ToString("dd.MM.yyyy hh:mm:ss"), search);
+            return ContainsIgnoreCase(FormatDateTime(dateTime.Value, DATE_TIME_FORMAT_WITH_SECONDS), search);
         }
     }
 }

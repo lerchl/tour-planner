@@ -7,6 +7,8 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 using TourPlanner.Model;
 
+using static TourPlanner.Logic.DateUtils;
+
 using static TourPlanner.Logic.TimeConverter;
 
 namespace TourPlanner.Logic.Report {
@@ -75,7 +77,7 @@ namespace TourPlanner.Logic.Report {
 
             var minutesTimeConverter = new TimeConverter(s => TimeSpan.FromMinutes(s), HOURS, MINUTES, SECONDS);
             tourLogs.ForEach(tourLog => {
-                tourLogTable.AddCell(tourLog.DateTime.ToString("dd.MM.yyyy hh:mm"));
+                tourLogTable.AddCell(FormatDateTime(tourLog.DateTime, DATE_TIME_FORMAT_WITHOUT_SECONDS));
                 tourLogTable.AddCell(minutesTimeConverter.Convert(tourLog.Duration));
                 tourLogTable.AddCell(tourLog.Rating.Name);
                 tourLogTable.AddCell(tourLog.Difficulty.Name);
