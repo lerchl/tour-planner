@@ -28,16 +28,25 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
+                                <ColumnDefinition />
                                 <ColumnDefinition Width="60" />
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Column="0">
+                                    <Label Panel.ZIndex="1" Content="Last edited" />
+                                    <Border Margin="0 0 5 0" Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
+                                        <TextBlock Text="{Binding Path=Tour.LastEdited, TargetNullValue=Never, StringFormat={}{0:dd.MM.yy HH:mm:ss}}" TextWrapping="Wrap" />
+                                    </Border>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1">
                                     <Label Panel.ZIndex="1" Content="Last fetched" />
                                     <Border Margin="0 0 5 0" Padding="10" CornerRadius="10" Background="{StaticResource Data Background Solid}">
                                         <TextBlock Text="{Binding Path=Tour.LastFetched, TargetNullValue=Never, StringFormat={}{0:dd.MM.yy HH:mm:ss}}" TextWrapping="Wrap" />
                                     </Border>
                             </StackPanel>
-                            <Button Grid.Column="1" Content="🔄" ToolTip="Fetch Tour" Width="45" Height="45" FontSize="18" Margin="0 0 5 0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{Binding Path=FetchRouteCommand}" />
+
+                            <Button Grid.Column="2" Content="🔄" ToolTip="Fetch Tour" Width="45" Height="45" FontSize="18" Margin="0 0 5 0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{Binding Path=FetchRouteCommand}" />
                         </Grid>
 
                         <Label Panel.ZIndex="1" Content="From" />

@@ -13,7 +13,7 @@
             <TextBlock d:Text="Tour Name" Text="{Binding Tour.Name}" FontSize="30px" VerticalAlignment="Center" />
         </StackPanel>
         <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="📝" ToolTip="Create Tour Report" Width="50" Height="50" FontSize="20" Command="{Binding Path=CreateTourReportCommand}" Style="{StaticResource Secondary Button}" />
+            <Button Content="📝" ToolTip="Create Tour Report" Width="50" Height="50" FontSize="20" Command="{Binding Path=CreateTourReportCommand}" />
             <Button Content="✏️" ToolTip="Edit Tour" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" Command="{Binding Path=EditTourCommand}" />
             <Button Content="🗑️" ToolTip="Delete Tour" Width="50" Height="50" FontSize="20" Margin="10 0 0 0" Command="{Binding Path=DeleteTourCommand}" />
         </StackPanel>

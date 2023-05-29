@@ -5,6 +5,14 @@ namespace TourPlanner.Logic.Service {
     public interface ITourService : ICrudService<Tour> {
 
         /// <summary>
+        ///     Update a <see cref="Tour"/>.
+        /// </summary>
+        /// <param name="tour">the <see cref="Tour"/></param>
+        /// <param name="updateLastEdited">whether <see cref="Tour.LastEdited"/> should be updated</param>
+        /// <returns>The updated <see cref="Tour"/></returns>
+        public Tour Update(Tour tour, bool updateLastEdited);
+
+        /// <summary>
         ///     Get all <see cref="Tour"/>s that match via full text search for a string.
         /// </summary>
         /// <param name="search">the string to search for</param>

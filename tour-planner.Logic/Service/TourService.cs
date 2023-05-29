@@ -32,8 +32,16 @@ namespace TourPlanner.Logic.Service {
         }
 
         public override Tour Update(Tour tour) {
+            return Update(tour, true);
+        }
+
+        public Tour Update(Tour tour, bool updateLastEdited) {
             Trim(tour);
-            tour.LastEdited = DateTime.UtcNow;
+
+            if (updateLastEdited) {
+                tour.LastEdited = DateTime.Now;
+            }
+
             return base.Update(tour);
         }
 

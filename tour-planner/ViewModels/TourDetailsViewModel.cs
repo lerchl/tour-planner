@@ -247,7 +247,8 @@ namespace TourPlanner.ViewModels {
 
                 Tour.MapImage = stream.ToArray();
                 Tour.LastFetched = DateTime.Now;
-                Tour = _tourService.Update(Tour);
+                // Update tour without updating LastEdited
+                Tour = _tourService.Update(Tour, false);
 
                 RouteFetched?.Invoke(this, EventArgs.Empty);
             } catch (Exception e) {
