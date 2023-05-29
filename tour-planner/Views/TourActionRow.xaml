@@ -10,7 +10,7 @@
     <DockPanel>
         <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
             <Button Content="➕" ToolTip="Add Tour" Width="50" Height="50" FontSize="20" Margin="0 0 20 0" Command="{Binding Path=AddTourCommand}" />
-            <TextBlock d:Text="Tour Name" Text="{Binding Tour.Name}" FontSize="30px" VerticalAlignment="Center" />
+            <TextBlock d:Text="Tour Name" Text="{Binding Tour.Name, UpdateSourceTrigger=PropertyChanged}" FontSize="30px" VerticalAlignment="Center" />
         </StackPanel>
         <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="📝" ToolTip="Create Tour Report" Width="50" Height="50" FontSize="20" Command="{Binding Path=CreateTourReportCommand}" />

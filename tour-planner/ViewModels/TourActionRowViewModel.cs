@@ -16,6 +16,7 @@ namespace TourPlanner.ViewModels {
             get => _tour;
             set {
                 _tour = value;
+                RaisePropertyChanged();
                 InUI(() => {
                     CreateTourReportCommand.RaiseCanExecuteChanged();
                     EditTourCommand.RaiseCanExecuteChanged();
