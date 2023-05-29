@@ -5,12 +5,15 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using TourPlanner.Logging;
 using TourPlanner.Logic.Service;
 using TourPlanner.Model;
 
 namespace TourPlanner.ViewModels {
 
     public class TourDetailsViewModel : BaseViewModel {
+
+        private static readonly ILogger _logger = LoggerFactory.GetLogger<TourDetailsViewModel>();
 
         private Tour? _tour;
         public Tour? Tour {
@@ -111,6 +114,7 @@ namespace TourPlanner.ViewModels {
         // /////////////////////////////////////////////////////////////////////////
 
         public async void LoadTourDetails(Tour? tour) {
+            _logger.Info($"Loading tour details for tour {tour?.Name ?? "null"}.");
             Tour = tour;
 
             InUI(() => {
@@ -226,11 +230,13 @@ namespace TourPlanner.ViewModels {
         }
 
         private async Task FetchRoute() {
+            // see FetchRouteCommand, will only be called if Tour is not null
+            // and From and To are are not empty
+            _logger.Info($"Fetching route from {Tour!.From} to {Tour.To} via {Tour.TransportType.Name}.");
+
             try {
                 ClearDistanceAndTime(true);
                 ClearMap(true);
-                // see FetchRouteCommand, will only be called if Tour is not null
-                // and From and To are are not empty
                 var route = await _routeService.GetRoute(Tour!.From!, Tour.To!, Tour.TransportType);
                 ShowDistanceAndTime(route);
 
@@ -245,6 +251,7 @@ namespace TourPlanner.ViewModels {
 
                 RouteFetched?.Invoke(this, EventArgs.Empty);
             } catch (Exception e) {
+                _logger.Error(e.Message);
                 _showErrorService.ShowError(e);
             }
         }

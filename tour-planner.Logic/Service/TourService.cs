@@ -1,5 +1,5 @@
-using System.Globalization;
 using TourPlanner.Data.Repository;
+using TourPlanner.Logging;
 using TourPlanner.Logic.Search;
 using TourPlanner.Logic.Validation;
 using TourPlanner.Model;
@@ -37,6 +37,7 @@ namespace TourPlanner.Logic.Service {
             return base.Update(tour);
         }
 
+        [LogTimeSpent(true)]
         public List<Tour> FullTextSearch(string search) {
             var tours = _repository.GetAll();
 
@@ -54,6 +55,7 @@ namespace TourPlanner.Logic.Service {
             return tours.Where(tour => matchers.Any(matcher => matcher.Matches(tour, search))).ToList();
         }
 
+        [LogTimeSpent(true)]
         public int GetPopularityRank(Tour tour) {
             return _repository.GetAll()
                         // map tour to a tuple itself and it's logs
@@ -66,6 +68,7 @@ namespace TourPlanner.Logic.Service {
                        .FindIndex(t => t.Item1.Id == tour.Id) + 1;
         }
 
+        [LogTimeSpent(true)]
         public double GetChildFriendliness(Tour tour) {
             var tourLogs = _tourLogService.GetByTour(tour);
             double distance = tour.Distance ?? 0;

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using iText.Kernel.Pdf;
-using TourPlanner.Logic;
+using TourPlanner.Logging;
 using TourPlanner.Logic.Port;
 using TourPlanner.Logic.Report;
 using TourPlanner.Logic.Service;
@@ -17,6 +17,8 @@ using static TourPlanner.Logic.DateUtils;
 namespace TourPlanner.ViewModels {
 
     public class TourListViewModel : BaseViewModel {
+
+        private static readonly ILogger _logger = LoggerFactory.GetLogger<TourListViewModel>();
 
         private const string SEPARATOR = "\n\n";
 
@@ -81,6 +83,7 @@ namespace TourPlanner.ViewModels {
         // /////////////////////////////////////////////////////////////////////////
 
         public void LoadTours() {
+            _logger.Info("Loading tours.");
             Guid selected = SelectedTour?.Id ?? Guid.Empty;
             InUI(ClearTours);
             var tours = _tourService.FullTextSearch(FilterText);
@@ -113,12 +116,14 @@ namespace TourPlanner.ViewModels {
         }
 
         private void CreateToursReport() {
+            _logger.Info("Creating tours report.");
             var tourLogs = new Dictionary<Tour, List<TourLog>>();
             Tours.ToList().ForEach(t => tourLogs.Add(t, _tourLogService.GetByTour(t)));
             _pdfTourReporter.ToursReport(Tours.ToList(), tourLogs).Close();
         }
 
         private void Export() {
+            _logger.Info("Exporting data.");
             string date = Regex.Replace(FormatDateTime(DateTime.Now, DATE_TIME_FORMAT_WITH_SECONDS), "[.: ]", "_");
             using var exportStreamWriter = new StreamWriter($"Export_{date}.csv");
 
@@ -128,8 +133,8 @@ namespace TourPlanner.ViewModels {
         }
 
         private void Import() {
+            _logger.Info("Importing data.");
             try {
-
                 var result = _dialogService.OpenSelectImportDialog();
 
                 // Cancelled
@@ -148,8 +153,8 @@ namespace TourPlanner.ViewModels {
                 var tourLogs = _tourLogCSVParser.Deserialize(parts[1]);
                 tourLogs.ForEach(tl => _tourLogService.Add(tl));
             } catch (Exception e) {
-                // TODO: Log exception
-                var message = "Import failed: " + e.Message + "\nData might have been partially imported.";
+                var message = "Import failed: " + e.Message + ".\nData might have been partially imported.";
+                _logger.Error(message);
                 _showErrorService.ShowError(new Exception(message, e));
             }
         }

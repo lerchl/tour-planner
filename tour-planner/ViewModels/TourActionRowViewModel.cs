@@ -1,5 +1,6 @@
 using System;
 using iText.Kernel.Pdf;
+using TourPlanner.Logging;
 using TourPlanner.Logic.Report;
 using TourPlanner.Logic.Service;
 using TourPlanner.Model;
@@ -7,6 +8,8 @@ using TourPlanner.Model;
 namespace TourPlanner.ViewModels {
 
     public class TourActionRowViewModel : BaseViewModel {
+
+        private static readonly ILogger _logger = LoggerFactory.GetLogger<TourActionRowViewModel>();
 
         private Tour? _tour;
         public Tour? Tour {
@@ -63,6 +66,7 @@ namespace TourPlanner.ViewModels {
 
         private void CreateTourReport() {
             // command is only enabled if tour is not null
+            _logger.Info($"Creating tour report for tour {Tour!.Name}.");
             _pdfTourReporter.TourReport(Tour!, _tourLogService.GetByTour(Tour!)).Close();
         }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
+using TourPlanner.Logging;
 using TourPlanner.Logic;
 
 namespace TourPlanner.Views {
@@ -9,6 +10,12 @@ namespace TourPlanner.Views {
     ///     <see cref="IValueConverter"/> implementation of <see cref="TimeConverter"/>.
     /// </summary>
     public abstract class TimeValueConverter : TimeConverter, IValueConverter {
+
+        private static readonly ILogger _logger = LoggerFactory.GetLogger<TimeValueConverter>();
+
+        // /////////////////////////////////////////////////////////////////////////
+        // Init
+        // /////////////////////////////////////////////////////////////////////////
 
         protected TimeValueConverter(Func<long, TimeSpan> timeSpanMapper,
                                      params Tuple<Func<TimeSpan, int>, string>[] unitMappers)
@@ -28,6 +35,7 @@ namespace TourPlanner.Views {
             try {
                 return Convert((long) value);
             } catch (InvalidCastException e) {
+                _logger.Fatal(e.Message);
                 throw new ArgumentException("Value must be of type long.", e);
             }
         }

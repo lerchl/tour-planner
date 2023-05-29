@@ -22,12 +22,12 @@ namespace TourPlanner.Model {
 
         public static I FromId(int id, IEnumerable<I> all) {
             return all.FirstOrDefault(t => t!.Id == id, null) ??
-                    throw new ArgumentException($"No transport type with id {id} found.");
+                    throw new ArgumentException($"No {typeof(I).FullName} with id {id} found.");
         }
 
         public static I FromValue(V value, IEnumerable<I> all) {
             return all.FirstOrDefault(t => t!.Value?.Equals(value) == true, null) ??
-                    throw new ArgumentException($"No transport type with value {value} found.");
+                    throw new ArgumentException($"No {typeof(I).FullName} with value {value} found.");
         }
     }
 }

@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Windows;
 using TourPlanner.Data;
+using TourPlanner.Logging;
 using TourPlanner.Views;
 
 namespace TourPlanner {
 
     public partial class App : Application {
 
+        private static readonly ILogger _logger = LoggerFactory.GetLogger<App>();
+
         private void Application_Startup(object sender, StartupEventArgs seas) {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
             using (var context = new PostgreContext()) {
                 try {
-                    // context.Database.EnsureDeleted();
                     context.Database.EnsureCreated();
                 } catch (Exception e) {
-                    Console.WriteLine(e.Message);
-                    Console.WriteLine(e.StackTrace);
+                    _logger.Fatal(e.Message);
                 }
             }
 

@@ -7,7 +7,7 @@ namespace TourPlanner.Logic.Validation {
         // Init
         // /////////////////////////////////////////////////////////////////////////
 
-        public ValidationException(ValidationResult result) {
+        public ValidationException(ValidationResult result) : base("Validation failed, see result.") {
             Result = result;
         }
     }

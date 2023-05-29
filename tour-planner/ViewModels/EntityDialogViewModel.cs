@@ -1,4 +1,5 @@
 using System;
+using TourPlanner.Logging;
 using TourPlanner.Logic.Service;
 using TourPlanner.Logic.Validation;
 using TourPlanner.Model;
@@ -6,6 +7,8 @@ using TourPlanner.Model;
 namespace TourPlanner.ViewModels {
 
     public abstract class EntityDialogViewModel<E> : BaseViewModel where E : Entity, new() {
+
+        private static readonly ILogger _logger = LoggerFactory.GetLogger<EntityDialogViewModel<E>>();
 
         public RelayCommand SaveCommand { get; private set; }
         public RelayCommand CancelCommand { get; private set; }
@@ -68,6 +71,7 @@ namespace TourPlanner.ViewModels {
                 SetDialogResult(true);
                 Close();
             } catch (ValidationException e) {
+                _logger.Info($"Validation error(s) occured when trying to save {typeof(E).FullName}.");
                 _showErrorService.ShowErrors(e);
             }
         }
