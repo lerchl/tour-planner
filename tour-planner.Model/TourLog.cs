@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TourPlanner.Model {
 
+    /// <summary>
+    ///    Represents a tour log of a <see cref="Tour"/>.
+    /// </summary>
     [Table("tour_logs")]
     public class TourLog : Entity {
 

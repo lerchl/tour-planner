@@ -5,6 +5,9 @@ using static TourPlanner.Logic.Service.ApiConfig;
 
 namespace TourPlanner.Logic.Service {
 
+    /// <summary>
+    ///     <see cref="IMapService"/> implementation for MapQuest.
+    /// </summary>
     public class MapService : IMapService {
 
         // /////////////////////////////////////////////////////////////////////////
@@ -13,7 +16,7 @@ namespace TourPlanner.Logic.Service {
 
         [LogTimeSpent]
         public async Task<Bitmap> GetMap(Route route) {
-            var boundingBox = $"{route.BoundingBox!.UpperLeft.Latitude.ToString().Replace(',', '.')}," +
+            var boundingBox = $"{route.BoundingBox.UpperLeft.Latitude.ToString().Replace(',', '.')}," +
                               $"{route.BoundingBox.UpperLeft.Longitude.ToString().Replace(',', '.')}," +
                               $"{route.BoundingBox.LowerRight.Latitude.ToString().Replace(',', '.')}," +
                               $"{route.BoundingBox.LowerRight.Longitude.ToString().Replace(',', '.')}";

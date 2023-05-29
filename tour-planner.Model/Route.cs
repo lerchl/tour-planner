@@ -2,6 +2,9 @@ using System.Text.Json.Serialization;
 
 namespace TourPlanner.Model {
 
+    /// <summary>
+    ///     Represents the route of a <see cref="Tour"/>.
+    /// </summary>
     public class Route {
 
         [JsonPropertyName("sessionId")]
@@ -20,6 +23,6 @@ namespace TourPlanner.Model {
         public long Time { get; set; }
 
         [JsonPropertyName("boundingBox")]
-        public BoundingBox? BoundingBox { get; set; }
+        public BoundingBox BoundingBox { get; set; } = new();
     }
 }

@@ -1,5 +1,8 @@
 namespace TourPlanner.Model {
 
+    /// <summary>
+    ///     Represents the difficulty of a <see cref="Tour"/>.
+    /// </summary>
     public class Difficulty : EnumLike<Difficulty, int> {
 
         public static HashSet<Difficulty> ALL {

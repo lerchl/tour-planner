@@ -3,6 +3,9 @@ using TourPlanner.Model;
 
 namespace TourPlanner.Logic.Search {
 
+    /// <summary>
+    ///     Matcher for the popularity rank of a <see cref="Tour"/>.
+    /// </summary>
     public class PopularityRankMatcher : SingleValueMatcher<int> {
 
         public PopularityRankMatcher(ITourService tourService) : base(tourService) {

@@ -2,6 +2,9 @@ using TourPlanner.Model;
 
 namespace TourPlanner.Logic.Service {
 
+    /// <summary>
+    ///     <see cref="ICrudService{E}"/> implementation for <see cref="Tour"/>s.
+    /// </summary>
     public interface ITourService : ICrudService<Tour> {
 
         /// <summary>

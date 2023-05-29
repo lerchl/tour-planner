@@ -5,6 +5,9 @@ using static TourPlanner.Logic.DateUtils;
 
 namespace TourPlanner.Logic.Port {
 
+    /// <summary>
+    ///     Implementation of <see cref="ITourLogCSVParser"/> that uses semicolons as separators.
+    /// </summary>
     public class TourLogCSVParser : ITourLogCSVParser {
 
         private readonly ITourService _tourService;

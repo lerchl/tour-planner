@@ -14,6 +14,10 @@ namespace TourPlanner.Data.Repository {
         /// <returns>all <see cref="TourLog"/>s for the <see cref="Tour"/></returns>
         List<TourLog> GetByTour(Tour tour);
 
+        /// <summary>
+        ///     Get all <see cref="TourLog"/>s with their <see cref="Tour"/>s.
+        /// </summary>
+        /// <returns>all <see cref="TourLog"/>s with their <see cref="Tour"/>s</returns>
         List<TourLog> GetAllWithTours();
     }
 }

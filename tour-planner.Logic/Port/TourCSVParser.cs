@@ -2,6 +2,9 @@ using TourPlanner.Model;
 
 namespace TourPlanner.Logic.Port {
 
+    /// <summary>
+    ///     Implementation of <see cref="ITourCSVParser"/> that uses semicolons as separators.
+    /// </summary>
     public class TourCSVParser : ITourCSVParser {
 
         public string Serialize(List<Tour> list) {

@@ -3,6 +3,9 @@ using TourPlanner.Model;
 
 namespace TourPlanner.Logic.Search {
 
+    /// <summary>
+    ///     Matcher for the childfriendliness of a <see cref="Tour"/>.
+    /// </summary>
     public class ChildfriendlinessMatcher : SingleValueMatcher<double> {
 
         public ChildfriendlinessMatcher(ITourService tourService) : base(tourService) {

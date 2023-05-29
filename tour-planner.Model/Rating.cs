@@ -1,5 +1,8 @@
 namespace TourPlanner.Model {
 
+    /// <summary>
+    ///     Represents the rating of a <see cref="TourLog"/>.
+    /// </summary>
     public class Rating : EnumLike<Rating, int> {
 
         public static HashSet<Rating> ALL {

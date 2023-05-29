@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using TourPlanner.Data.Repository;
 using TourPlanner.Logic.Port;
 using TourPlanner.Logic.Service;
-using TourPlanner.Model;
 using TourPlanner.ViewModels;
 
 namespace TourPlanner {

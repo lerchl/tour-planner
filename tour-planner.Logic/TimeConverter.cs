@@ -2,6 +2,9 @@ using System.Text;
 
 namespace TourPlanner.Logic {
 
+    /// <summary>
+    ///     Converts a time value, stored in a single unit, e.g. seconds or minutes, to a human readable format.
+    /// </summary>
     public class TimeConverter {
 
         public static readonly Tuple<Func<TimeSpan, int>, string> DAYS = new(timeSpan => timeSpan.Days, "d");
@@ -25,6 +28,11 @@ namespace TourPlanner.Logic {
         // Methods
         // /////////////////////////////////////////////////////////////////////////
 
+        /// <summary>
+        ///     Convert a time value to a human readable format.
+        /// </summary>
+        /// <param name="time">the time value</param>
+        /// <returns>the human readable format</returns>
         public string Convert(long time) {
             var timeSpan = _timeSpanMapper(time);
             var stringBuilder = new StringBuilder();

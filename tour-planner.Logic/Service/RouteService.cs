@@ -8,6 +8,9 @@ using static TourPlanner.Logic.Service.MapQuestStatusCode;
 
 namespace TourPlanner.Logic.Service {
 
+    /// <summary>
+    ///     <see cref="IRouteService"/> implementation for MapQuest.
+    /// </summary>
     public class RouteService : IRouteService {
 
         [LogTimeSpent]
