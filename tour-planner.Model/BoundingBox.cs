@@ -5,9 +5,9 @@ namespace TourPlanner.Model {
     public class BoundingBox {
 
         [JsonPropertyName("ul")]
-        public Coordinate UpperLeft { get; set; }
+        public Coordinate UpperLeft { get; set; } = new();
 
         [JsonPropertyName("lr")]
-        public Coordinate LowerRight { get; set; }
+        public Coordinate LowerRight { get; set; } = new();
     }
 }

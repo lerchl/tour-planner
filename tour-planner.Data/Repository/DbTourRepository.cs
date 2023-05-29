@@ -9,7 +9,7 @@ namespace TourPlanner.Data.Repository {
     public class DbTourRepository : DbCrudRepository<Tour, PostgreContext>, ITourRepository {
 
         protected override DbSet<Tour> GetDbSet(PostgreContext context) {
-            return context.Tours;
+            return context.Tours!;
         }
     }
 }

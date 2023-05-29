@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using TourPlanner.Logic.Validation;
 
@@ -16,6 +17,7 @@ namespace TourPlanner {
             ShowErrorMessageBox(message);
         }
 
+        [SuppressMessage("Usage", "CA1822", Justification = "Needs to be an inherited to achieve decoupling.")]
         private void ShowErrorMessageBox(string message) {
             var caption = "Error";
             var button = MessageBoxButton.OK;

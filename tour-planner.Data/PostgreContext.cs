@@ -13,8 +13,8 @@ namespace TourPlanner.Data {
             .AddJsonFile("appsettings.json", false, true)
             .Build();
 
-        public DbSet<Tour> Tours { get; set; }
-        public DbSet<TourLog> TourLogs { get; set; }
+        public DbSet<Tour>? Tours { get; set; }
+        public DbSet<TourLog>? TourLogs { get; set; }
 
         // /////////////////////////////////////////////////////////////////////////
         // Methods

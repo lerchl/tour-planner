@@ -10,7 +10,7 @@ namespace TourPlanner.Data.Repository {
     public class DbTourLogRepository : DbCrudRepository<TourLog, PostgreContext>, ITourLogRepository {
 
         protected override DbSet<TourLog> GetDbSet(PostgreContext context) {
-            return context.TourLogs;
+            return context.TourLogs!;
         }
 
         [LogTimeSpent]
