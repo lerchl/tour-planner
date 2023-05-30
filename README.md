@@ -1,8 +1,86 @@
 # tour-planner
-A C# WPF application for managing tours. Written by Nico Lerchl for Software Engineering 2 at FH Technikum Wien.
+C# WPF application for managing tours. Written by Nico Lerchl for Software Engineering 2 at FH Technikum Wien.
 
 ## Architecture
-TODO
+### Model
+The model layer provides entities and models for the above layers. It is a very simple layer, only providing the bare minimum to be able to work with the data. It is also the only layer that is not dependent on any other layer.
+
+#### Entities
+
+```mermaid
+classDiagram
+direction TB
+
+    class Entity {
+        <<abstract>>
+    }
+    class Tour
+    class TourLog
+
+    Entity <|-- Tour
+    Entity <|-- TourLog
+```
+
+#### Models
+
+```mermaid
+classDiagram
+direction LR
+
+    Route --* BoundingBox
+    BoundingBox --* Coordinate
+```
+
+#### EnumLikes
+
+```mermaid
+classDiagram
+direction TB
+    EnumLike <|-- TransportType
+    EnumLike <|-- Rating
+    EnumLike <|-- Difficulty
+```
+
+### Data
+The data layer provides the database context and repositories for the above layers. It is dependent on the model layer and the `Microsoft.EntityFrameworkCore` package.
+
+```mermaid
+---
+title: Repository Interfaces & Implementations
+---
+classDiagram
+direction TB
+
+    class DbCrudRepository~E~ {
+        <<abstract>>
+    }
+
+    class DbTourRepository {
+    }
+
+    class DbTourLogRepository {
+    }
+
+    class ICrudRepository~E~ {
+        <<interface>>
+    }
+
+    class ITourRepository {
+        <<interface>>
+    }
+
+    class ITourLogRepository {
+        <<interface>>
+    }
+
+    ICrudRepository <|-- ITourRepository : of type Tour
+    DbCrudRepository ..|> ICrudRepository
+    DbTourRepository ..|> ITourRepository
+    DbTourLogRepository ..|> ITourLogRepository
+    ICrudRepository <|-- ITourLogRepository : of type TourLog
+    DbCrudRepository <|-- DbTourRepository : of type Tour
+    DbCrudRepository <|-- DbTourLogRepository : of type TourLog
+```
 
 ## Use Cases
 TODO
@@ -22,16 +100,16 @@ My unique feature consists of being able to refetch the route and thereby also m
 ## Unit Testing
 The following classes are covered by unit tests.
 
-### `CrudService`
-The CrudService, being the implementation of the `ICrudService` Interface is a key class, offering the basic CRUD operations from a `ICrudRepository` to the rest of the application. It is therefore important that the logic applied in this class does not mess up the data from the database but also protected against invalid input. Both of these scenarios are covered by the unit tests. For example: `TestGetAll` and `TestAddInvalid` perspectively.
+### CrudService
+The `CrudService`, being the implementation of the `ICrudService` Interface is a key class, offering the basic CRUD operations from a `ICrudRepository` to the rest of the application. It is therefore important that the logic applied in this class does not mess up the data from the database but also protected against invalid input. Both of these scenarios are covered by the unit tests. For example: `TestGetAll` and `TestAddInvalid` perspectively.
 
-### `ValidationUtils`
+### ValidationUtils
 Ensuring the `CrudService` Unit Tests are valid requires that the `ValidationUtils`, used to validate entities, work as intended.
 
-### `EnumLikeConverter`
+### EnumLikeConverter
 The `EnumLikeConverter` is used to convert between an `EnumLike` and a the `EnumLike`'s value type. This is used to convert a `Tour`'s `TransportType`, `TourLog`'s `Rating` and `Difficulty` to write to or read from the database. This test therefore also takes into account the persistence.
 
-### `TimeConverter`
+### TimeConverter
 Working with time is a finicky and error prone task. Ensuring that the `TimeConverter` works as intended is therefore important, also taking into account edge cases.
 
 ## Time Tracking
